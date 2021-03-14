@@ -6,9 +6,13 @@
     {
         _building = {
             _floors: [],
+            _view: null,
             _ready: false,
             getFloors: function() {
                 return this._floors;
+            },
+            getView: function() {
+                return this._view;
             }
         };
     }
@@ -28,6 +32,9 @@
         // systemParams.total_elevators
         // systemParams.lifting_power
 
+        // создать представление
+        _building._view = _createView();
+
         // конструирование объекта упешно заверешено
         _building._ready = true;
 
@@ -46,6 +53,20 @@
             let floor = floorBuilder.constructFloor({ number: floorNumber });
             _building._floors.push(floor);
         }
+    }
+
+    function _createView()
+    {
+        let _floors = _building.getFloors();
+
+        let buildingView = document.createElement('div');
+
+        for (let floorNumber = _floors.length - 1; floorNumber >= 0; floorNumber--) {
+            let floorView = _floors[floorNumber].getView();
+            buildingView.appendChild(floorView);
+        }
+
+        return buildingView;
     }
 
     root.registerModule({
