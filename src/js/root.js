@@ -17,10 +17,17 @@ window.ElevatorSimulator2021 = (function() {
         return module;
     }
 
+    function getFloorBuilder()
+    {
+        let module = _getModuleById('floorBuilder');
+
+        return module;
+    }
+
     // система запущена и готова к работе
     function onStartSystemEnd()
     {
-        alert('Система запущена!');
+        console.log('Система запущена!');
     }
 
     let _modules = [];
@@ -46,6 +53,7 @@ window.ElevatorSimulator2021 = (function() {
         init: init,
         registerModule: registerModule,
         getBuilder: getBuilder,
+        getFloorBuilder: getFloorBuilder,
         onStartSystemEnd: onStartSystemEnd,
     };
 

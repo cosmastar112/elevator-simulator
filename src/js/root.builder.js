@@ -7,6 +7,9 @@
         _building = {
             _floors: [],
             _ready: false,
+            getFloors: function() {
+                return this._floors;
+            }
         };
     }
 
@@ -38,8 +41,9 @@
 
     function _buildFloors(count)
     {
-        for (let floorNumber = 0; floorNumber < count; floorNumber++) {
-            let floor = { number: floorNumber };
+        let floorBuilder = root.getFloorBuilder();
+        for (let floorNumber = 1; floorNumber <= count; floorNumber++) {
+            let floor = floorBuilder.constructFloor({ number: floorNumber });
             _building._floors.push(floor);
         }
     }

@@ -15,9 +15,27 @@
         // console.log(systemParams);
         let builder = root.getBuilder();
         let building = builder.constructBuilding(systemParams);
-        console.log(building);
+
+        // отрисовать здание
+        _render(building);
 
         root.onStartSystemEnd();
+    }
+
+    function _render(building)
+    {
+        // console.log(_floors);
+        let _floors = building.getFloors();
+
+        let buildingView = document.createElement('div');
+
+        for (let floorNumber = _floors.length - 1; floorNumber >= 0; floorNumber--) {
+            let floorView = document.createElement('div');
+            floorView.innerHTML = _floors[floorNumber].getNumber();
+            buildingView.appendChild(floorView);
+        }
+
+        document.body.appendChild(buildingView);
     }
 
     function _startHandler(event)
