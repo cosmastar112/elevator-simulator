@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <title>Симулятор работы лифта в здании</title>
+    </head>
+    <body>
+        <form id="#system_params_form" action="#" name="SystemParams">
+            <label>
+                Количество этажей
+                <select name="SystemParams[total_floors]" form="system_params_form">
+                    <option label="1" value="1"></option>
+                    <option label="2" value="2"></option>
+                    <option label="3" value="3"></option>
+                    <option label="4" value="4"></option>
+                    <option label="5" value="5"></option>
+                    <option label="6" value="6"></option>
+                    <option label="7" value="7"></option>
+                    <option label="8" value="8"></option>
+                    <option label="9" value="9" selected></option>
+                </select>
+            </label>
+            <label>
+                Количество лифтов
+                <select name="SystemParams[total_elevators]" form="system_params_form">
+                    <option label="1" value="1" selected></option>
+                </select>
+            </label>
+            <label>
+                Грузоподъемность лифтов
+                <select name="SystemParams[lifting_power]" form="system_params_form">
+                    <option label="800" value="800" selected></option>
+                    <option label="900" value="900"></option>
+                    <option label="1000" value="1000"></option>
+                    <option label="1100" value="1100"></option>
+                    <option label="1200" value="1200"></option>
+                    <option label="1300" value="1300"></option>
+                </select>
+                кг
+            </label>
+            <input type="button" value="Запуск!"></input>
+        </form>
+    </body>
+</html>
