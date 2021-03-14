@@ -17,6 +17,13 @@ window.ElevatorSimulator2021 = (function() {
         return module;
     }
 
+    function getBuildingRender()
+    {
+        let module = _getModuleById('builder.render');
+
+        return module;
+    }
+
     function getFloorBuilder()
     {
         let module = _getModuleById('floorBuilder');
@@ -53,6 +60,7 @@ window.ElevatorSimulator2021 = (function() {
         init: init,
         registerModule: registerModule,
         getBuilder: getBuilder,
+        getBuildingRender: getBuildingRender,
         getFloorBuilder: getFloorBuilder,
         onStartSystemEnd: onStartSystemEnd,
     };

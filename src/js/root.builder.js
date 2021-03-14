@@ -57,14 +57,8 @@
 
     function _createView()
     {
-        let _floors = _building.getFloors();
-
-        let buildingView = document.createElement('div');
-
-        for (let floorNumber = _floors.length - 1; floorNumber >= 0; floorNumber--) {
-            let floorView = _floors[floorNumber].getView();
-            buildingView.appendChild(floorView);
-        }
+        let buildingRender = root.getBuildingRender();
+        let buildingView = buildingRender.createView(_building);
 
         return buildingView;
     }
