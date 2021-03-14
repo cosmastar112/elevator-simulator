@@ -9,6 +9,17 @@
         btn.addEventListener('click', _startHandler);
     }
 
+    function _start(systemParams)
+    {
+        // инициализировать систему
+        // console.log(systemParams);
+        let builder = root.getBuilder();
+        let building = builder.constructBuilding(systemParams);
+        console.log(building);
+
+        root.onStartSystemEnd();
+    }
+
     function _startHandler(event)
     {
         event.preventDefault();
@@ -16,8 +27,7 @@
         event.target.disabled = true;
         // сериализовать форму
         let serializedForm = _serializeForm();
-        console.log(serializedForm);
-
+        _start(serializedForm);
     }
 
     function _serializeForm()
@@ -32,9 +42,9 @@
         let lifting_power = _getSelectedOptionValue(form.elements, 2);
 
         return {
-            'total_floors': total_floors,
-            'total_elevators': total_elevators,
-            'lifting_power': lifting_power,
+            'total_floors': parseInt(total_floors, 10),
+            'total_elevators': parseInt(total_elevators, 10),
+            'lifting_power': parseInt(lifting_power, 10),
         };
     }
 

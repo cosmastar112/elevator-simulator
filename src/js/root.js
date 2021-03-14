@@ -10,6 +10,19 @@ window.ElevatorSimulator2021 = (function() {
         _modules.push(publicPart);
     }
 
+    function getBuilder()
+    {
+        let module = _getModuleById('builder');
+
+        return module;
+    }
+
+    // система запущена и готова к работе
+    function onStartSystemEnd()
+    {
+        alert('Система запущена!');
+    }
+
     let _modules = [];
 
     function _initModules()
@@ -22,9 +35,18 @@ window.ElevatorSimulator2021 = (function() {
         }
     }
 
+    function _getModuleById(id)
+    {
+        return _modules.find(function(el) {
+            return el.id === id;
+        });
+    }
+
     let public = {
         init: init,
         registerModule: registerModule,
+        getBuilder: getBuilder,
+        onStartSystemEnd: onStartSystemEnd,
     };
 
     return public;
