@@ -8,12 +8,16 @@
             _floors: [],
             _elevators: [],
             _view: null,
+            _controlPanelsView: null,
             _ready: false,
             getFloors: function() {
                 return this._floors;
             },
             getElevators: function() {
                 return this._elevators;
+            },
+            getControlPanelsView: function() {
+                return this._controlPanelsView;
             },
             getView: function() {
                 return this._view;
@@ -35,10 +39,12 @@
         _buildElevators(systemParams.total_elevators);
         // systemParams.lifting_power
 
-        // создать представление
+        // создать представление здания
         _building._view = _createView();
+        // создать представление панелей управления
+        _building._controlPanelsView = _createControlPanelsView();
 
-        // конструирование объекта упешно заверешено
+        // конструирование объекта успешно завершено
         _building._ready = true;
 
         return _building;
@@ -47,6 +53,21 @@
     function getBuilding()
     {
         return _building;
+    }
+
+    function _createControlPanelsView()
+    {
+        let container = document.createElement('div');
+
+        let elevators = _building.getElevators();
+        for (let elevatorIndex = 0, l = elevators.length; elevatorIndex < l; elevatorIndex++) {
+            let elevator = elevators[elevatorIndex];
+            let controlPanel = elevator.getControlPanel();
+            let controlPanelView = controlPanel.getView();
+            container.append(controlPanelView);
+        }
+
+       return container;
     }
 
     function _buildFloors(count)

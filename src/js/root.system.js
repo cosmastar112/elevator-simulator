@@ -27,11 +27,25 @@
     {
         let buildingView = building.getView();
         let buildingContainerId = 'buildingContainer';
+        // контейнер здания
         let buildingContainer = document.getElementById(buildingContainerId);
         if (!buildingContainer) {
             return;
         }
-        buildingContainer.appendChild(buildingView);
+
+        let panelsContainerId = 'panelsContainer';
+        // контейнер панелей управления
+        let panelsContainer = document.getElementById(panelsContainerId);
+        if (!panelsContainer) {
+            return;
+        }
+
+        // отрисовать контейнер здания
+        buildingContainer.insertBefore(buildingView, panelsContainer);
+
+        let controlPanelsView = building.getControlPanelsView();
+        // отрисовать контейнер панелей управления
+        panelsContainer.appendChild(controlPanelsView);
     }
 
     function _startHandler(event)
