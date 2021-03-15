@@ -55,21 +55,6 @@
         return _building;
     }
 
-    function _createControlPanelsView()
-    {
-        let container = document.createElement('div');
-
-        let elevators = _building.getElevators();
-        for (let elevatorIndex = 0, l = elevators.length; elevatorIndex < l; elevatorIndex++) {
-            let elevator = elevators[elevatorIndex];
-            let controlPanel = elevator.getControlPanel();
-            let controlPanelView = controlPanel.getView();
-            container.append(controlPanelView);
-        }
-
-       return container;
-    }
-
     function _buildFloors(count)
     {
         let floorBuilder = root.getFloorBuilder();
@@ -94,6 +79,14 @@
         let buildingView = buildingRender.createView(_building);
 
         return buildingView;
+    }
+
+    function _createControlPanelsView()
+    {
+        let render = root.getBuildingRender();
+        let view = render.createControlPanelsView(_building);
+
+        return view;
     }
 
     root.registerModule({

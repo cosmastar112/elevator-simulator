@@ -38,6 +38,21 @@
         return buildingView;
     }
 
+    function createControlPanelsView(_building)
+    {
+        let container = document.createElement('div');
+
+        let elevators = _building.getElevators();
+        for (let elevatorIndex = 0, l = elevators.length; elevatorIndex < l; elevatorIndex++) {
+            let elevator = elevators[elevatorIndex];
+            let controlPanel = elevator.getControlPanel();
+            let controlPanelView = controlPanel.getView();
+            container.append(controlPanelView);
+        }
+
+        return container;
+    }
+
     function _createTr(floors, floorNumber)
     {
         let tr2 = document.createElement('tr');
@@ -78,6 +93,7 @@
         id: 'builder.render',
         init: init,
         createView: createView,
+        createControlPanelsView: createControlPanelsView,
     });
 
 })(window.ElevatorSimulator2021);
