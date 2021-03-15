@@ -1,0 +1,31 @@
+/*сместить контейнер от верхнего края*/
+#buildingContainer {
+    margin-top: 20px;
+}
+/*выровнять таблицу по центру*/
+#buildingContainer table {
+    width: 500px;
+    margin: auto;
+}
+/*граница между ячейками*/
+#buildingContainer table td, 
+#buildingContainer table th 
+ {
+    border: 1px solid;
+}
+/*убрать промежутки между ячейками*/
+#buildingContainer table {
+    border-collapse: collapse;
+}
+/*выровнять текст в ячейках по центру*/
+#buildingContainer table td {
+    text-align: center;
+}
+/*текст в ячейках побольше*/
+#buildingContainer table td {
+    font-size: 18px;
+}
+/*текст в заголовке побольше*/
+#buildingContainer table th {
+    font-size: 20px;
+}

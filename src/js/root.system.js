@@ -15,6 +15,7 @@
         // console.log(systemParams);
         let builder = root.getBuilder();
         let building = builder.constructBuilding(systemParams);
+        // console.log(building);
 
         // отрисовать здание
         _render(building);
@@ -25,7 +26,12 @@
     function _render(building)
     {
         let buildingView = building.getView();
-        document.body.appendChild(buildingView);
+        let buildingContainerId = 'buildingContainer';
+        let buildingContainer = document.getElementById(buildingContainerId);
+        if (!buildingContainer) {
+            return;
+        }
+        buildingContainer.appendChild(buildingView);
     }
 
     function _startHandler(event)
