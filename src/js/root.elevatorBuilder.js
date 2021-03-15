@@ -6,10 +6,14 @@
     {
         _elevator = {
             _number: null,
+            _lifting_power: null,
             _view: null,
             _controlPanel: null,
             getNumber: function() {
                 return this._number;
+            },
+            getLiftingPower: function() {
+                return this._lifting_power;
             },
             getControlPanel: function() {
                 return this._controlPanel;
@@ -24,6 +28,8 @@
     {
         let elevator = Object.assign({}, _elevator);
         elevator._number = params.number;
+        // грузоподёмность
+        elevator._lifting_power = params.lifting_power;
         // панель управления
         elevator._controlPanel = _createControlPanel(params);
         // создать представление
