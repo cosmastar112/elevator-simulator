@@ -6,10 +6,14 @@
     {
         _building = {
             _floors: [],
+            _elevators: [],
             _view: null,
             _ready: false,
             getFloors: function() {
                 return this._floors;
+            },
+            getElevators: function() {
+                return this._elevators;
             },
             getView: function() {
                 return this._view;
@@ -28,8 +32,7 @@
 
         // создать указанное количество этажей
         _buildFloors(systemParams.total_floors);
-        
-        // systemParams.total_elevators
+        _buildElevators(systemParams.total_elevators);
         // systemParams.lifting_power
 
         // создать представление
@@ -52,6 +55,15 @@
         for (let floorNumber = 1; floorNumber <= count; floorNumber++) {
             let floor = floorBuilder.constructFloor({ number: floorNumber });
             _building._floors.push(floor);
+        }
+    }
+
+    function _buildElevators(count)
+    {
+        let elevatorBuilder = root.getElevatorBuilder();
+        for (let elevatorNumber = 1; elevatorNumber <= count; elevatorNumber++) {
+            let elevator = elevatorBuilder.construct({ number: elevatorNumber });
+            _building._elevators.push(elevator);
         }
     }
 

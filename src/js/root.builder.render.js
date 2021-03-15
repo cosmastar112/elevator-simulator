@@ -28,6 +28,11 @@
             table.appendChild(tr);
         }
 
+        let elevators = building.getElevators();
+        for (let elevatorNumber = elevators.length - 1; elevatorNumber >= 0; elevatorNumber--) {
+            _initElevatorPosition(elevators[elevatorNumber], table);
+        }
+
         buildingView.appendChild(table);
 
         return buildingView;
@@ -48,6 +53,25 @@
         tr2.appendChild(td3);
 
         return tr2;
+    }
+
+    function _initElevatorPosition(elevator, table)
+    {
+        // коллекция "этажей"
+        let trCollection = table.getElementsByTagName('tr');
+        if (!trCollection) {
+            return;
+        }
+        // "первый этаж"
+        let lastTr = trCollection.item(trCollection.length-1);
+        if (!lastTr) {
+            return;
+        }
+        // столбец "Местоположение лифта"
+        let tdCollection = lastTr.getElementsByTagName('td');
+        let lastTd = tdCollection.item(tdCollection.length-1);
+        // lastTd.innerHTML = elevator.getView();
+        lastTd.appendChild(elevator.getView());
     }
 
     root.registerModule({
