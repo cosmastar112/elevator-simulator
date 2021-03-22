@@ -61,7 +61,9 @@
         td1.innerHTML = floors[floorNumber].getNumber();
         tr2.appendChild(td1);
         let td2 = document.createElement('td');
-        td2.innerHTML = "_Вверх_ _Вниз_";
+        let callPanel = floors[floorNumber].getCallPanel();
+        let callPanelView = callPanel.getView();
+        td2.appendChild(callPanelView);
         tr2.appendChild(td2);
         let td3 = document.createElement('td');
         td3.innerHTML = "";
