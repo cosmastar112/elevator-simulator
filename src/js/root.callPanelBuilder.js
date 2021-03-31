@@ -5,6 +5,9 @@
     const DIRECTION_UP = 'Вверх';
     const DIRECTION_DOWN = 'Вниз';
 
+    const DIRECTION_CODE_UP = 1;
+    const DIRECTION_CODE_DOWN = -1;
+
     const CLASS_NAME_UP = 'callPanel_up';
     const CLASS_NAME_DOWN = 'callPanel_down';
 
@@ -71,17 +74,33 @@
     function _clickHandler(event)
     {
         if (event.target.nodeName === "BUTTON") {
+            //вызов
+            let call = null;
             if (event.target.className === CLASS_NAME_UP) {
                 let text = 'Этаж вызова: ' + event.target.value + '. Направление: ' + DIRECTION_UP;
                 alert(text);
-                return;
-            }
-            if (event.target.className === CLASS_NAME_DOWN) {
+                //создание вызова
+                call = {floor: event.target.value, direction: DIRECTION_CODE_UP};
+            } else if (event.target.className === CLASS_NAME_DOWN) {
                 let text = 'Этаж вызова: ' + event.target.value + '. Направление: ' + DIRECTION_DOWN;
                 alert(text);
-                return;
+                //создание вызова
+                call = {floor: event.target.value, direction: DIRECTION_CODE_DOWN};
             }
+            //событие
+            let elevatorCallCreatedEvent = _createCallEvent(call);
+            //уведомление о вызове
+            document.dispatchEvent(elevatorCallCreatedEvent);
         }
+    }
+
+    function _createCallEvent(call)
+    {
+        return new CustomEvent('elevatorCallCreated', {
+            detail: { 
+                call: call 
+            }
+        });
     }
 
     root.registerModule({
