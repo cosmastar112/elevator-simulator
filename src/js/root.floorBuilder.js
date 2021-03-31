@@ -8,6 +8,7 @@
             _number: null,
             _callPanel: null,
             _view: null,
+            _callFromFloorRegisteredHandler: null,
             getNumber: function() {
                 return this._number;
             },
@@ -31,7 +32,24 @@
         // создать представление
         floor._view = _createView(floorParams.number);
 
+        //вызов с этажа поступил в очередь вызова, на этаже необходимо создать группу людей
+        floor._callFromFloorRegisteredHandler = _createCallFromFloorRegisteredHandler(floor);
+        document.addEventListener('callFromFloorRegistered', floor._callFromFloorRegisteredHandler);
+
         return floor;
+    }
+
+    function _createCallFromFloorRegisteredHandler(self)
+    {
+        let cb = function(event) {
+            let floor = event.detail.call.floor;
+            // console.log(self.getNumber(), floor);
+            if (self.getNumber() === parseInt(floor)) {
+                console.log('Создать на этаже ' + floor + ' группу людей');
+            }
+        }
+
+        return cb;
     }
 
     function _createView(floorNumber)
