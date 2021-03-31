@@ -59,6 +59,13 @@ window.ElevatorSimulator2021 = (function() {
         return module;
     }
 
+    function getCallQueueBuilder()
+    {
+        let module = _getModuleById('callQueueBuilder');
+
+        return module;
+    }
+
     // система запущена и готова к работе
     function onStartSystemEnd()
     {
@@ -94,6 +101,7 @@ window.ElevatorSimulator2021 = (function() {
         getControlPanelBuilder: getControlPanelBuilder,
         getCallPanelBuilder: getCallPanelBuilder,
         getRouterBuilder: getRouterBuilder,
+        getCallQueueBuilder: getCallQueueBuilder,
         onStartSystemEnd: onStartSystemEnd,
     };
 
