@@ -41,10 +41,17 @@
     {
         let view = document.createElement('div');
 
-        let btnUp = _createBtn({number: params.number, direction: DIRECTION_UP, className: CLASS_NAME_UP});
-        view.appendChild(btnUp);
-        let btnDown = _createBtn({number: params.number, direction: DIRECTION_DOWN, className: CLASS_NAME_DOWN});
-        view.appendChild(btnDown);
+        let number = params.number;
+        // добавить кнопку "Вверх" если это не последний этаж
+        if (number !== params.totalFloors) {
+            let btnUp = _createBtn({number: number, direction: DIRECTION_UP, className: CLASS_NAME_UP});
+            view.appendChild(btnUp);
+        }
+        // добавить кнопку "Вниз" если это не первый этаж
+        if (number !== 1) {
+            let btnDown = _createBtn({number: number, direction: DIRECTION_DOWN, className: CLASS_NAME_DOWN});
+            view.appendChild(btnDown);
+        }
 
         return view;
     }

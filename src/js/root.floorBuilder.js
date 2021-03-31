@@ -27,7 +27,7 @@
 
         let floor = Object.assign({}, _floor);
         floor._number = floorParams.number;
-        floor._callPanel = _createCallPanel(floorParams.number);
+        floor._callPanel = _createCallPanel(floorParams);
         // создать представление
         floor._view = _createView(floorParams.number);
 
@@ -43,10 +43,10 @@
     }
 
 
-    function _createCallPanel(number)
+    function _createCallPanel(params)
     {
         let callPanelBuilder = root.getCallPanelBuilder();
-        let callPanel = callPanelBuilder.construct({ number: number });
+        let callPanel = callPanelBuilder.construct(params);
 
         return callPanel;
     }

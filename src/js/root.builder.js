@@ -21,7 +21,11 @@
             },
             getView: function() {
                 return this._view;
-            }
+            },
+            //количество этажей в здании
+            getTotalFloors: function() {
+                return this._floors.length;
+            },
         };
     }
 
@@ -58,7 +62,7 @@
     {
         let floorBuilder = root.getFloorBuilder();
         for (let floorNumber = 1; floorNumber <= count; floorNumber++) {
-            let floor = floorBuilder.constructFloor({ number: floorNumber });
+            let floor = floorBuilder.constructFloor({ number: floorNumber, totalFloors: count });
             _building._floors.push(floor);
         }
     }
