@@ -52,6 +52,13 @@ window.ElevatorSimulator2021 = (function() {
         return module;
     }
 
+    function getRouterBuilder()
+    {
+        let module = _getModuleById('routerBuilder');
+
+        return module;
+    }
+
     // система запущена и готова к работе
     function onStartSystemEnd()
     {
@@ -86,6 +93,7 @@ window.ElevatorSimulator2021 = (function() {
         getElevatorBuilder: getElevatorBuilder,
         getControlPanelBuilder: getControlPanelBuilder,
         getCallPanelBuilder: getCallPanelBuilder,
+        getRouterBuilder: getRouterBuilder,
         onStartSystemEnd: onStartSystemEnd,
     };
 

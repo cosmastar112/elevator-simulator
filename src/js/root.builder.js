@@ -7,6 +7,7 @@
         _building = {
             _floors: [],
             _elevators: [],
+            _router: null,
             _view: null,
             _controlPanelsView: null,
             _ready: false,
@@ -41,6 +42,8 @@
         // создать указанное количество этажей
         _buildFloors(systemParams.total_floors);
         _buildElevators(systemParams.total_elevators, systemParams.lifting_power);
+        //маршрутизатор
+        _buildRouter();
 
         // создать представление здания
         _building._view = _createView();
@@ -74,6 +77,12 @@
             let elevator = elevatorBuilder.construct({ number: elevatorNumber, lifting_power: lifting_power });
             _building._elevators.push(elevator);
         }
+    }
+
+    function _buildRouter()
+    {
+        let routerBuilder = root.getRouterBuilder();
+        _building._router = routerBuilder.construct();
     }
 
     function _createView()
