@@ -7,6 +7,7 @@
         _floor = {
             _number: null,
             _callPanel: null,
+            _people: null,
             _view: null,
             _callFromFloorRegisteredHandler: null,
             getNumber: function() {
@@ -46,6 +47,11 @@
             // console.log(self.getNumber(), floor);
             if (self.getNumber() === parseInt(floor)) {
                 console.log('Создать на этаже ' + floor + ' группу людей');
+                let peopleBuilder = root.getPeopleBuilder();
+                self._people = peopleBuilder.construct({floor: floor});
+                //отрисовать группу людей
+                let peopleCreatedEvent = _createPeopleCreatedEvent(self._people);
+                document.dispatchEvent(peopleCreatedEvent);
             }
         }
 
@@ -60,6 +66,14 @@
         return view;
     }
 
+    function _createPeopleCreatedEvent(people)
+    {
+        return new CustomEvent('peopleCreated', {
+            detail: {
+                people: people
+            }
+        });
+    }
 
     function _createCallPanel(params)
     {

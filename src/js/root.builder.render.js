@@ -2,6 +2,8 @@
 
     function init()
     {
+        //слушать событие "группа людей создана"; реагирование: отрисовать группу людей
+        document.addEventListener('peopleCreated', _peopleCreatedHandler);
     }
 
     function createView(building)
@@ -19,8 +21,11 @@
         th2.innerHTML = "Кнопки вызова";
         tr1.appendChild(th2);
         let th3 = document.createElement('th');
-        th3.innerHTML = "Местоположение лифта";
+        th3.innerHTML = "Группа людей";
         tr1.appendChild(th3);
+        let th4 = document.createElement('th');
+        th4.innerHTML = "Местоположение лифта";
+        tr1.appendChild(th4);
         table.appendChild(tr1);
 
         for (let floorNumber = floors.length - 1; floorNumber >= 0; floorNumber--) {
@@ -56,6 +61,7 @@
     function _createTr(floors, floorNumber)
     {
         let tr2 = document.createElement('tr');
+        tr2.id = _getFloorId(floors[floorNumber].getNumber());
 
         let td1 = document.createElement('td');
         td1.innerHTML = floors[floorNumber].getNumber();
@@ -66,8 +72,12 @@
         td2.appendChild(callPanelView);
         tr2.appendChild(td2);
         let td3 = document.createElement('td');
+        td3.className = "column_people";
         td3.innerHTML = "";
         tr2.appendChild(td3);
+        let td4 = document.createElement('td');
+        td4.innerHTML = "";
+        tr2.appendChild(td4);
 
         return tr2;
     }
@@ -89,6 +99,31 @@
         let lastTd = tdCollection.item(tdCollection.length-1);
         // lastTd.innerHTML = elevator.getView();
         lastTd.appendChild(elevator.getView());
+    }
+
+    function _peopleCreatedHandler(event)
+    {
+        //этаж, на котором должна быть размещена группа людей
+        let loadingFloor = event.detail.people.getLoadingFloor();
+        //идентификатор строки
+        let floorId = _getFloorId(loadingFloor);
+        //найти строку таблицы, соответствующую этажу
+        let row = document.getElementById('floor_'+loadingFloor);
+        //найти ячейку строки, в которой размещается группа людей (коллекция)
+        let tdCollection = row.getElementsByClassName('column_people');
+        //извлечь ячейку из коллекции
+        let td = tdCollection.item(0);
+
+        //view группы людей
+        let peopleView = event.detail.people.getView();
+        //отрисовать группу людей в ячейке
+        td.appendChild(peopleView);
+        // console.log('_peopleCreatedHandler', event, loadingFloor, row, td);
+    }
+
+    function _getFloorId(number)
+    {
+        return 'floor_'+number;
     }
 
     root.registerModule({

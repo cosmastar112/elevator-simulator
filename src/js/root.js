@@ -66,6 +66,20 @@ window.ElevatorSimulator2021 = (function() {
         return module;
     }
 
+    function getPeopleBuilder()
+    {
+        let module = _getModuleById('peopleBuilder');
+
+        return module;
+    }
+
+    function getPersonBuilder()
+    {
+        let module = _getModuleById('personBuilder');
+
+        return module;
+    }
+
     // система запущена и готова к работе
     function onStartSystemEnd()
     {
@@ -102,6 +116,8 @@ window.ElevatorSimulator2021 = (function() {
         getCallPanelBuilder: getCallPanelBuilder,
         getRouterBuilder: getRouterBuilder,
         getCallQueueBuilder: getCallQueueBuilder,
+        getPeopleBuilder: getPeopleBuilder,
+        getPersonBuilder: getPersonBuilder,
         onStartSystemEnd: onStartSystemEnd,
     };
 
