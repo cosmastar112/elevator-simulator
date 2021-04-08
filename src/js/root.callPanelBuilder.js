@@ -17,8 +17,9 @@
             _number: null,
             _view: null,
             _basename: 'Панель вызова №',
-            _handlerUp: null,
-            _handlerDown: null,
+            _clickHandler: null,
+            _isBtnUpPressed: false,
+            _isBtnDownPressed: false,
             getNumber: function() {
                 return this._number;
             },
@@ -32,10 +33,13 @@
     {
         let newObj = Object.assign({}, _obj);
         newObj._number = params.number;
+        //идентификация панели (присвоение номера этажа)
+        newObj._basename += params.number;
         // создать представление
         newObj._view = _createView(params);
 
-        newObj._view.addEventListener('click', _clickHandler);
+        newObj._clickHandler = _createClickHandler(newObj);
+        newObj._view.addEventListener('click', newObj._clickHandler);
 
         return newObj;
     }
@@ -71,26 +75,54 @@
         return btn;
     }
 
-    function _clickHandler(event)
+    function _createClickHandler(self)
     {
-        if (event.target.nodeName === "BUTTON") {
-            //вызов
-            let call = null;
-            if (event.target.className === CLASS_NAME_UP) {
-                let text = 'Этаж вызова: ' + event.target.value + '. Направление: ' + DIRECTION_UP;
-                alert(text);
-                //создание вызова
-                call = {floor: event.target.value, direction: DIRECTION_CODE_UP};
-            } else if (event.target.className === CLASS_NAME_DOWN) {
-                let text = 'Этаж вызова: ' + event.target.value + '. Направление: ' + DIRECTION_DOWN;
-                alert(text);
-                //создание вызова
-                call = {floor: event.target.value, direction: DIRECTION_CODE_DOWN};
+        let cb = function(event)
+        {
+            if (event.target.nodeName === "BUTTON") {
+                //проверить нажата ли уже кнопка
+                let direction = event.target.className;
+                if (_isBtnPressed(direction, self)) {
+                    console.log('Кнопка уже нажата');
+                    //кнопка нажата, не создавать новый вызов
+                    return;
+                }
+
+                //кнопка не нажата, создать новый вызов
+                //этаж вызова
+                let floor = event.target.value;
+                //код направления
+                let directionCode = (direction === CLASS_NAME_UP) ? DIRECTION_CODE_UP : DIRECTION_CODE_DOWN;
+                //вызов
+                let call = {floor: floor, direction: directionCode};
+                //событие создания вызова
+                let elevatorCallCreatedEvent = _createCallEvent(call);
+                //оповестить подписчиков о создании вызова
+                document.dispatchEvent(elevatorCallCreatedEvent);
+                //заблокировать кнопку до момента, пока вызов не будет обработан
+                _pressBtn(direction, self);
+                // console.log('вызов', self);
             }
-            //событие
-            let elevatorCallCreatedEvent = _createCallEvent(call);
-            //уведомление о вызове
-            document.dispatchEvent(elevatorCallCreatedEvent);
+        };
+
+        return cb;
+    }
+
+    function _isBtnPressed(direction, panel)
+    {
+        if (direction === CLASS_NAME_UP) {
+            return panel._isBtnUpPressed;
+        } else if (direction === CLASS_NAME_DOWN) {
+            return panel._isBtnDownPressed;
+        }
+    }
+
+    function _pressBtn(direction, panel)
+    {
+        if (direction === CLASS_NAME_UP) {
+            panel._isBtnUpPressed = true;
+        } else if (direction === CLASS_NAME_DOWN) {
+            panel._isBtnDownPressed = true;
         }
     }
 

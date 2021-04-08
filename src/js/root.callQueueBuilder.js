@@ -16,7 +16,7 @@
     function construct()
     {
         let newObj = Object.assign({}, _obj);
-        //регистрация обработчика вызова
+        //подписаться на создание вызова лифта
         newObj._elevatorCallCreatedHandler = _createElevatorCallCreatedHandler(newObj);
         document.addEventListener('elevatorCallCreated', newObj._elevatorCallCreatedHandler);
 
