@@ -86,6 +86,7 @@
         let cb = function(event)
         {
             if (event.target.nodeName === "BUTTON") {
+                console.log('Была нажата кнопка вызова лифта с этажа');
                 //проверить нажата ли уже кнопка
                 let direction = event.target.classList.contains(CLASS_NAME_UP) ? CLASS_NAME_UP : CLASS_NAME_DOWN;
                 if (_isBtnPressed(direction, self)) {
@@ -94,6 +95,7 @@
                     return;
                 }
 
+                console.log('Создать новый вызов');
                 //кнопка не нажата, создать новый вызов
                 //этаж вызова
                 let floor = event.target.value;
