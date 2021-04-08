@@ -2,6 +2,8 @@
 
     let _obj;
 
+    const CLASS_NAME_DEFAULT = 'people-default';
+
     function init()
     {
         _obj = {
@@ -49,6 +51,7 @@
     function _createView(self)
     {
         let peopleView = document.createElement('div');
+        peopleView.classList.add(CLASS_NAME_DEFAULT);
         self._persons.forEach(function(person) {
             let personView = person.getView();
             peopleView.appendChild(personView);

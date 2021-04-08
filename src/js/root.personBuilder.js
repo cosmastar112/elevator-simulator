@@ -3,6 +3,8 @@
     let _obj;
     let _peopleCounter = 0;
 
+    const CLASS_NAME_DEFAULT = 'person-default';
+
     function init()
     {
         _obj = {
@@ -33,8 +35,9 @@
 
     function _createView(id)
     {
-        let view = document.createElement('div');
+        let view = document.createElement('span');
         view.innerHTML = id;
+        view.classList.add(CLASS_NAME_DEFAULT);
 
         return view;
     }

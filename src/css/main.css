@@ -38,4 +38,22 @@
 /*кнопка вызова лифта на этаже нажата*/
 .callPanel_btn-pressed {
     background-color: darkorange;
+    font-size: medium;
+    color: white;
+}
+/*человек*/
+.person-default {
+    border-width: 2px;
+    border-color: cadetblue;
+    border-style: outset;
+    margin: 3px;
+    background-color: lightblue;
+    border-radius: 5px;
+    color: darkblue;
+    padding: 1px;
+}
+/*группа людей*/
+.people-default {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
