@@ -8,8 +8,10 @@
     const DIRECTION_CODE_UP = 1;
     const DIRECTION_CODE_DOWN = -1;
 
-    const CLASS_NAME_UP = 'callPanel_up';
-    const CLASS_NAME_DOWN = 'callPanel_down';
+    const CLASS_NAME_DEFAULT = 'callPanel_btn';
+    const CLASS_NAME_UP = 'callPanel_btn-up';
+    const CLASS_NAME_DOWN = 'callPanel_btn-down';
+    const CLASS_NAME_PRESSED = 'callPanel_btn-pressed';
 
     function init()
     {
@@ -20,6 +22,8 @@
             _clickHandler: null,
             _isBtnUpPressed: false,
             _isBtnDownPressed: false,
+            _btnUp: null,
+            _btnDown: null,
             getNumber: function() {
                 return this._number;
             },
@@ -36,7 +40,7 @@
         //идентификация панели (присвоение номера этажа)
         newObj._basename += params.number;
         // создать представление
-        newObj._view = _createView(params);
+        newObj._view = _createView(params, newObj);
 
         newObj._clickHandler = _createClickHandler(newObj);
         newObj._view.addEventListener('click', newObj._clickHandler);
@@ -44,20 +48,22 @@
         return newObj;
     }
 
-    function _createView(params)
+    function _createView(params, self)
     {
         let view = document.createElement('div');
 
         let number = params.number;
         // добавить кнопку "Вверх" если это не последний этаж
         if (number !== params.totalFloors) {
-            let btnUp = _createBtn({number: number, direction: DIRECTION_UP, className: CLASS_NAME_UP});
+            let btnUp = _createBtn({number: number, direction: DIRECTION_UP, cssClassName: CLASS_NAME_UP});
             view.appendChild(btnUp);
+            self._btnUp = btnUp;
         }
         // добавить кнопку "Вниз" если это не первый этаж
         if (number !== 1) {
-            let btnDown = _createBtn({number: number, direction: DIRECTION_DOWN, className: CLASS_NAME_DOWN});
+            let btnDown = _createBtn({number: number, direction: DIRECTION_DOWN, cssClassName: CLASS_NAME_DOWN});
             view.appendChild(btnDown);
+            self._btnDown = btnDown;
         }
 
         return view;
@@ -70,7 +76,7 @@
         btn.formAction = '#';
         btn.value = params.number;
         btn.innerHTML = params.direction;
-        btn.className  = params.className;
+        btn.classList.add(params.cssClassName, CLASS_NAME_DEFAULT);
 
         return btn;
     }
@@ -81,7 +87,7 @@
         {
             if (event.target.nodeName === "BUTTON") {
                 //проверить нажата ли уже кнопка
-                let direction = event.target.className;
+                let direction = event.target.classList.contains(CLASS_NAME_UP) ? CLASS_NAME_UP : CLASS_NAME_DOWN;
                 if (_isBtnPressed(direction, self)) {
                     console.log('Кнопка уже нажата');
                     //кнопка нажата, не создавать новый вызов
@@ -121,8 +127,10 @@
     {
         if (direction === CLASS_NAME_UP) {
             panel._isBtnUpPressed = true;
+            panel._btnUp.classList.add(CLASS_NAME_PRESSED);
         } else if (direction === CLASS_NAME_DOWN) {
             panel._isBtnDownPressed = true;
+            panel._btnDown.classList.add(CLASS_NAME_PRESSED);
         }
     }
 
