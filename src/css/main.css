@@ -57,3 +57,28 @@
     margin-top: 5px;
     margin-bottom: 5px;
 }
+
+/*расположить элементы панели в одну строку*/
+.panel_total-persons-num h3,
+.panel_total-persons-num span {
+    display: inline-block;
+}
+
+/*расположить элементы панели в одну строку*/
+.panel_total-persons-weight h3,
+.panel_total-persons-weight span {
+    display: inline-block;
+}
+
+/*расположить элементы панели в одну строку*/
+.panel_overweight h3,
+.panel_overweight span {
+    display: inline-block;
+}
+
+/*отступ справа от блока, в котором отображается показатель панели*/
+.panel_total-persons-num span,
+.panel_total-persons-weight span,
+.panel_overweight span {
+    margin-left: 5px;
+}

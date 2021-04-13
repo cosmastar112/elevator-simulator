@@ -80,6 +80,27 @@ window.ElevatorSimulator2021 = (function() {
         return module;
     }
 
+    function getPanelPersonsTotalNum()
+    {
+        let module = _getModuleById('panelPersonsTotalNum');
+
+        return module;
+    }
+
+    function getPanelPersonsTotalWeight()
+    {
+        let module = _getModuleById('panelPersonsTotalWeight');
+
+        return module;
+    }
+
+    function getPanelOverWeight()
+    {
+        let module = _getModuleById('panelOverWeight');
+
+        return module;
+    }
+
     // система запущена и готова к работе
     function onStartSystemEnd()
     {
@@ -118,6 +139,9 @@ window.ElevatorSimulator2021 = (function() {
         getCallQueueBuilder: getCallQueueBuilder,
         getPeopleBuilder: getPeopleBuilder,
         getPersonBuilder: getPersonBuilder,
+        getPanelPersonsTotalNum: getPanelPersonsTotalNum,
+        getPanelPersonsTotalWeight: getPanelPersonsTotalWeight,
+        getPanelOverWeight: getPanelOverWeight,
         onStartSystemEnd: onStartSystemEnd,
     };
 
