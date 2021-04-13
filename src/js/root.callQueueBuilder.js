@@ -6,14 +6,16 @@
     {
         _obj = {
             _queue: [],
-            _queueHandler: null,
-            _queueHandlerIntervalID: null,
             _elevatorCallFromFloorCreatedHandler: null,
             getQueue: function() {
                 return this._queue;
             },
-            destruct: function() {
-                clearInterval(this._queueHandlerIntervalID);
+            getNextCall: function() {
+                //FIFO stack
+                return this._queue.shift();
+            },
+            hasCalls: function() {
+                return this._queue.length > 0;
             }
         };
     }
@@ -24,11 +26,6 @@
         //подписаться на создание вызова лифта
         newObj._elevatorCallFromFloorCreatedHandler = _createElevatorCallFromCallCreatedHandler(newObj);
         document.addEventListener('elevatorCallFromFloorCreated', newObj._elevatorCallFromFloorCreatedHandler);
-
-        //запуск цикла работы обработчика очереди
-        newObj._queueHandlerIntervalID = setInterval(function() {
-            _queueHandler(newObj);
-        }, 1000);
 
         return newObj;
     }
@@ -65,18 +62,6 @@
                 call: call
             }
         });
-    }
-
-    function _queueHandler(self)
-    {
-        //console.log(Date.now(), '_queueHandler');
-        if (self.getQueue().length > 0) {
-            //FIFO stack
-            let call = self.getQueue().shift();
-            console.log('обработка вызова из очереди', call);
-        } else {
-            //console.log('очереди вызова пуста');
-        }
     }
 
     root.registerModule({

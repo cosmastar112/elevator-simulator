@@ -6,8 +6,13 @@
     {
         _obj = {
             _callQueue: null,
+            _callQueueHandler: null,
+            _callQueueHandlerIntervalID: null,
+            getCallQueue: function() {
+                return this._callQueue;
+            },
             destruct: function() {
-                this._callQueue.destruct();
+                clearInterval(this._callQueueHandlerIntervalID);
             }
         };
     }
@@ -18,6 +23,11 @@
         //очередь вызова
         newObj._callQueue = _createCallQueue();
 
+        //запуск цикла работы обработчика очереди
+        newObj._callQueueHandlerIntervalID = setInterval(function() {
+            _callQueueHandler(newObj);
+        }, 1000);
+
         return newObj;
     }
 
@@ -27,6 +37,18 @@
         let callQueue = callQueueBuilder.construct();
 
         return callQueue;
+    }
+
+    function _callQueueHandler(self)
+    {
+        //console.log(Date.now(), '_callQueueHandler');
+        let callQueue = self.getCallQueue();
+        if (callQueue.hasCalls() > 0) {
+            let call = callQueue.getNextCall();
+            console.log('обработка вызова из очереди', call);
+        } else {
+            //console.log('очереди вызова пуста');
+        }
     }
 
     root.registerModule({
