@@ -6,7 +6,7 @@
     {
         _obj = {
             _queue: [],
-            _elevatorCallCreatedHandler: null,
+            _elevatorCallFromFloorCreatedHandler: null,
             getQueue: function() {
                 return this._queue;
             }
@@ -17,13 +17,13 @@
     {
         let newObj = Object.assign({}, _obj);
         //подписаться на создание вызова лифта
-        newObj._elevatorCallCreatedHandler = _createElevatorCallCreatedHandler(newObj);
-        document.addEventListener('elevatorCallCreated', newObj._elevatorCallCreatedHandler);
+        newObj._elevatorCallFromFloorCreatedHandler = _createElevatorCallFromCallCreatedHandler(newObj);
+        document.addEventListener('elevatorCallFromFloorCreated', newObj._elevatorCallFromFloorCreatedHandler);
 
         return newObj;
     }
 
-    function _createElevatorCallCreatedHandler(self)
+    function _createElevatorCallFromCallCreatedHandler(self)
     {
         let cb = function(event) {
             _push(event.detail.call, self);

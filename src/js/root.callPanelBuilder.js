@@ -138,7 +138,7 @@
 
     function _createCallEvent(call)
     {
-        return new CustomEvent('elevatorCallCreated', {
+        return new CustomEvent('elevatorCallFromFloorCreated', {
             detail: { 
                 call: call 
             }
