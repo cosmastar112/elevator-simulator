@@ -27,6 +27,9 @@
             getTotalFloors: function() {
                 return this._floors.length;
             },
+            stopRouter: function() {
+                this._router.destruct();
+            }
         };
     }
 

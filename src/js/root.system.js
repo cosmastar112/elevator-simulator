@@ -7,6 +7,10 @@
             return;
         }
         btn.addEventListener('click', _startHandler);
+
+        //регистрация обработчика остановки симуляции
+        let btnStop = document.getElementById('system_params_form__stop_btn');
+        btnStop.addEventListener('click', _stopHandler);
     }
 
     function _start(systemParams)
@@ -56,6 +60,8 @@
         // сериализовать форму
         let serializedForm = _serializeForm();
         _start(serializedForm);
+        //показать кнопку остановки симуляции
+        _showStopBtn();
     }
 
     function _serializeForm()
@@ -80,6 +86,27 @@
     {
         let select = selectedElements[index];
         return select.options[select.selectedIndex].value;
+    }
+
+    function _showStopBtn()
+    {
+        //показать кнопку
+        let btnStop = document.getElementById('system_params_form__stop_btn');
+        btnStop.classList.remove('system_params_form__stop_btn_hidden');
+        btnStop.classList.add('system_params_form__stop_btn_visible');
+        //включить кнопку
+        btnStop.disabled = false;
+    }
+
+    function _stopHandler(event)
+    {
+        let builder = root.getBuilder();
+        let building = builder.getBuilding();
+        building.stopRouter();
+
+        //отключить кнопку
+        let btnStop = document.getElementById('system_params_form__stop_btn');
+        btnStop.disabled = true;
     }
 
     root.registerModule({

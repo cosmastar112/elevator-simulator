@@ -6,6 +6,9 @@
     {
         _obj = {
             _callQueue: null,
+            destruct: function() {
+                this._callQueue.destruct();
+            }
         };
     }
 

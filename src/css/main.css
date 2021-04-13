@@ -82,3 +82,12 @@
 .panel_overweight span {
     margin-left: 5px;
 }
+
+/*кнопка остановки симуляции изначально не видна*/
+.system_params_form__stop_btn_hidden {
+    display: none;
+}
+/*кнопка остановки симуляции видна*/
+.system_params_form__stop_btn_visible {
+    display: inline-block;
+}
