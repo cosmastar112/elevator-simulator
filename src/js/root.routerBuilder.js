@@ -5,6 +5,7 @@
     function init()
     {
         _obj = {
+            _elevators: null,
             _callQueue: null,
             _callQueueHandler: null,
             _callQueueHandlerIntervalID: null,
@@ -17,9 +18,11 @@
         };
     }
 
-    function construct()
+    function construct(params)
     {
         let newObj = Object.assign({}, _obj);
+        //лифты
+        newObj._elevators = params.elevators;
         //очередь вызова
         newObj._callQueue = _createCallQueue();
 
@@ -46,9 +49,20 @@
         if (callQueue.hasCalls() > 0) {
             let call = callQueue.getNextCall();
             console.log('обработка вызова из очереди', call);
-        } else {
-            //console.log('очереди вызова пуста');
-        }
+            _allocateCall(self, call);
+        }/* else {
+            console.log('очереди вызова пуста');
+        }*/
+    }
+
+    //назначить вызов исполнителю (лифту)
+    function _allocateCall(self, call)
+    {
+        //поскольку лифт всегда один, исполнитель предопределен
+        let elevator = self._elevators[0];
+        //маршрут лифта
+        let route = elevator.getRoute();
+        route.add(call);
     }
 
     root.registerModule({

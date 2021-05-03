@@ -85,7 +85,7 @@
     function _buildRouter()
     {
         let routerBuilder = root.getRouterBuilder();
-        _building._router = routerBuilder.construct();
+        _building._router = routerBuilder.construct({elevators: _building._elevators});
     }
 
     function _createView()
