@@ -21,6 +21,7 @@
             _controlPanel: null,
             _state: null,
             _route: null,
+            _currentPosition: null,
             getNumber: function() {
                 return this._number;
             },
@@ -57,6 +58,8 @@
         elevator._controlPanel = _createControlPanel(params);
         //инициализация маршрута
         elevator._route = _createRoute();
+        //начальная позиция
+        elevator._currentPosition = 1;
         // создать представление
         elevator._view = _createView(params.number);
 
@@ -68,7 +71,7 @@
     function _createView(number)
     {
         let view = document.createElement('div');
-        view.innerHTML = number;
+        view.innerHTML = 'Лифт №'+number;
 
         return view;
     }
@@ -123,15 +126,36 @@
             if (!call) {
                 return;
             }
-            let ETA = _getETA(call);
-            console.log('ETA: '+ ETA);
-            //движение в течении рассчитаного времени
-            let moveTimer = setTimeout(function() {
-                //убрать вызов из маршрута
-                self.getRoute().remove(call);
-                console.log('Движение выполнено');
-                _setState.call(self, STATE_STOP);
-            }, ETA);
+
+            //время, необходимое для движения на один этаж
+            let oneMoveTime = 500;
+            //количество необходимых движений для выполнения перемещения
+            let moves = Math.abs(self._currentPosition - call.floor);
+            //выполненных движений
+            let finishedMoves = 0;
+            let moveOneFloorTimer = setInterval(function() {
+                console.log('Нужно сделать ' + moves + ' движений; сделано: ' + finishedMoves);
+                if (moves === finishedMoves) {
+                    console.log('Перемещение завершено');
+                    clearInterval(moveOneFloorTimer);
+                    //убрать вызов из маршрута
+                    self.getRoute().remove(call);
+                    _setState.call(self, STATE_STOP);
+                } else {
+                    //движение (на один этаж) выполнено
+                    finishedMoves++;
+                    //запомнить предыдущую позицию
+                    let oldPosition = self._currentPosition;
+                    //изменить текущую позицию
+                    if (call.floor > self._currentPosition) {
+                        self._currentPosition++;
+                    } else {
+                        self._currentPosition--;
+                    }
+                    //уведомить об изменении позиции лифта
+                    _notifyAboutUpdatElevatorPosition(oldPosition, self._currentPosition, self);
+                }
+            }, oneMoveTime);
         } else if(state === STATE_STOP) {
             console.log('STATE_STOP');
             _setState.call(self, STATE_DOORS_OPENING);
@@ -193,14 +217,22 @@
         return newObj;
     }
 
-    function _getETA(call)
+    function _notifyAboutUpdatElevatorPosition(oldPosition, newPosition, elevator)
     {
-        // let ETA_ONE_FLOOR = 5; //время, необходимое на движение на один этаж
-        let ETA_ONE_FLOOR = 1; //время, необходимое на движение на один этаж
-        let N = Math.abs(1 - call.floor);
-        let ETA = ETA_ONE_FLOOR * N;
+        let eventDetail = {
+            oldPosition: oldPosition,
+            newPosition: newPosition,
+            elevator: elevator
+        };
+        let eventElevatorPositionUpdated = _createElevatorPositionUpdatedEvent(eventDetail);
+        document.dispatchEvent(eventElevatorPositionUpdated);
+    }
 
-        return ETA * 1000;
+    function _createElevatorPositionUpdatedEvent(detail)
+    {
+        return new CustomEvent('elevatorPositionUpdated', {
+            detail: detail
+        });
     }
 
     root.registerModule({

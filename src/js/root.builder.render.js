@@ -4,6 +4,7 @@
     {
         //слушать событие "группа людей создана"; реагирование: отрисовать группу людей
         document.addEventListener('peopleCreated', _peopleCreatedHandler);
+        document.addEventListener('elevatorPositionUpdated', _elevatorPositionUpdatedHandler);
     }
 
     function createView(building)
@@ -76,6 +77,7 @@
         td3.innerHTML = "";
         tr2.appendChild(td3);
         let td4 = document.createElement('td');
+        td4.className = "elevator_position";
         td4.innerHTML = "";
         tr2.appendChild(td4);
 
@@ -119,6 +121,46 @@
         //отрисовать группу людей в ячейке
         td.appendChild(peopleView);
         // console.log('_peopleCreatedHandler', event, loadingFloor, row, td);
+    }
+
+    function _elevatorPositionUpdatedHandler(event)
+    {
+        // console.log('_elevatorPositionUpdatedHandler', event.detail);
+        //старая позиция
+        let oldPosition = event.detail.oldPosition;
+        _updateOldPosition(oldPosition);
+        //новая позиция
+        let newPosition = event.detail.newPosition;
+        _updateNewPosition(newPosition, event.detail.elevator);
+    }
+
+    function _updateOldPosition(oldPosition)
+    {
+        //id строки
+        let trId = _getFloorId(oldPosition);
+        //строка
+        let tr = document.getElementById(trId);
+        //ячейка с местоположением
+        let td = tr.querySelector('td.elevator_position');
+        console.log(tr);
+        console.log(td);
+        //очистка рендера лифта
+        while (td.firstChild) {
+            td.removeChild(td.lastChild);
+        }
+    }
+
+    function _updateNewPosition(newPosition, elevator)
+    {
+        //id строки
+        let trId = _getFloorId(newPosition);
+        //строка
+        let tr = document.getElementById(trId);
+        //ячейка с местоположением
+        let td = tr.querySelector('td.elevator_position');
+        // console.log(tr);
+        // console.log(td);
+        td.appendChild(elevator.getView());
     }
 
     function _getFloorId(number)
