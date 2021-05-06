@@ -29,7 +29,7 @@
         //запуск цикла работы обработчика очереди
         newObj._callQueueHandlerIntervalID = setInterval(function() {
             _callQueueHandler(newObj);
-        }, 1000);
+        }, 100);
 
         return newObj;
     }
