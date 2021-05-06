@@ -45,7 +45,7 @@
     {
         let cb = function(event) {
             if (self._hasPeople) {
-                console.log('На этаже уже есть группа людей');
+                // console.log('На этаже уже есть группа людей');
                 return;
             }
 
