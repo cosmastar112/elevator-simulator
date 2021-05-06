@@ -44,6 +44,9 @@
                 let isEmpty = this._route.isEmpty();
                 return isEmpty;
             },
+            getCurrentPosition: function() {
+                return this._currentPosition;
+            },
             _setState: _setState,
         };
     }
@@ -107,13 +110,23 @@
             «Бездействие». Если следующий вызов есть, то он помечается как «Находящийся в 
             обработке» и происходит переход в состояние «Движение».*/
             console.log('STATE_CHOOSE_NEXT_TARGET');
-            let nextCall = self.getRoute().getNext();
-            // console.log('Следующая цель маршрута: ' + nextCall);
+
+            //если движение было прервано
+            let activeCall = self.getRoute().getActiveCall();
+            console.log(activeCall);
+            if (activeCall) {
+                //снять с текущего активного вызова отметку «Находящийся в обработке»
+                activeCall.processing = false;
+            }
+
+            let nextCall = self.getRoute().getNext(self, activeCall);
             if (nextCall) {
+                console.log('Следующая цель маршрута: ' + nextCall.floor, nextCall.direction);
                 //пометить вызов как «Находящийся в обработке»
                 nextCall.processing = true;
                 _setState.call(self, STATE_MOVE);
             } else {
+                console.log('Все цели маршрута обработаны');
                 _setState.call(self, STATE_IDLE);
             }
         } else if(state === STATE_MOVE) {
@@ -131,12 +144,12 @@
             let oneMoveTime = 500;
             //количество необходимых движений для выполнения перемещения
             let moves = Math.abs(self._currentPosition - call.floor);
+            console.log('Нужно сделать ' + moves + ' движений');
             //выполненных движений
             let finishedMoves = 0;
             let moveOneFloorTimer = setInterval(function() {
-                console.log('Нужно сделать ' + moves + ' движений; сделано: ' + finishedMoves);
                 if (moves === finishedMoves) {
-                    console.log('Перемещение завершено');
+                    console.log('Перемещение завершено: ' + call.floor, call.direction);
                     clearInterval(moveOneFloorTimer);
                     //убрать вызов из маршрута
                     self.getRoute().remove(call);
@@ -152,8 +165,15 @@
                     } else {
                         self._currentPosition--;
                     }
+                    console.log('Сделано движение ' + finishedMoves);
                     //уведомить об изменении позиции лифта
                     _notifyAboutUpdatElevatorPosition(oldPosition, self._currentPosition, self);
+                    //проверка необходимости прерывания текущего движения и смены активного вызова
+                    if (!_isCurrentActiveCallRelevant.call(self)) {
+                        console.log('Прерывание текущего движения: смена активного вызова');
+                        clearInterval(moveOneFloorTimer);
+                        _setState.call(self, STATE_CHOOSE_NEXT_TARGET);
+                    }
                 }
             }, oneMoveTime);
         } else if(state === STATE_STOP) {
@@ -195,9 +215,35 @@
             add: function(call) {
                 this._route.push(call);
             },
-            getNext: function() {
-                let lastIndex = this._route.length - 1;
-                return this._route[lastIndex];
+            getNext: function(elevator, lastActiveCall) {
+                //если движение было прервано, то искать следующий вызов по принципу: ближайший по ходу движения
+                if (lastActiveCall) {
+                    let elevatorCurrentPosition = elevator.getCurrentPosition();
+                    let direction = lastActiveCall.floor - elevatorCurrentPosition;
+                    if (direction > 0) {
+                        //движение наверх
+                        let calls = this._route.filter(function(item) {
+                            return item.floor > elevatorCurrentPosition;
+                        });
+                        calls.sort(function(a, b) {
+                            return parseInt(a.floor) > parseInt(b.floor) ? 1: -1;
+                        });
+                        return calls.shift();
+                    } else if (direction < 0) {
+                        //движение вниз
+                        let calls = this._route.filter(function(item) {
+                            return item.floor < elevatorCurrentPosition;
+                        });
+                        calls.sort(function(a, b) {
+                            return parseInt(a.floor) > parseInt(b.floor) ? 1: -1;
+                        });
+                        return calls.pop();
+                    }
+                } else {
+                    //иначе просто найти ближайший
+                    let lastIndex = this._route.length - 1;
+                    return this._route[lastIndex];
+                }
             },
             getActiveCall: function() {
                 let item = this._route.find(function(item) {
@@ -233,6 +279,40 @@
         return new CustomEvent('elevatorPositionUpdated', {
             detail: detail
         });
+    }
+
+    function _isCurrentActiveCallRelevant()
+    {
+        //текущая позиция (этаж) лифта
+        let currentPosition = this._currentPosition;
+        //этаж назначения активного вызова
+        let activeCallFloor = null;
+        let activeCall = this.getRoute().getActiveCall();
+        //аварийная ситуация: активный вызов не найден
+        if (!activeCall) {
+            return true;
+        } else {
+            activeCallFloor = activeCall.floor;
+        }
+        //интервалы типа (1;2), (7;8), (6;5) и т.д.
+        if (Math.abs(currentPosition - activeCallFloor) < 1) {
+            return true;
+        }
+        let route = this.getRoute().getRoute();
+        let newActiveCall = route.filter(function(item) {
+            //движение наверх
+            let isC1 = !item.processing && item.floor > currentPosition && item.floor < activeCallFloor;
+            //движение вниз
+            let isC2 = !item.processing && item.floor < currentPosition && item.floor > activeCallFloor;
+            return isC1 || isC2;
+        });
+
+        //в интервале появился новый активный вызов
+        if (newActiveCall.length > 0) {
+            return false;
+        }
+
+        return true;
     }
 
     root.registerModule({
