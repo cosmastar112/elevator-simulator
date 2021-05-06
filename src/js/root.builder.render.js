@@ -142,8 +142,8 @@
         let tr = document.getElementById(trId);
         //ячейка с местоположением
         let td = tr.querySelector('td.elevator_position');
-        console.log(tr);
-        console.log(td);
+        // console.log(tr);
+        // console.log(td);
         //очистка рендера лифта
         while (td.firstChild) {
             td.removeChild(td.lastChild);
