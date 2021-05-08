@@ -29,7 +29,8 @@
             },
             getView: function() {
                 return this._view;
-            }
+            },
+            unpressBtns: _unpressBtns
         };
     }
 
@@ -145,6 +146,27 @@
         });
     }
 
+    //отжать кнопки вызова
+    function _unpressBtns()
+    {
+        if (this._btnUp) {
+            _unpressBtn(CLASS_NAME_UP, this);
+        }
+        if (this._btnDown) {
+            _unpressBtn(CLASS_NAME_DOWN, this);
+        }
+    }
+
+    function _unpressBtn(direction, panel)
+    {
+        if (direction === CLASS_NAME_UP) {
+            panel._isBtnUpPressed = false;
+            panel._btnUp.classList.remove(CLASS_NAME_PRESSED);
+        } else if (direction === CLASS_NAME_DOWN) {
+            panel._isBtnDownPressed = false;
+            panel._btnDown.classList.remove(CLASS_NAME_PRESSED);
+        }
+    }
     root.registerModule({
         id: 'callPanelBuilder',
         init: init,

@@ -225,6 +225,9 @@
             _setState.call(self, STATE_DOORS_CLOSING);
         } else if(state === STATE_DOORS_CLOSING) {
             console.log('STATE_DOORS_CLOSING');
+            //уведомить о закрытии дверей
+            let floor = self.getCurrentPosition();
+            _notifyAboutDoorsClosed(floor);
             _setState.call(self, STATE_CHOOSE_NEXT_TARGET);
         }
 
@@ -340,6 +343,22 @@
         }
 
         return true;
+    }
+
+    function _notifyAboutDoorsClosed(floor)
+    {
+        let eventDetail = {
+            floor: floor,
+        };
+        let event = _createElevatorDoorsClosedEvent(eventDetail);
+        document.dispatchEvent(event);
+    }
+
+    function _createElevatorDoorsClosedEvent(detail)
+    {
+        return new CustomEvent('elevatorDoorsClosed', {
+            detail: detail
+        });
     }
 
     root.registerModule({

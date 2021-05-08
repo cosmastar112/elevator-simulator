@@ -14,6 +14,12 @@
             getFloors: function() {
                 return this._floors;
             },
+            getFloorByNumber: function(floorNumber) {
+                let floor = this._floors.find(function(item) {
+                    return item._number === floorNumber;
+                });
+                return floor;
+            },
             getElevators: function() {
                 return this._elevators;
             },

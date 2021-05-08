@@ -38,6 +38,9 @@
         floor._callFromFloorRegisteredHandler = _createCallFromFloorRegisteredHandler(floor);
         document.addEventListener('callFromFloorRegistered', floor._callFromFloorRegisteredHandler);
 
+        //обработчик отжатия кнопок вызова
+        document.addEventListener('elevatorDoorsClosed', _elevatorDoorsClosedHandler);
+
         return floor;
     }
 
@@ -90,6 +93,18 @@
         let callPanel = callPanelBuilder.construct(params);
 
         return callPanel;
+    }
+
+    //обработчик отжатия кнопок вызова
+    function _elevatorDoorsClosedHandler()
+    {
+        //найти панель вызова указанного этажа
+        let floorNumber = event.detail.floor;
+        let floor = root.getBuilder().getBuilding().getFloorByNumber(floorNumber);
+        let callPanel = floor.getCallPanel();
+        callPanel.unpressBtns();
+
+        console.log('Отжать кнопки вызова на панели', event.detail, callPanel);
     }
 
     root.registerModule({
