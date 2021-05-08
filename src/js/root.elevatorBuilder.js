@@ -22,6 +22,7 @@
             _state: null,
             _route: null,
             _currentPosition: null,
+            _lastDirection: null,
             getNumber: function() {
                 return this._number;
             },
@@ -46,6 +47,20 @@
             },
             getCurrentPosition: function() {
                 return this._currentPosition;
+            },
+            memorizeLastDirection: function(call) {
+                let elevatorCurrentPosition = this.getCurrentPosition();
+                let directionInt = call.floor - elevatorCurrentPosition;
+                let direction = directionInt > 0 ? 1 : -1;
+                console.log('Фиксация последнего направления движения: '+ direction);
+                this._lastDirection = direction;
+            },
+            clearLastDirection: function() {
+                console.log('Сброс последнего направления движения');
+                this._lastDirection = null;
+            },
+            getLastDirection: function() {
+                return this._lastDirection;
             },
             _setState: _setState,
         };
@@ -104,6 +119,8 @@
                     _setState.call(self, STATE_CHOOSE_NEXT_TARGET);
                 }
             }, 1000);
+            //сброс последнего направления движения
+            self.clearLastDirection();
         } else if(state === STATE_CHOOSE_NEXT_TARGET) {
             /*В состоянии «Выбор следующей цели маршрута» выполняется выбор следующего 
             вызова для обработки. Если следующего вызова нет, то выполняется возврат в состояние 
@@ -119,15 +136,15 @@
                 activeCall.processing = false;
             }
 
+            //если предыдущее состояние - НЕ бездействие
             let nextCall = null;
-            //если движение было прервано
-            if (activeCall) {
+            let direction = self.getLastDirection();
+            if (direction) {
                 //искать следующий вызов по принципу: ближайший по ходу движения
                 let elevatorCurrentPosition = self.getCurrentPosition();
-                let direction = activeCall.floor - elevatorCurrentPosition;
                 nextCall = self.getRoute().getNearestByDirection(direction, elevatorCurrentPosition);
             } else {
-                //искать следующий вызов по принципу: последний добавленый
+                //последний добавленный
                 nextCall = self.getRoute().getNearest();
             }
 
@@ -150,6 +167,9 @@
             if (!call) {
                 return;
             }
+
+            //запомнить последнее направление движения
+            self.memorizeLastDirection(call);
 
             //время, необходимое для движения на один этаж
             let oneMoveTime = 500;
@@ -248,7 +268,7 @@
                 }
             },
             getNearest: function() {
-                //ближайший в любом направлении
+                //последний добавленный
                 let lastIndex = this._route.length - 1;
                 return this._route[lastIndex];
             },
