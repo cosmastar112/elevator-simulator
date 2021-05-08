@@ -113,13 +113,24 @@
 
             //если движение было прервано
             let activeCall = self.getRoute().getActiveCall();
-            console.log(activeCall);
+            // console.log(activeCall);
             if (activeCall) {
                 //снять с текущего активного вызова отметку «Находящийся в обработке»
                 activeCall.processing = false;
             }
 
-            let nextCall = self.getRoute().getNext(self, activeCall);
+            let nextCall = null;
+            //если движение было прервано
+            if (activeCall) {
+                //искать следующий вызов по принципу: ближайший по ходу движения
+                let elevatorCurrentPosition = self.getCurrentPosition();
+                let direction = activeCall.floor - elevatorCurrentPosition;
+                nextCall = self.getRoute().getNearestByDirection(direction, elevatorCurrentPosition);
+            } else {
+                //искать следующий вызов по принципу: последний добавленый
+                nextCall = self.getRoute().getNearest();
+            }
+
             if (nextCall) {
                 console.log('Следующая цель маршрута: ' + nextCall.floor, nextCall.direction);
                 //пометить вызов как «Находящийся в обработке»
@@ -215,35 +226,31 @@
             add: function(call) {
                 this._route.push(call);
             },
-            getNext: function(elevator, lastActiveCall) {
-                //если движение было прервано, то искать следующий вызов по принципу: ближайший по ходу движения
-                if (lastActiveCall) {
-                    let elevatorCurrentPosition = elevator.getCurrentPosition();
-                    let direction = lastActiveCall.floor - elevatorCurrentPosition;
-                    if (direction > 0) {
-                        //движение наверх
-                        let calls = this._route.filter(function(item) {
-                            return item.floor > elevatorCurrentPosition;
-                        });
-                        calls.sort(function(a, b) {
-                            return parseInt(a.floor) > parseInt(b.floor) ? 1: -1;
-                        });
-                        return calls.shift();
-                    } else if (direction < 0) {
-                        //движение вниз
-                        let calls = this._route.filter(function(item) {
-                            return item.floor < elevatorCurrentPosition;
-                        });
-                        calls.sort(function(a, b) {
-                            return parseInt(a.floor) > parseInt(b.floor) ? 1: -1;
-                        });
-                        return calls.pop();
-                    }
-                } else {
-                    //иначе просто найти ближайший
-                    let lastIndex = this._route.length - 1;
-                    return this._route[lastIndex];
+            getNearestByDirection: function(direction, elevatorCurrentPosition) {
+                if (direction > 0) {
+                    //движение наверх
+                    let calls = this._route.filter(function(item) {
+                        return item.floor > elevatorCurrentPosition;
+                    });
+                    calls.sort(function(a, b) {
+                        return parseInt(a.floor) > parseInt(b.floor) ? 1: -1;
+                    });
+                    return calls.shift();
+                } else if (direction < 0) {
+                    //движение вниз
+                    let calls = this._route.filter(function(item) {
+                        return item.floor < elevatorCurrentPosition;
+                    });
+                    calls.sort(function(a, b) {
+                        return parseInt(a.floor) > parseInt(b.floor) ? 1: -1;
+                    });
+                    return calls.pop();
                 }
+            },
+            getNearest: function() {
+                //ближайший в любом направлении
+                let lastIndex = this._route.length - 1;
+                return this._route[lastIndex];
             },
             getActiveCall: function() {
                 let item = this._route.find(function(item) {
