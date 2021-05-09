@@ -73,7 +73,7 @@
         // грузоподёмность
         elevator._lifting_power = params.lifting_power;
         // панель управления
-        elevator._controlPanel = _createControlPanel(params);
+        elevator._controlPanel = _createControlPanel({number: params.number, total_floors: params.total_floors});
         //инициализация маршрута
         elevator._route = _createRoute();
         //начальная позиция
@@ -97,7 +97,7 @@
     function _createControlPanel(params)
     {
         let controlPanelBuilder = root.getControlPanelBuilder();
-        let controlPanel = controlPanelBuilder.construct(params);
+        let controlPanel = controlPanelBuilder.construct({number: params.number, total_floors: params.total_floors});
 
         return controlPanel;
     }

@@ -91,3 +91,8 @@
 .system_params_form__stop_btn_visible {
     display: inline-block;
 }
+/*ширина кнопок управления*/
+.control_panel_button {
+    width: 50px;
+    margin: 1px;
+}

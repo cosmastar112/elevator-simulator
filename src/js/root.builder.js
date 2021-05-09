@@ -50,7 +50,7 @@
 
         // создать указанное количество этажей
         _buildFloors(systemParams.total_floors);
-        _buildElevators(systemParams.total_elevators, systemParams.lifting_power);
+        _buildElevators(systemParams.total_elevators, systemParams.lifting_power, systemParams.total_floors);
         //маршрутизатор
         _buildRouter();
 
@@ -79,11 +79,11 @@
         }
     }
 
-    function _buildElevators(count, lifting_power)
+    function _buildElevators(count, lifting_power, total_floors)
     {
         let elevatorBuilder = root.getElevatorBuilder();
         for (let elevatorNumber = 1; elevatorNumber <= count; elevatorNumber++) {
-            let elevator = elevatorBuilder.construct({ number: elevatorNumber, lifting_power: lifting_power });
+            let elevator = elevatorBuilder.construct({ number: elevatorNumber, lifting_power: lifting_power, total_floors: total_floors });
             _building._elevators.push(elevator);
         }
     }

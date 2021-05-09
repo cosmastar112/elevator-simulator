@@ -24,6 +24,7 @@
     {
         let newObj = Object.assign({}, _obj);
         newObj._number = params.number;
+        newObj._panelButtons = _createPanelButtons({total_floors: params.total_floors});
         newObj._panelPersonsTotalNum = _createPanelPersonsTotalNum();
         newObj._panelPersonsTotalWeight = _createPanelPersonsTotalWeight();
         newObj._panelOverweight = _createPanelOverweight();
@@ -49,6 +50,9 @@
         //индикатор перегруза
         let panelOverweight = self._panelOverweight.getView();
         view.appendChild(panelOverweight);
+        //кнопочная панель
+        let panelButtons = self._panelButtons.getView();
+        view.appendChild(panelButtons);
 
         return view;
     }
@@ -75,6 +79,14 @@
         let controlPanel = panelBuilder.construct();
 
         return controlPanel;
+    }
+
+    function _createPanelButtons(params)
+    {
+        let panelBuilder = root.getPanelButtons();
+        let panel = panelBuilder.construct({total_floors: params.total_floors});
+
+        return panel;
     }
 
     root.registerModule({
