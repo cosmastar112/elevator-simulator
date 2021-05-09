@@ -64,6 +64,9 @@
             },
             _setState: _setState,
         };
+
+        //коллбек окончания погрузки
+        document.addEventListener('elevatorLoadingComplete', _elevatorLoadingCompleteHandler);
     }
 
     function construct(params)
@@ -212,14 +215,18 @@
             _setState.call(self, STATE_DOORS_OPENING);
         } else if(state === STATE_DOORS_OPENING) {
             console.log('STATE_DOORS_OPENING');
-            _setState.call(self, STATE_UNLOADING);
-            // _setState.call(self, STATE_LOADING);
+            // _setState.call(self, STATE_UNLOADING);
+            //погрузка
+            _setState.call(self, STATE_LOADING);
         } else if(state === STATE_UNLOADING) {
             console.log('STATE_UNLOADING');
             _setState.call(self, STATE_WAITING_FOR_INPUT);
         } else if(state === STATE_LOADING) {
             console.log('STATE_LOADING');
-            _setState.call(self, STATE_WAITING_FOR_INPUT);
+            //уведомить о готовности лифта к погрузке
+            let floor = self.getCurrentPosition();
+            _notifyAboutReadinessForLoading(floor, self);
+            //ожидать окончания погрузки; после этого срабатывает коллбек _elevatorLoadingCompleteHandler
         } else if(state === STATE_WAITING_FOR_INPUT) {
             console.log('STATE_WAITING_FOR_INPUT');
             _setState.call(self, STATE_DOORS_CLOSING);
@@ -359,6 +366,29 @@
         return new CustomEvent('elevatorDoorsClosed', {
             detail: detail
         });
+    }
+
+    function _notifyAboutReadinessForLoading(floorNumber, elevator)
+    {
+        let eventDetail = {
+            floorNumber: floorNumber,
+            elevator: elevator,
+        };
+        let event = _createElevatorReadyForLoadingEvent(eventDetail);
+        document.dispatchEvent(event);
+    }
+
+    function _createElevatorReadyForLoadingEvent(detail)
+    {
+        return new CustomEvent('elevatorReadyForLoading', {
+            detail: detail
+        });
+    }
+
+    function _elevatorLoadingCompleteHandler(event)
+    {
+        console.log('Погрузка завершена', event.detail);
+        _setState.call(event.detail.elevator, STATE_WAITING_FOR_INPUT);
     }
 
     root.registerModule({

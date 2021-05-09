@@ -17,10 +17,16 @@
             getCallPanel: function() {
                 return this._callPanel;
             },
+            getPeople: function() {
+                return this._people;
+            },
             getView: function() {
                 return this._view;
             }
         };
+
+        //обработчик готовности лифта к погрузке
+        document.addEventListener('elevatorReadyForLoading', _elevatorReadyForLoadingHandler);
     }
 
     function constructFloor(floorParams)
@@ -105,6 +111,33 @@
         callPanel.unpressBtns();
 
         console.log('Отжать кнопки вызова на панели', event.detail, callPanel);
+    }
+
+    //обработчик готовности лифта к погрузке
+    function _elevatorReadyForLoadingHandler(event)
+    {
+        //найти группу людей на указанном этаже
+        let floorNumber = event.detail.floorNumber;
+        let floor = root.getBuilder().getBuilding().getFloorByNumber(floorNumber);
+        let people = floor.getPeople();
+
+        console.log('Погрузка пассажиров...', people);
+        //имитация асинхронности
+        setTimeout(function() {
+            //уведомить об окончании погрузки
+            let elevatorLoadingCompleteEvent = _createElevatorLoadingCompleteEvent(people, event.detail.elevator);
+            document.dispatchEvent(elevatorLoadingCompleteEvent);
+        }, 1000);
+    }
+
+    function _createElevatorLoadingCompleteEvent(people, elevator)
+    {
+        return new CustomEvent('elevatorLoadingComplete', {
+            detail: {
+                people: people,
+                elevator: elevator,
+            }
+        });
     }
 
     root.registerModule({

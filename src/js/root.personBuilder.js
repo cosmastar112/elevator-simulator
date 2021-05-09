@@ -10,7 +10,7 @@
         _obj = {
             _id: null,
             _loadingFloor: null,
-            _loadingFloor: null,
+            _unloadingFloor: null,
             _weight: null,
             _view: null,
             getView: function() {
