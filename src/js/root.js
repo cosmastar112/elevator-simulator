@@ -108,6 +108,13 @@ window.ElevatorSimulator2021 = (function() {
         return module;
     }
 
+    function getPanelPassengers()
+    {
+        let module = _getModuleById('panelPassengers');
+
+        return module;
+    }
+
     // система запущена и готова к работе
     function onStartSystemEnd()
     {
@@ -150,6 +157,7 @@ window.ElevatorSimulator2021 = (function() {
         getPanelPersonsTotalWeight: getPanelPersonsTotalWeight,
         getPanelOverWeight: getPanelOverWeight,
         getPanelButtons: getPanelButtons,
+        getPanelPassengers: getPanelPassengers,
         onStartSystemEnd: onStartSystemEnd,
     };
 

@@ -11,11 +11,15 @@
             _panelPersonsTotalNum: null,
             _panelPersonsTotalWeight: null,
             _panelOverweight: null,
+            _panelPassengers: null,
             getNumber: function() {
                 return this._number;
             },
             getView: function() {
                 return this._view;
+            },
+            getPanelPassengers: function() {
+                return this._panelPassengers;
             }
         };
     }
@@ -28,6 +32,7 @@
         newObj._panelPersonsTotalNum = _createPanelPersonsTotalNum();
         newObj._panelPersonsTotalWeight = _createPanelPersonsTotalWeight();
         newObj._panelOverweight = _createPanelOverweight();
+        newObj._panelPassengers = _createPanelPassengers();
         // создать представление
         newObj._view = _createView(params, newObj);
 
@@ -37,6 +42,8 @@
     function _createView(params, self)
     {
         let view = document.createElement('div');
+        //id панели управления (связь с id лифта)
+        view.id = 'control_panel-' + self._number;
         //название панели
         let panelTitle = document.createElement('h2');
         panelTitle.innerHTML = _obj._basename + params.number;
@@ -53,6 +60,9 @@
         //кнопочная панель
         let panelButtons = self._panelButtons.getView();
         view.appendChild(panelButtons);
+        //панель "пасажиры"
+        let panelPassengers = self._panelPassengers.getView();
+        view.appendChild(panelPassengers);
 
         return view;
     }
@@ -87,6 +97,14 @@
         let panel = panelBuilder.construct({total_floors: params.total_floors});
 
         return panel;
+    }
+
+    function _createPanelPassengers()
+    {
+        let panelBuilder = root.getPanelPassengers();
+        let controlPanel = panelBuilder.construct();
+
+        return controlPanel;
     }
 
     root.registerModule({

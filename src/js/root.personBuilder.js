@@ -15,6 +15,18 @@
             _view: null,
             getView: function() {
                 return this._view;
+            },
+            getId: function() {
+                return this._id;
+            },
+            getLoadingFloor: function() {
+                return this._loadingFloor;
+            },
+            getUnloadingFloor: function() {
+                return this._unloadingFloor;
+            },
+            getWeight: function() {
+                return this._weight;
             }
         };
     }

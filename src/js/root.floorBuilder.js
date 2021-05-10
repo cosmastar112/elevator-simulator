@@ -118,24 +118,28 @@
     {
         //найти группу людей на указанном этаже
         let floorNumber = event.detail.floorNumber;
+        let elevator = event.detail.elevator;
+        //этаж
         let floor = root.getBuilder().getBuilding().getFloorByNumber(floorNumber);
+        //группа людей
         let people = floor.getPeople();
 
         console.log('Погрузка пассажиров...', people);
         //имитация асинхронности
         setTimeout(function() {
             //уведомить об окончании погрузки
-            let elevatorLoadingCompleteEvent = _createElevatorLoadingCompleteEvent(people, event.detail.elevator);
+            let elevatorLoadingCompleteEvent = _createElevatorLoadingCompleteEvent(people, elevator, floorNumber);
             document.dispatchEvent(elevatorLoadingCompleteEvent);
         }, 1000);
     }
 
-    function _createElevatorLoadingCompleteEvent(people, elevator)
+    function _createElevatorLoadingCompleteEvent(people, elevator, floorNumber)
     {
         return new CustomEvent('elevatorLoadingComplete', {
             detail: {
                 people: people,
                 elevator: elevator,
+                floorNumber: floorNumber,
             }
         });
     }

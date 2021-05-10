@@ -16,6 +16,13 @@
             },
             getView: function() {
                 return this._view;
+            },
+            updateView: function() {
+                this._view = _createView(this);
+                return this._view;
+            },
+            getPersons: function() {
+                return this._persons;
             }
         };
     }
