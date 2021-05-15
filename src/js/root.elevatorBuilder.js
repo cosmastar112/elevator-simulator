@@ -389,31 +389,7 @@
     {
         console.log('Погрузка завершена', event.detail);
         let elevator = event.detail.elevator;
-        let floorNumber = event.detail.floorNumber;
-        let people = event.detail.people;
-
-        //уведомить об окончании погрузки пассажиров
-        _notifyAboutPassengersLoadingCompleting(floorNumber, elevator, people);
-
         _setState.call(elevator, STATE_WAITING_FOR_INPUT);
-    }
-
-    function _notifyAboutPassengersLoadingCompleting(floorNumber, elevator, people)
-    {
-        let eventDetail = {
-            floorNumber: floorNumber,
-            elevator: elevator,
-            people: people,
-        };
-        let event = _createPassengersLoadingCompletedEvent(eventDetail);
-        document.dispatchEvent(event);
-    }
-
-    function _createPassengersLoadingCompletedEvent(detail)
-    {
-        return new CustomEvent('passengersLoadingCompleted', {
-            detail: detail
-        });
     }
 
     root.registerModule({
