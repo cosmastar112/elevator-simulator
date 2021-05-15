@@ -64,12 +64,11 @@
         return table;
     }
 
-    function _updateView(action, people)
+    function _updateView(action, persons)
     {
-        console.log('panelPassengers._updateView', action, people);
+        console.log('panelPassengers._updateView', action, persons);
         if (action === 'add') {
             //добавить строки
-            let persons = people.getPersons();
             persons.forEach(function(person) {
                 let id = person.getId();
                 let loadingFloor = person.getLoadingFloor();

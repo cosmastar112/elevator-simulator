@@ -21,9 +21,22 @@
                 this._view = _createView(this);
                 return this._view;
             },
-            getPersons: function() {
-                return this._persons;
-            }
+            //группа пуста
+            isEmpty: function() {
+                return this._total === 0;
+            },
+            //извлечь из группы человека
+            detachPerson: function() {
+                if (this._persons && this._persons.length > 0) {
+                    this.decrementTotal();
+                    return this._persons.shift();
+                }
+                return undefined;
+            },
+            //уменьшить на один количество людей в группе
+            decrementTotal: function() {
+                this._total--;
+            },
         };
     }
 

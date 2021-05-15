@@ -201,8 +201,10 @@
         //группа людей на этаже
         let people = floor.getPeople();
         //перерисовать группу людей
-        let updatedView = people.updateView();
-        td.appendChild(updatedView);
+        if (people) {
+            let updatedView = people.updateView();
+            td.appendChild(updatedView);
+        }
         ////
 
         ////Б. Отрисовка погруженных пассажиров на debug-панели

@@ -22,6 +22,11 @@
             },
             getView: function() {
                 return this._view;
+            },
+            //удалить группу людей с этажа
+            removePeople: function() {
+                this._people = null;
+                this._hasPeople = null;
             }
         };
 
@@ -123,12 +128,13 @@
         let floor = root.getBuilder().getBuilding().getFloorByNumber(floorNumber);
         //группа людей
         let people = floor.getPeople();
+        //успешно погруженные пассажиры
+        let loadedPersons = _loadPassengers(people, floor);
 
-        console.log('Погрузка пассажиров...', people);
         //имитация асинхронности
         setTimeout(function() {
             //уведомить об окончании погрузки
-            let elevatorLoadingCompletedEvent = _createElevatorLoadingCompletedEvent(people, elevator, floorNumber);
+            let elevatorLoadingCompletedEvent = _createElevatorLoadingCompletedEvent(loadedPersons, elevator, floorNumber);
             document.dispatchEvent(elevatorLoadingCompletedEvent);
         }, 1000);
     }
@@ -142,6 +148,43 @@
                 floorNumber: floorNumber,
             }
         });
+    }
+
+    function _loadPassengers(people, floor)
+    {
+        console.log('Погрузка пассажиров...', people);
+        //успешно погруженные пассажиры
+        let loadedPersons = [];
+
+        while (!people.isEmpty()) {
+            let person = people.detachPerson();
+            //попытаться его погрузить
+            if (_loadPerson(person)) {
+                //если погрузка прошла успешно (перегруз не наступил), добавить его в список погруженных пассажиров
+                loadedPersons.push(person);
+            } else {
+                //если наступил перегруз, устранить его
+                _fixOverweight();
+            }
+        }
+
+        //убрать пустую группу людей с этажа
+        floor.removePeople();
+
+        return loadedPersons;
+    }
+
+    //погрузка пассажира в кабину лифта
+    function _loadPerson(person)
+    {
+        let weight = person.getWeight();
+        //пока что выполняется ВСЕГДА успешно
+        return true;
+    }
+
+    function _fixOverweight()
+    {
+
     }
 
     root.registerModule({
