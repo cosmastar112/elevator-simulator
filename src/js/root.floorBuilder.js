@@ -128,14 +128,14 @@
         //имитация асинхронности
         setTimeout(function() {
             //уведомить об окончании погрузки
-            let elevatorLoadingCompleteEvent = _createElevatorLoadingCompleteEvent(people, elevator, floorNumber);
-            document.dispatchEvent(elevatorLoadingCompleteEvent);
+            let elevatorLoadingCompletedEvent = _createElevatorLoadingCompletedEvent(people, elevator, floorNumber);
+            document.dispatchEvent(elevatorLoadingCompletedEvent);
         }, 1000);
     }
 
-    function _createElevatorLoadingCompleteEvent(people, elevator, floorNumber)
+    function _createElevatorLoadingCompletedEvent(people, elevator, floorNumber)
     {
-        return new CustomEvent('elevatorLoadingComplete', {
+        return new CustomEvent('elevatorLoadingCompleted', {
             detail: {
                 people: people,
                 elevator: elevator,

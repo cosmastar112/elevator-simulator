@@ -6,7 +6,7 @@
         document.addEventListener('peopleCreated', _peopleCreatedHandler);
         document.addEventListener('elevatorPositionUpdated', _elevatorPositionUpdatedHandler);
         //слушать событие "погрузка пассажиров завершена"; реагирование: перерисовать группу людей на этаже
-        document.addEventListener('elevatorLoadingComplete', _elevatorLoadingCompleteHandler);
+        document.addEventListener('elevatorLoadingCompleted', _elevatorLoadingCompletedHandler);
     }
 
     function createView(building)
@@ -171,7 +171,7 @@
     }
 
     //обработчик события "погрузка пассажиров завершена"
-    function _elevatorLoadingCompleteHandler(event)
+    function _elevatorLoadingCompletedHandler(event)
     {
         console.log('Запуск рендера после завершения погрузки пассажиров', event.detail);
         // console.log(event.detail);

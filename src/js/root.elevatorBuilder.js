@@ -66,7 +66,7 @@
         };
 
         //коллбек окончания погрузки
-        document.addEventListener('elevatorLoadingComplete', _elevatorLoadingCompleteHandler);
+        document.addEventListener('elevatorLoadingCompleted', _elevatorLoadingCompletedHandler);
     }
 
     function construct(params)
@@ -226,7 +226,7 @@
             //уведомить о готовности лифта к погрузке
             let floor = self.getCurrentPosition();
             _notifyAboutReadinessForLoading(floor, self);
-            //ожидать окончания погрузки; после этого срабатывает коллбек _elevatorLoadingCompleteHandler
+            //ожидать окончания погрузки; после этого срабатывает коллбек _elevatorLoadingCompletedHandler
         } else if(state === STATE_WAITING_FOR_INPUT) {
             console.log('STATE_WAITING_FOR_INPUT');
             _setState.call(self, STATE_DOORS_CLOSING);
@@ -385,7 +385,7 @@
         });
     }
 
-    function _elevatorLoadingCompleteHandler(event)
+    function _elevatorLoadingCompletedHandler(event)
     {
         console.log('Погрузка завершена', event.detail);
         let elevator = event.detail.elevator;
