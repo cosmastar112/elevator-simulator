@@ -148,10 +148,15 @@
             //если предыдущее состояние - НЕ бездействие
             let nextCall = null;
             let direction = self.getLastDirection();
-            if (direction) {
+            if (direction !== null) {
                 //искать следующий вызов по принципу: ближайший по ходу движения
                 let elevatorCurrentPosition = self.getCurrentPosition();
                 nextCall = self.getRoute().getNearestByDirection(direction, elevatorCurrentPosition);
+                //если вызовы по ходу движения закончились, посмотреть наличие вызовов в обратном направлении
+                if (!nextCall) {
+                    let revertedDirection = direction === 1 ? -1: 1;
+                    nextCall = self.getRoute().getNearestByDirection(revertedDirection, elevatorCurrentPosition);
+                }
             } else {
                 //последний добавленный
                 nextCall = self.getRoute().getNearest();
@@ -163,7 +168,7 @@
                 nextCall.processing = true;
                 _setState.call(self, STATE_MOVE);
             } else {
-                console.log('Все цели маршрута обработаны');
+                console.log('Все цели маршрута обработаны', self);
                 _setState.call(self, STATE_IDLE);
             }
         } else if(state === STATE_MOVE) {
