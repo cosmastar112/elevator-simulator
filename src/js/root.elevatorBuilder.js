@@ -92,8 +92,6 @@
         // создать представление
         elevator._view = _createView(params.number);
 
-        elevator._setState(STATE_IDLE);
-
         return elevator;
     }
 

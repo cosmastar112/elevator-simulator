@@ -24,7 +24,8 @@
         // отрисовать здание
         _render(building);
 
-        root.onStartSystemEnd();
+        //подготовка здания закончена, можно запускать лифт
+        root.onBuildEnd();
     }
 
     function _render(building)

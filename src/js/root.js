@@ -122,9 +122,13 @@ window.ElevatorSimulator2021 = (function() {
         return module;
     }
 
-    // система запущена и готова к работе
-    function onStartSystemEnd()
+    //система запущена и готова к работе
+    function onBuildEnd()
     {
+        //запустить лифты
+        this.getBuilder().getBuilding().getElevators().forEach(function(elevator) {
+            elevator._setState(1);
+        });
         console.log('Система запущена!');
     }
 
@@ -166,7 +170,7 @@ window.ElevatorSimulator2021 = (function() {
         getPanelButtons: getPanelButtons,
         getPanelPassengers: getPanelPassengers,
         getUtils: getUtils,
-        onStartSystemEnd: onStartSystemEnd,
+        onBuildEnd: onBuildEnd,
     };
 
     return public;
