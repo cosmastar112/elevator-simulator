@@ -7,6 +7,8 @@
         document.addEventListener('elevatorPositionUpdated', _elevatorPositionUpdatedHandler);
         //слушать событие "погрузка пассажиров завершена"; реагирование: перерисовать группу людей на этаже
         document.addEventListener('elevatorLoadingCompleted', _elevatorLoadingCompletedHandler);
+        //модель панели "Количество пассажиров" изменена; реагирование: перерисовать view панели
+        document.addEventListener('panelPersonsTotalNumModelUpdated', _panelPersonsTotalNumModelUpdatedHandler);
     }
 
     function createView(building)
@@ -210,6 +212,21 @@
         ////Б. Отрисовка погруженных пассажиров на debug-панели
         elevator.getControlPanel().getPanelPassengers().updateView('add', loadedPeople);
         ////
+    }
+
+    function _panelPersonsTotalNumModelUpdatedHandler(event)
+    {
+        let elevator = event.detail.elevator;
+        //id лифта
+        let id = elevator.getNumber();
+        //панель управления лифта
+        let controlPanel = document.getElementById('control_panel-' + id);
+        //старый view панели "Количество пассажиров"
+        let panelContainer = controlPanel.querySelector('div.panel_total-persons-num');
+        //обновленный view панели "Количество пассажиров"
+        let updatedView = elevator.getControlPanel().getPanelPersonsTotalNum().updateView();
+        //замена старого view на новый
+        controlPanel.replaceChild(updatedView, panelContainer);
     }
 
     root.registerModule({

@@ -129,7 +129,7 @@
         //группа людей
         let people = floor.getPeople();
         //успешно погруженные пассажиры
-        let loadedPersons = _loadPassengers(people, floor);
+        let loadedPersons = _loadPassengers(people, floor, elevator);
 
         //имитация асинхронности
         setTimeout(function() {
@@ -150,7 +150,7 @@
         });
     }
 
-    function _loadPassengers(people, floor)
+    function _loadPassengers(people, floor, elevator)
     {
         console.log('Погрузка пассажиров...', people);
         //успешно погруженные пассажиры
@@ -162,6 +162,8 @@
             if (_loadPerson(person)) {
                 //если погрузка прошла успешно (перегруз не наступил), добавить его в список погруженных пассажиров
                 loadedPersons.push(person);
+                //добавить пассажира в хранилище "пассажиры в кабине"
+                elevator.attachPassenger(person);
             } else {
                 //если наступил перегруз, устранить его
                 _fixOverweight();

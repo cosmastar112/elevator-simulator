@@ -3,6 +3,7 @@
     let _obj;
 
     const CLASS_NAME = 'panel_total-persons-num';
+    const CLASS_TOTAL_CONTAINER = 'panel_total-persons-num_total';
 
     function init()
     {
@@ -15,6 +16,13 @@
             },
             getView: function() {
                 return this._view;
+            },
+            setTotal: function(newTotal) {
+                this._total = newTotal;
+            },
+            updateView: function() {
+               this._view = _createView(this);
+               return this._view;
             }
         };
     }
@@ -36,11 +44,19 @@
         panelTitle.innerHTML = self._name;
         view.appendChild(panelTitle);
         //количество пассажиров
-        let panelIndicator = document.createElement('span');
-        panelIndicator.innerHTML = self.getTotal();
+        let panelIndicator = _createViewPanelIndicator.call(self);
         view.appendChild(panelIndicator);
 
         return view;
+    }
+
+    function _createViewPanelIndicator()
+    {
+        let panelIndicator = document.createElement('span');
+        panelIndicator.classList.add(CLASS_TOTAL_CONTAINER);
+        panelIndicator.innerHTML = this.getTotal();
+
+        return panelIndicator;
     }
 
     root.registerModule({

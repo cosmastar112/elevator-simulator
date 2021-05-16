@@ -20,6 +20,9 @@
             },
             getPanelPassengers: function() {
                 return this._panelPassengers;
+            },
+            getPanelPersonsTotalNum: function() {
+                return this._panelPersonsTotalNum;
             }
         };
     }

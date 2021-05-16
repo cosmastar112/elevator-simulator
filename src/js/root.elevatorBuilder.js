@@ -23,6 +23,7 @@
             _route: null,
             _currentPosition: null,
             _lastDirection: null,
+            _passengersInCabin: null,
             getNumber: function() {
                 return this._number;
             },
@@ -62,6 +63,11 @@
             getLastDirection: function() {
                 return this._lastDirection;
             },
+            attachPassenger: function(passenger) {
+                this._passengersInCabin.push(passenger);
+                //синхронизация модели панели
+                _syncControlPanelModel(this, this._passengersInCabin.length);
+            },
             _setState: _setState,
         };
 
@@ -81,6 +87,8 @@
         elevator._route = _createRoute();
         //начальная позиция
         elevator._currentPosition = 1;
+        //инициализация хранилища "пассажиры в кабине"
+        elevator._passengersInCabin = [];
         // создать представление
         elevator._view = _createView(params.number);
 
@@ -390,6 +398,25 @@
         console.log('Погрузка завершена', event.detail);
         let elevator = event.detail.elevator;
         _setState.call(elevator, STATE_WAITING_FOR_INPUT);
+    }
+
+    function _syncControlPanelModel(elevator, totalNumPassengersInCabin)
+    {
+        elevator.getControlPanel().getPanelPersonsTotalNum().setTotal(totalNumPassengersInCabin);
+        _notifyAboutPanelPersonsTotalNumModelUpdated(elevator);
+    }
+
+    function _notifyAboutPanelPersonsTotalNumModelUpdated(elevator)
+    {
+        let event = _createPanelPersonsTotalNumModelUpdatedEvent({elevator: elevator});
+        document.dispatchEvent(event);
+    }
+
+    function _createPanelPersonsTotalNumModelUpdatedEvent(detail)
+    {
+        return new CustomEvent('panelPersonsTotalNumModelUpdated', {
+            detail: detail
+        });
     }
 
     root.registerModule({
