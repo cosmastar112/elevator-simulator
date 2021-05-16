@@ -5,6 +5,9 @@
 
     const CLASS_NAME_DEFAULT = 'person-default';
 
+    const MIN_WEIGHT = 45;
+    const MAX_WEIGHT = 120;
+
     function init()
     {
         _obj = {
@@ -38,7 +41,7 @@
         newObj._id = ++_peopleCounter;
         newObj._loadingFloor = params.loadingFloor;
         //вес
-        let weight = 45;
+        let weight = root.getUtils().getRandomIntInclusive(MIN_WEIGHT, MAX_WEIGHT);
         newObj._weight = weight;
         newObj._view = _createView(newObj._id);
 
