@@ -9,6 +9,8 @@
         document.addEventListener('elevatorLoadingCompleted', _elevatorLoadingCompletedHandler);
         //модель панели "Количество пассажиров" изменена; реагирование: перерисовать view панели
         document.addEventListener('panelPersonsTotalNumModelUpdated', _panelPersonsTotalNumModelUpdatedHandler);
+        //модель панели "Общий вес пассажиров" изменена; реагирование: перерисовать view панели
+        document.addEventListener('panelPersonsTotalWeightModelUpdated', _panelPersonsTotalWeightModelUpdatedHandler);
     }
 
     function createView(building)
@@ -225,6 +227,21 @@
         let panelContainer = controlPanel.querySelector('div.panel_total-persons-num');
         //обновленный view панели "Количество пассажиров"
         let updatedView = elevator.getControlPanel().getPanelPersonsTotalNum().updateView();
+        //замена старого view на новый
+        controlPanel.replaceChild(updatedView, panelContainer);
+    }
+
+    function _panelPersonsTotalWeightModelUpdatedHandler(event)
+    {
+        let elevator = event.detail.elevator;
+        //id лифта
+        let id = elevator.getNumber();
+        //панель управления лифта
+        let controlPanel = document.getElementById('control_panel-' + id);
+        //старый view панели
+        let panelContainer = controlPanel.querySelector('div.panel_total-persons-weight');
+        //обновленный view панели
+        let updatedView = elevator.getControlPanel().getPanelPersonsTotalWeight().updateView();
         //замена старого view на новый
         controlPanel.replaceChild(updatedView, panelContainer);
     }

@@ -66,7 +66,7 @@
             attachPassenger: function(passenger) {
                 this._passengersInCabin.push(passenger);
                 //синхронизация модели панели
-                _syncControlPanelModel(this, this._passengersInCabin.length);
+                _syncControlPanelModel(this, this._passengersInCabin);
             },
             _setState: _setState,
         };
@@ -400,10 +400,17 @@
         _setState.call(elevator, STATE_WAITING_FOR_INPUT);
     }
 
-    function _syncControlPanelModel(elevator, totalNumPassengersInCabin)
+    function _syncControlPanelModel(elevator, passengers)
     {
-        elevator.getControlPanel().getPanelPersonsTotalNum().setTotal(totalNumPassengersInCabin);
+        //панель "Количество пассажиров"
+        let length = passengers.length;
+        elevator.getControlPanel().getPanelPersonsTotalNum().setTotal(length);
         _notifyAboutPanelPersonsTotalNumModelUpdated(elevator);
+
+        //панель "Общий вес пассажиров"
+        let weight = _getTotalWeight(passengers);
+        elevator.getControlPanel().getPanelPersonsTotalWeight().setTotal(weight);
+        _notifyAboutPanelPersonsTotalWeightModelUpdated(elevator);
     }
 
     function _notifyAboutPanelPersonsTotalNumModelUpdated(elevator)
@@ -415,6 +422,27 @@
     function _createPanelPersonsTotalNumModelUpdatedEvent(detail)
     {
         return new CustomEvent('panelPersonsTotalNumModelUpdated', {
+            detail: detail
+        });
+    }
+
+    function _getTotalWeight(passengers)
+    {
+        return passengers.reduce(function(accumulator, passenger) {
+            let currentValue = passenger.getWeight();
+            return accumulator + currentValue;
+        }, 0);
+    }
+
+    function _notifyAboutPanelPersonsTotalWeightModelUpdated(elevator)
+    {
+        let event = _createPanelPersonsTotalWeightModelUpdatedEvent({elevator: elevator});
+        document.dispatchEvent(event);
+    }
+
+    function _createPanelPersonsTotalWeightModelUpdatedEvent(detail)
+    {
+        return new CustomEvent('panelPersonsTotalWeightModelUpdated', {
             detail: detail
         });
     }

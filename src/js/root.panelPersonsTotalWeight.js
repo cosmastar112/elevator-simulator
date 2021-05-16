@@ -15,6 +15,13 @@
             },
             getView: function() {
                 return this._view;
+            },
+            setTotal: function(newTotal) {
+                this._total = newTotal;
+            },
+            updateView: function() {
+               this._view = _createView(this);
+               return this._view;
             }
         };
     }

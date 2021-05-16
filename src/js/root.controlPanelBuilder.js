@@ -23,6 +23,9 @@
             },
             getPanelPersonsTotalNum: function() {
                 return this._panelPersonsTotalNum;
+            },
+            getPanelPersonsTotalWeight: function() {
+                return this._panelPersonsTotalWeight;
             }
         };
     }
