@@ -4,6 +4,9 @@
 
     const CLASS_NAME_DEFAULT = 'people-default';
 
+    const MIN_TOTAL = 1;
+    const MAX_TOTAL = 5;
+
     function init()
     {
         _obj = {
@@ -47,7 +50,7 @@
         //этаж погрузки
         newObj._loadingFloor = params.floor;
         //количество человек в группе
-        let totalPersons = 3;
+        let totalPersons = root.getUtils().getRandomIntInclusive(MIN_TOTAL, MAX_TOTAL);;
         newObj._total = totalPersons;
         newObj._persons = _createPersons({floor: params.floor, total: newObj._total}, newObj);
         newObj._view = _createView(newObj);
