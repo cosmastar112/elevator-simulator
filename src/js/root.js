@@ -142,6 +142,14 @@ window.ElevatorSimulator2021 = (function() {
             module.init();
             console.log('end init module[' + i + ']: ' + module.id);
         }
+
+        _afterInit();
+    }
+
+    function _afterInit()
+    {
+        //триггер клика по кнопке «Запуск!» для облегчения тестирования
+        document.getElementById('system_params_form__submit_btn').dispatchEvent(new Event('click'));
     }
 
     function _getModuleById(id)
