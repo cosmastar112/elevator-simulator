@@ -11,6 +11,7 @@
             _name: 'Кнопочная панель',
             _btns: null,
             _view: null,
+            _clickHandler: null,
             getView: function() {
                 return this._view;
             }
@@ -24,7 +25,22 @@
         newObj._btns = [];
         newObj._view = _createView(_obj, params);
 
+        newObj._clickHandler = _createClickHandler(newObj);
+        newObj._view.addEventListener('click', newObj._clickHandler);
+
         return newObj;
+    }
+
+    function _createClickHandler(self)
+    {
+        let cb = function(event)
+        {
+            if (event.target.nodeName === "BUTTON") {
+                console.log('Была нажата кнопка вызова лифта в кабине. Этаж: ', event.target.value);
+            }
+        };
+
+        return cb;
     }
 
     function _createView(self, params)
