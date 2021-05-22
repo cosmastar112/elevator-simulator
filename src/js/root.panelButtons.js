@@ -55,17 +55,21 @@
         // totalFloors.innerHTML = 'Всего этажей: ' + params.total_floors;
         // view.appendChild(totalFloors);
         //кнопки
-        let btnsContainer = _createBtns(params.total_floors);
+        let btnsContainer = _createBtns(self, params.total_floors);
         view.appendChild(btnsContainer);
 
         return view;
     }
 
-    function _createBtns(total_floors)
+    function _createBtns(self, total_floors)
     {
         let view = document.createElement('div');
         for (let floorNumber = 1; floorNumber <= total_floors; floorNumber++) {
             let btn = _createBtn(floorNumber);
+
+            //сохранить ссылку на кнопку
+            self._btns.push(btn);
+
             view.appendChild(btn);
             //пять кнопок в ряд
             if (floorNumber % 5 === 0) {
