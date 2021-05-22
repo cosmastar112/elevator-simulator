@@ -23,7 +23,7 @@
         let newObj = Object.assign({}, _obj);
         //инициализация хранилища объектов кнопок
         newObj._btns = [];
-        newObj._view = _createView(_obj, params);
+        newObj._view = _createView(newObj, params);
 
         newObj._clickHandler = _createClickHandler(newObj);
         newObj._view.addEventListener('click', newObj._clickHandler);
