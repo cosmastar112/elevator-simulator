@@ -96,6 +96,16 @@
                     return;
                 }
 
+                //проверить: создан ли уже вызов с этажа (неважно в каком направлении)
+                let btnUpPressed = _isBtnPressed(CLASS_NAME_UP, self);
+                let btnDownPressed = _isBtnPressed(CLASS_NAME_DOWN, self);
+                let callFromFloorAlreadyExist = btnUpPressed || btnDownPressed;
+                if (callFromFloorAlreadyExist) {
+                    //и если да, то заблокировать кнопку до момента, пока вызов не будет обработан
+                    _pressBtn(direction, self);
+                    return;
+                }
+
                 console.log('Создать новый вызов');
                 //кнопка не нажата, создать новый вызов
                 //этаж вызова
