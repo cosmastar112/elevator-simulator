@@ -12,6 +12,7 @@
             _panelPersonsTotalWeight: null,
             _panelOverweight: null,
             _panelPassengers: null,
+            _panelButtons: null,
             getNumber: function() {
                 return this._number;
             },
@@ -26,6 +27,9 @@
             },
             getPanelPersonsTotalWeight: function() {
                 return this._panelPersonsTotalWeight;
+            },
+            getPanelButtons: function() {
+                return this._panelButtons;
             }
         };
     }
