@@ -28,6 +28,9 @@
             getUnloadingFloor: function() {
                 return this._unloadingFloor;
             },
+            setUnloadingFloor: function(value) {
+                this._unloadingFloor = value;
+            },
             getWeight: function() {
                 return this._weight;
             }
