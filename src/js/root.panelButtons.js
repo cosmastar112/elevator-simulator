@@ -14,7 +14,8 @@
             _clickHandler: null,
             getView: function() {
                 return this._view;
-            }
+            },
+            handlePassengersInput: _handlePassengersInput
         };
     }
 
@@ -88,6 +89,31 @@
         btn.value = floorNumber;
         btn.innerHTML = floorNumber;
         btn.classList.add(CLASS_NAME_BTN_DEFAULT);
+
+        return btn;
+    }
+
+    function _handlePassengersInput(elevator, input)
+    {
+        let self = this;
+        // console.log(this, input);
+        input.forEach(function(nextInput) {
+            //найти соответствующую кнопку этажа
+            let btn = _findBtn.call(self, nextInput);
+            // console.log(btn);
+            if (btn) {
+                //триггер кнопки вызова в кабине
+                btn.dispatchEvent(new Event('click', {'bubbles': true}));
+            }
+        });
+    }
+
+    //найти соответствующую кнопку этажа
+    function _findBtn(value)
+    {
+        let btn = this._btns.find(function(panelBtn) {
+            return parseInt(panelBtn.value) === value;
+        });
 
         return btn;
     }
