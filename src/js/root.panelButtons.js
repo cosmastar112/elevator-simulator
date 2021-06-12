@@ -93,7 +93,7 @@
         return btn;
     }
 
-    function _handlePassengersInput(elevator, input)
+    function _handlePassengersInput(input)
     {
         let self = this;
         // console.log(this, input);
