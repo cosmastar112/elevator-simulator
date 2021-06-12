@@ -96,3 +96,9 @@
     width: 50px;
     margin: 1px;
 }
+
+.control_panel_button-pressed {
+    background-color: darkorange;
+    font-size: medium;
+    color: white;
+}

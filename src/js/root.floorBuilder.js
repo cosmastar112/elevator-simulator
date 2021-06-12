@@ -115,7 +115,7 @@
         let callPanel = floor.getCallPanel();
         callPanel.unpressBtns();
 
-        console.log('Отжать кнопки вызова на панели', event.detail, callPanel);
+        console.log('Отжать кнопки вызова на панели на этаже', event.detail, callPanel);
     }
 
     //обработчик готовности лифта к погрузке

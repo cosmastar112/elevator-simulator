@@ -269,7 +269,7 @@
             console.log('STATE_DOORS_CLOSING');
             //уведомить о закрытии дверей
             let floor = self.getCurrentPosition();
-            _notifyAboutDoorsClosed(floor);
+            _notifyAboutDoorsClosed(self, floor);
             _setState.call(self, STATE_CHOOSE_NEXT_TARGET);
         }
 
@@ -387,9 +387,10 @@
         return true;
     }
 
-    function _notifyAboutDoorsClosed(floor)
+    function _notifyAboutDoorsClosed(elevator, floor)
     {
         let eventDetail = {
+            elevator: elevator,
             floor: floor,
         };
         let event = _createElevatorDoorsClosedEvent(eventDetail);

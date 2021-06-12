@@ -5,6 +5,8 @@
     const CLASS_NAME_CONTAINER = 'control_panel_buttons';
     const CLASS_NAME_BTN_DEFAULT = 'control_panel_button';
 
+    const CLASS_NAME_PRESSED = 'control_panel_button-pressed';
+
     function init()
     {
         _obj = {
@@ -15,7 +17,8 @@
             getView: function() {
                 return this._view;
             },
-            handlePassengersInput: _handlePassengersInput
+            handlePassengersInput: _handlePassengersInput,
+            unpressBtn: _unpressBtn
         };
     }
 
@@ -28,6 +31,9 @@
 
         newObj._clickHandler = _createClickHandler(newObj);
         newObj._view.addEventListener('click', newObj._clickHandler);
+
+        //обработчик отжатия кнопок вызова
+        document.addEventListener('elevatorDoorsClosed', _elevatorDoorsClosedHandler);
 
         return newObj;
     }
@@ -45,6 +51,7 @@
                 let elevatorCallCreatedEvent = _createCallEvent(call);
                 //оповестить подписчиков о создании вызова
                 document.dispatchEvent(elevatorCallCreatedEvent);
+                _pressBtn(event.target);
             }
         };
 
@@ -134,6 +141,33 @@
         });
 
         return btn;
+    }
+
+    function _pressBtn(btn)
+    {
+        btn.classList.add(CLASS_NAME_PRESSED);
+    }
+    function _unpressBtn(btnValue)
+    {
+        //найти кнопку по номеру этажа
+        let btn = this._btns.find(function(item) {
+            return parseInt(item.value) === btnValue;
+        });
+        // console.log(btn);
+        if (btn) {
+            btn.classList.remove(CLASS_NAME_PRESSED);
+        }
+    }
+
+    //обработчик отжатия кнопок вызова
+    function _elevatorDoorsClosedHandler()
+    {
+        let floorNumber = event.detail.floor;
+        let elevator = event.detail.elevator;
+        let panelButtons = elevator.getControlPanel().getPanelButtons();
+        panelButtons.unpressBtn(floorNumber);
+
+        console.log('Отжать кнопки вызова на панели в кабине', event.detail, panelButtons);
     }
 
     root.registerModule({
