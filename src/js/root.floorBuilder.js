@@ -156,6 +156,11 @@
         //успешно погруженные пассажиры
         let loadedPersons = [];
 
+        //на этаже нет группы людей
+        if (!people) {
+            return loadedPersons;
+        }
+
         while (!people.isEmpty()) {
             let person = people.detachPerson();
             //попытаться его погрузить
