@@ -37,11 +37,27 @@
         let cb = function(event)
         {
             if (event.target.nodeName === "BUTTON") {
-                console.log('Была нажата кнопка вызова лифта в кабине. Этаж: ', event.target.value);
+                //этаж назначения
+                let targetFloor = event.target.value;
+                console.log('Была нажата кнопка вызова лифта в кабине. Этаж: ', targetFloor);
+                let call = {floor: targetFloor, fromCabin: true};
+                //событие создания вызова
+                let elevatorCallCreatedEvent = _createCallEvent(call);
+                //оповестить подписчиков о создании вызова
+                document.dispatchEvent(elevatorCallCreatedEvent);
             }
         };
 
         return cb;
+    }
+
+    function _createCallEvent(call)
+    {
+        return new CustomEvent('elevatorCallFromCabinCreated', {
+            detail: {
+                call: call
+            }
+        });
     }
 
     function _createView(self, params)

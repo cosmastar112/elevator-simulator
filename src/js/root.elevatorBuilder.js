@@ -259,8 +259,12 @@
             //TODO: создать вызовы на основе выбранных этажей
             self.getControlPanel().getPanelButtons().handlePassengersInput(choosedFloors);
 
-            //ожидать окончания создания вызовов;
-            _setState.call(self, STATE_DOORS_CLOSING);
+            //TODO: ожидать окончания создания вызовов;
+            //временное решение: дать полсекунды на регистрацию вызовов,
+            setTimeout(function() {
+                //а затем переключить состояние
+                _setState.call(self, STATE_DOORS_CLOSING);
+            }, 500 /*полсекунды на регистрацию вызовов*/);
         } else if(state === STATE_DOORS_CLOSING) {
             console.log('STATE_DOORS_CLOSING');
             //уведомить о закрытии дверей
