@@ -12,10 +12,25 @@
         return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
     }
 
+    //убирает из массива дубликаты и оставляет только уникальные значения
+    function arrayUnique(sourceArray)
+    {
+        let uniqueArray = [];
+        sourceArray.forEach(function(item) {
+            //если элемента еще нет в массиве, добавить его туда
+            if (uniqueArray.indexOf(item) === -1) {
+                uniqueArray.push(item);
+            }
+        });
+
+        return uniqueArray;
+    }
+
     root.registerModule({
         id: 'utils',
         init: init,
-        getRandomIntInclusive: getRandomIntInclusive
+        getRandomIntInclusive: getRandomIntInclusive,
+        arrayUnique: arrayUnique
 
     });
 

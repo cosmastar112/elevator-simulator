@@ -97,7 +97,9 @@
     {
         let self = this;
         // console.log(this, input);
-        input.forEach(function(nextInput) {
+        let uniqueInput = root.getUtils().arrayUnique(input);
+        // console.log(uniqueInput);
+        uniqueInput.forEach(function(nextInput) {
             //найти соответствующую кнопку этажа
             let btn = _findBtn.call(self, nextInput);
             // console.log(btn);
