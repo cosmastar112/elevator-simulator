@@ -87,6 +87,8 @@
     function _createTr(id, loadingFloor, unloadingFloor, weight)
     {
         let tr = document.createElement('tr');
+        //id строки
+        tr.dataset.key = id;
         let tdId = document.createElement('td');
         tdId.innerHTML = id;
         let tdLoadingFloor = document.createElement('td');
