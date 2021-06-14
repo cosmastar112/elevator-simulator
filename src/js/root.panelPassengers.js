@@ -15,7 +15,8 @@
             getView: function() {
                 return this._view;
             },
-            updateView: _updateView
+            updateView: _updateView,
+            updateView_PassengerUnloadingFloor: _updateView_PassengerUnloadingFloor,
         };
     }
 
@@ -85,6 +86,20 @@
         }
     }
 
+    //обновить значение в столбце «Этаж выгрузки» соответствующей записи
+    function _updateView_PassengerUnloadingFloor(id, value)
+    {
+        let view = this.getView();
+        // console.log(view);
+        if (view) {
+            let tr = _getRowByDataKey(view, id);
+            let td = _getUnloadingFloorTdFromTr(tr);
+            if (td) {
+                td.innerHTML = value;
+            }
+        }
+    }
+
     //добавить строку
     function _createTr(id, loadingFloor, unloadingFloor, weight)
     {
@@ -107,6 +122,20 @@
         tr.appendChild(tdWeight);
 
         return tr;
+    }
+
+    function _getRowByDataKey(view, key)
+    {
+        let selector = '#' + TABLE_ID + ' tr[data-key="' + key + '"]';
+        let tr = view.querySelector(selector);
+
+        return tr;
+    }
+
+    function _getUnloadingFloorTdFromTr(tr)
+    {
+        let td = tr.querySelector('td.' + CLASS_TD_UNLOADING_FLOOR_DEFAULT);
+        return td;
     }
 
     root.registerModule({

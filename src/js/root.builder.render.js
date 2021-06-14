@@ -11,6 +11,8 @@
         document.addEventListener('panelPersonsTotalNumModelUpdated', _panelPersonsTotalNumModelUpdatedHandler);
         //модель панели "Общий вес пассажиров" изменена; реагирование: перерисовать view панели
         document.addEventListener('panelPersonsTotalWeightModelUpdated', _panelPersonsTotalWeightModelUpdatedHandler);
+        //слушать событие "назначение этажа погрузки пассажира"; реагирование: перерисовать соответствующее значение на дебаг-панели
+        document.addEventListener('personUnloadingFloorUpdated', _personUnloadingFloorUpdatedHandler);
     }
 
     function createView(building)
@@ -247,6 +249,19 @@
         let updatedView = elevator.getControlPanel().getPanelPersonsTotalWeight().updateView();
         //замена старого view на новый
         controlPanel.replaceChild(updatedView, panelContainer);
+    }
+
+    function _personUnloadingFloorUpdatedHandler(event)
+    {
+        let personId = event.detail.personId;
+        let value = event.detail.value;
+
+        //определить в каком лифте находится пассажир
+        let elevator = root.getBuilder().getBuilding().getElevatorByPassengerId(personId);
+        // console.log(elevator);
+        if (elevator) {
+            elevator.getControlPanel().getPanelPassengers().updateView_PassengerUnloadingFloor(personId, value);
+        }
     }
 
     root.registerModule({

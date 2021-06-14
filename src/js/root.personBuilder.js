@@ -30,6 +30,7 @@
             },
             setUnloadingFloor: function(value) {
                 this._unloadingFloor = value;
+                _notifyAboutUnloadingFloorUpdated(this.getId(), value);
             },
             getWeight: function() {
                 return this._weight;
@@ -58,6 +59,19 @@
         view.classList.add(CLASS_NAME_DEFAULT);
 
         return view;
+    }
+
+    //@param personId int id персоны
+    //@param value int этаж назначения
+    function _notifyAboutUnloadingFloorUpdated(personId, value)
+    {
+        let newCustomEvent = new CustomEvent('personUnloadingFloorUpdated', {
+            detail: {
+                personId: personId,
+                value: value,
+            }
+        });
+        document.dispatchEvent(newCustomEvent);
     }
 
     root.registerModule({
