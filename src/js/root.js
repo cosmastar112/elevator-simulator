@@ -115,6 +115,13 @@ window.ElevatorSimulator2021 = (function() {
         return module;
     }
 
+    function getPanelCalls()
+    {
+        let module = _getModuleById('panelCalls');
+
+        return module;
+    }
+
     function getUtils()
     {
         let module = _getModuleById('utils');
@@ -177,6 +184,7 @@ window.ElevatorSimulator2021 = (function() {
         getPanelOverWeight: getPanelOverWeight,
         getPanelButtons: getPanelButtons,
         getPanelPassengers: getPanelPassengers,
+        getPanelCalls: getPanelCalls,
         getUtils: getUtils,
         onBuildEnd: onBuildEnd,
     };
