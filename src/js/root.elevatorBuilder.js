@@ -12,6 +12,9 @@
     const STATE_WAITING_FOR_INPUT = 8;
     const STATE_DOORS_CLOSING = 9;
 
+    let MIN_FLOOR;
+    let MAX_FLOOR;
+
     function init()
     {
         _elevator = {
@@ -99,6 +102,9 @@
         elevator._passengersInCabin = [];
         // создать представление
         elevator._view = _createView(params.number);
+
+        MIN_FLOOR = 1;
+        MAX_FLOOR = params.total_floors;
 
         return elevator;
     }
