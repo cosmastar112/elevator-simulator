@@ -240,21 +240,8 @@
             //ожидать окончания погрузки; после этого срабатывает коллбек _elevatorLoadingCompletedHandler
         } else if(state === STATE_WAITING_FOR_INPUT) {
             console.log('STATE_WAITING_FOR_INPUT');
-
             //выбор пассажирами этажей назначения
-            // console.log('Пассажиры в кабине', self._passengersInCabin);
-            //определить только что погруженных пассажиров (по косвенному признаку - без этажа назначения)
-            let passengersWithoutUnloadingFloor = self._passengersInCabin.filter(function(passenger) {
-                return passenger.getUnloadingFloor() === null;
-            });
-            // console.log('Погруженные пассажиры', passengersWithoutUnloadingFloor);
-            //только что погруженные пассажиры выбирают этаж назначения
-            let choosedFloors = passengersWithoutUnloadingFloor.map(function(passenger) {
-                let choosedFloor = 5;
-                passenger.setUnloadingFloor(choosedFloor);
-
-                return passenger.getUnloadingFloor();
-            });
+            let choosedFloors = _chooseFloors(self);
             console.log('Этажи назначения', choosedFloors);
             //TODO: создать вызовы на основе выбранных этажей
             self.getControlPanel().getPanelButtons().handlePassengersInput(choosedFloors);
@@ -473,6 +460,27 @@
         return new CustomEvent('panelPersonsTotalWeightModelUpdated', {
             detail: detail
         });
+    }
+
+    //выбор пассажирами этажей назначения
+    //@param Object elevator лифт
+    //@return Array выбранные этажи
+    function _chooseFloors(elevator)
+    {
+        //определить только что погруженных пассажиров (по косвенному признаку - без этажа назначения)
+        let passengersWithoutUnloadingFloor = elevator._passengersInCabin.filter(function(passenger) {
+            return passenger.getUnloadingFloor() === null;
+        });
+        // console.log('Погруженные пассажиры', passengersWithoutUnloadingFloor);
+
+        let choosedFloors = passengersWithoutUnloadingFloor.map(function(passenger) {
+            let choosedFloor = 5;
+            passenger.setUnloadingFloor(choosedFloor);
+
+            return passenger.getUnloadingFloor();
+        });
+
+        return choosedFloors;
     }
 
     root.registerModule({
