@@ -185,7 +185,7 @@
         //лифт
         let elevator = event.detail.elevator;
         //погруженные люди
-        let loadedPeople = event.detail.people;
+        let loadedPersons = event.detail.loadedPersons;
 
         ////А. перерисовка группы людей
         //1. найти строку в которой располагается вид группы людей
@@ -212,7 +212,7 @@
         ////
 
         ////Б. Отрисовка погруженных пассажиров на debug-панели
-        elevator.getControlPanel().getPanelPassengers().updateView('add', loadedPeople);
+        elevator.getControlPanel().getPanelPassengers().updateView('add', loadedPersons);
         ////
     }
 

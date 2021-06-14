@@ -139,17 +139,18 @@
         }, 1000);
     }
 
-    function _createElevatorLoadingCompletedEvent(people, elevator, floorNumber)
+    function _createElevatorLoadingCompletedEvent(loadedPersons, elevator, floorNumber)
     {
         return new CustomEvent('elevatorLoadingCompleted', {
             detail: {
-                people: people,
+                loadedPersons: loadedPersons,
                 elevator: elevator,
                 floorNumber: floorNumber,
             }
         });
     }
 
+    //@return array
     function _loadPassengers(people, floor, elevator)
     {
         console.log('Погрузка пассажиров...', people);
