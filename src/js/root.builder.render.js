@@ -187,33 +187,36 @@
         //погруженные люди
         let loadedPersons = event.detail.loadedPersons;
 
-        ////А. перерисовка группы людей
-        //1. найти строку в которой располагается вид группы людей
-        //id строки
-        let trId = _getFloorId(floorNumber);
-        //строка
-        let tr = document.getElementById(trId);
-        //ячейка
-        let td = tr.querySelector('td.column_people');
-        //2. удалить старый вид
-        while (td.firstChild) {
-            td.removeChild(td.lastChild);
-        }
-        //3.создать новый вид
-        //этаж
-        let floor = root.getBuilder().getBuilding().getFloorByNumber(floorNumber);
-        //группа людей на этаже
-        let people = floor.getPeople();
-        //перерисовать группу людей
-        if (people) {
-            let updatedView = people.updateView();
-            td.appendChild(updatedView);
-        }
-        ////
+        //запускать рендер только в случае если пассажиры были погружены
+        if (loadedPersons.length > 0) {
+            ////А. перерисовка группы людей
+            //1. найти строку в которой располагается вид группы людей
+            //id строки
+            let trId = _getFloorId(floorNumber);
+            //строка
+            let tr = document.getElementById(trId);
+            //ячейка
+            let td = tr.querySelector('td.column_people');
+            //2. удалить старый вид
+            while (td.firstChild) {
+                td.removeChild(td.lastChild);
+            }
+            //3.создать новый вид
+            //этаж
+            let floor = root.getBuilder().getBuilding().getFloorByNumber(floorNumber);
+            //группа людей на этаже
+            let people = floor.getPeople();
+            //перерисовать группу людей
+            if (people) {
+                let updatedView = people.updateView();
+                td.appendChild(updatedView);
+            }
+            ////
 
-        ////Б. Отрисовка погруженных пассажиров на debug-панели
-        elevator.getControlPanel().getPanelPassengers().updateView('add', loadedPersons);
-        ////
+            ////Б. Отрисовка погруженных пассажиров на debug-панели
+            elevator.getControlPanel().getPanelPassengers().updateView('add', loadedPersons);
+            ////
+        }
     }
 
     function _panelPersonsTotalNumModelUpdatedHandler(event)
