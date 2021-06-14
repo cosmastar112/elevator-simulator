@@ -264,11 +264,24 @@
         }
     }
 
+    function createSubpanelsView()
+    {
+        let panelBuilder = root.getPanelCalls();
+        let panel = panelBuilder.construct();
+        let panelView = panel.getView();
+
+        let container = document.createElement('div');
+        container.appendChild(panelView);
+
+        return container;
+    }
+
     root.registerModule({
         id: 'builder.render',
         init: init,
         createView: createView,
         createControlPanelsView: createControlPanelsView,
+        createSubpanelsView: createSubpanelsView,
     });
 
 })(window.ElevatorSimulator2021);

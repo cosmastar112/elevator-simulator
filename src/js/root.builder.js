@@ -11,6 +11,7 @@
             _view: null,
             _controlPanelsView: null,
             _ready: false,
+            _subpanelsView: null,
             getFloors: function() {
                 return this._floors;
             },
@@ -43,7 +44,10 @@
                 });
 
                 return elevator;
-            }
+            },
+            getSubpanelsView: function() {
+                return this._subpanelsView;
+            },
         };
     }
 
@@ -66,6 +70,8 @@
         _building._view = _createView();
         // создать представление панелей управления
         _building._controlPanelsView = _createControlPanelsView();
+        //создать представление доп. панелей
+        _building._subpanelsView = _createSubpanelsView();
 
         // конструирование объекта успешно завершено
         _building._ready = true;
@@ -114,6 +120,14 @@
     {
         let render = root.getBuildingRender();
         let view = render.createControlPanelsView(_building);
+
+        return view;
+    }
+
+    function _createSubpanelsView()
+    {
+        let render = root.getBuildingRender();
+        let view = render.createSubpanelsView();
 
         return view;
     }

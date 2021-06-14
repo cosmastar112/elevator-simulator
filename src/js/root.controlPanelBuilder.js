@@ -13,7 +13,6 @@
             _panelOverweight: null,
             _panelPassengers: null,
             _panelButtons: null,
-            _panelCalls: null,
             getNumber: function() {
                 return this._number;
             },
@@ -31,9 +30,6 @@
             },
             getPanelButtons: function() {
                 return this._panelButtons;
-            },
-            getPanelCalls: function() {
-                return this._panelCalls;
             }
         };
     }
@@ -47,7 +43,6 @@
         newObj._panelPersonsTotalWeight = _createPanelPersonsTotalWeight();
         newObj._panelOverweight = _createPanelOverweight();
         newObj._panelPassengers = _createPanelPassengers();
-        newObj._panelCalls = _createPanelCalls();
         // создать представление
         newObj._view = _createView(params, newObj);
 
@@ -78,9 +73,6 @@
         //панель "пасажиры"
         let panelPassengers = self._panelPassengers.getView();
         view.appendChild(panelPassengers);
-        //панель "вызовы"
-        let panelCalls = self._panelCalls.getView();
-        view.appendChild(panelCalls);
 
         return view;
     }
@@ -120,14 +112,6 @@
     function _createPanelPassengers()
     {
         let panelBuilder = root.getPanelPassengers();
-        let controlPanel = panelBuilder.construct();
-
-        return controlPanel;
-    }
-
-    function _createPanelCalls()
-    {
-        let panelBuilder = root.getPanelCalls();
         let controlPanel = panelBuilder.construct();
 
         return controlPanel;

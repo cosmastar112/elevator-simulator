@@ -45,12 +45,23 @@
             return;
         }
 
+        let subpanelsContainerId = 'subpanelsContainer';
+        // контейнер доп. панелей
+        let subpanelsContainer = document.getElementById(subpanelsContainerId);
+        if (!subpanelsContainer) {
+            return;
+        }
+
         // отрисовать контейнер здания
         buildingContainer.insertBefore(buildingView, panelsContainer);
 
         let controlPanelsView = building.getControlPanelsView();
         // отрисовать контейнер панелей управления
         panelsContainer.appendChild(controlPanelsView);
+
+        let subpanelsView = building.getSubpanelsView();
+        //отрисовать контейнер с дополнительными панелями
+        subpanelsContainer.appendChild(subpanelsView);
     }
 
     function _startHandler(event)
