@@ -68,6 +68,14 @@
                 //синхронизация модели панели
                 _syncControlPanelModel(this, this._passengersInCabin);
             },
+            //проверить: есть ли в кабине лифта пассажир с указанным id
+            isPassengerInCabin: function(passengerId) {
+                let person = this._passengersInCabin.find(function(item) {
+                    return item.getId() === passengerId;
+                });
+
+                return person ? true : false;
+            },
             _setState: _setState,
         };
 

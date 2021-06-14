@@ -35,6 +35,14 @@
             },
             stopRouter: function() {
                 this._router.destruct();
+            },
+            //определить лифт в котором находится пассажир (по id пассажира)
+            getElevatorByPassengerId: function(passengerId) {
+                let elevator = this.getElevators().find(function(elevator) {
+                    return elevator.isPassengerInCabin(passengerId);
+                });
+
+                return elevator;
             }
         };
     }
