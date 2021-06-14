@@ -5,6 +5,8 @@
     const CLASS_NAME = 'panel_passengers';
     const TABLE_ID = 'panel_passengers_table';
 
+    const CLASS_TD_UNLOADING_FLOOR_DEFAULT = 'panel_passengers_table_td-unloadingfloor';
+
     function init()
     {
         _obj = {
@@ -94,6 +96,7 @@
         let tdLoadingFloor = document.createElement('td');
         tdLoadingFloor.innerHTML = loadingFloor;
         let tdUnloadingFloor = document.createElement('td');
+        tdUnloadingFloor.classList.add(CLASS_TD_UNLOADING_FLOOR_DEFAULT);
         tdUnloadingFloor.innerHTML = unloadingFloor;
         let tdWeight = document.createElement('td');
         tdWeight.innerHTML = weight;
