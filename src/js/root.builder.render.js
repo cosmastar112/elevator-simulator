@@ -14,9 +14,9 @@
         //слушать событие "назначение этажа погрузки пассажира"; реагирование: перерисовать соответствующее значение на дебаг-панели
         document.addEventListener('personUnloadingFloorUpdated', _personUnloadingFloorUpdatedHandler);
         //слушать событие "создан вызов с этажа"; реагирование: отрисовать соответствующее значение на дебаг-панели
-        document.addEventListener('elevatorCallFromFloorCreated', _elevatorCallFromFloorCreatedHandler);
+        document.addEventListener('elevatorCallFromFloorCreated', _elevatorCallCreatedHandler);
         //слушать событие "создан вызов из кабины"; реагирование: отрисовать соответствующее значение на дебаг-панели
-        document.addEventListener('elevatorCallFromCabinCreated', _elevatorCallFromFloorCreatedHandler);
+        document.addEventListener('elevatorCallFromCabinCreated', _elevatorCallCreatedHandler);
     }
 
     function createView(building)
@@ -280,7 +280,7 @@
         return container;
     }
 
-    function _elevatorCallFromFloorCreatedHandler(event)
+    function _elevatorCallCreatedHandler(event)
     {
         console.log('Обновление debug-панели вызовов', event.detail);
         let subpanels = root.getBuilder().getBuilding().getSubpanels();
