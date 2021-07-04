@@ -15,6 +15,8 @@
         document.addEventListener('personUnloadingFloorUpdated', _personUnloadingFloorUpdatedHandler);
         //слушать событие "создан вызов с этажа"; реагирование: отрисовать соответствующее значение на дебаг-панели
         document.addEventListener('elevatorCallFromFloorCreated', _elevatorCallFromFloorCreatedHandler);
+        //слушать событие "создан вызов из кабины"; реагирование: отрисовать соответствующее значение на дебаг-панели
+        document.addEventListener('elevatorCallFromCabinCreated', _elevatorCallFromFloorCreatedHandler);
     }
 
     function createView(building)
@@ -283,10 +285,19 @@
         console.log('Обновление debug-панели вызовов', event.detail);
         let subpanels = root.getBuilder().getBuilding().getSubpanels();
         let callsPanel = subpanels.getСallsPanel();
-        let callConfig = {
-            type: 'Этаж'
-        };
+        let callConfig = _createCallConfig(event.detail.call);
+
         callsPanel.updateView(callConfig);
+    }
+
+    function _createCallConfig(callObject)
+    {
+        let type = callObject.type;
+        let callConfig = {
+            type: type
+        };
+
+        return callConfig;
     }
 
     root.registerModule({
