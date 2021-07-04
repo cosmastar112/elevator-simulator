@@ -13,6 +13,13 @@
             getView: function() {
                 return this._view;
             },
+            getCounter: function() {
+                let view = this.getView();
+                let trNodeList = view.querySelectorAll('#' + TABLE_ID + ' tr');
+                let counter = trNodeList.length;
+
+                return counter;
+            },
             updateView: _updateView,
         };
     }
@@ -64,7 +71,7 @@
         let table = view.querySelector('#' + TABLE_ID);
 
         //создать новую строку
-        let row = _createRow(callConfig);
+        let row = _createRow.call(this, callConfig);
         table.appendChild(row);
     }
 
@@ -72,7 +79,7 @@
     {
         let tr = document.createElement('tr');
         let td1 = document.createElement('td');
-        td1.innerHTML = null;
+        td1.innerHTML = this.getCounter();
         let td2 = document.createElement('td');
         td2.innerHTML = callConfig.type;
 
