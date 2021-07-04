@@ -13,13 +13,6 @@
             getView: function() {
                 return this._view;
             },
-            getCounter: function() {
-                let view = this.getView();
-                let trNodeList = view.querySelectorAll('#' + TABLE_ID + ' tr');
-                let counter = trNodeList.length;
-
-                return counter;
-            },
             updateView: _updateView,
         };
     }
@@ -85,7 +78,7 @@
     {
         let tr = document.createElement('tr');
         let td1 = document.createElement('td');
-        td1.innerHTML = this.getCounter();
+        td1.innerHTML = callConfig.id;
         let td2 = document.createElement('td');
         td2.innerHTML = callConfig.type;
         let td3 = document.createElement('td');

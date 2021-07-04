@@ -292,9 +292,11 @@
 
     function _createCallConfig(callObject)
     {
+        let id = callObject.getId();
         let type = callObject.getType();
         let floor = callObject.getFloor();
         let callConfig = {
+            id: id,
             type: type,
             unloadingFloor: floor,
         };
