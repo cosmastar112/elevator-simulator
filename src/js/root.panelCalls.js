@@ -86,7 +86,7 @@
         let td2 = document.createElement('td');
         td2.innerHTML = callConfig.type;
         let td3 = document.createElement('td');
-        td3.innerHTML = null;
+        td3.innerHTML = callConfig.unloadingFloor;
 
         tr.appendChild(td1);
         tr.appendChild(td2);
