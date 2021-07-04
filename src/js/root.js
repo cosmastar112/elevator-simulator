@@ -122,6 +122,13 @@ window.ElevatorSimulator2021 = (function() {
         return module;
     }
 
+    function getCallBuilder()
+    {
+        let module = _getModuleById('callBuilder');
+
+        return module;
+    }
+
     function getUtils()
     {
         let module = _getModuleById('utils');
@@ -185,6 +192,7 @@ window.ElevatorSimulator2021 = (function() {
         getPanelButtons: getPanelButtons,
         getPanelPassengers: getPanelPassengers,
         getPanelCalls: getPanelCalls,
+        getCallBuilder: getCallBuilder,
         getUtils: getUtils,
         onBuildEnd: onBuildEnd,
     };
