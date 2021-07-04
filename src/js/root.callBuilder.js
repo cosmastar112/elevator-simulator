@@ -1,6 +1,7 @@
 ;(function(root) {
 
     let _obj;
+    let counter = 0;
 
     function init()
     {
@@ -10,6 +11,9 @@
             _floor: null,
             _direction: null,
             _fromCabin: null,
+            getId: function() {
+                return this._id;
+            },
             getType: function() {
                 return this._type;
             },
@@ -28,6 +32,7 @@
     function construct(params)
     {
         let newObj = Object.assign({}, _obj);
+        newObj._id = ++counter;
         newObj._type = params.type;
         newObj._floor = params.floor;
         newObj._direction = params.direction;
