@@ -58,7 +58,7 @@
         let th2 = document.createElement('th');
         th2.innerHTML = 'Тип';
         let th3 = document.createElement('th');
-        th3.innerHTML = 'Этаж выгрузки';
+        th3.innerHTML = 'Этаж назначения';
 
         tr.appendChild(th1);
         tr.appendChild(th2);
