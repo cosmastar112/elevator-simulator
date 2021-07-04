@@ -57,9 +57,12 @@
         th1.innerHTML = 'Id';
         let th2 = document.createElement('th');
         th2.innerHTML = 'Тип';
+        let th3 = document.createElement('th');
+        th3.innerHTML = 'Этаж выгрузки';
 
         tr.appendChild(th1);
         tr.appendChild(th2);
+        tr.appendChild(th3);
         table.appendChild(tr);
 
         return table;
@@ -82,9 +85,12 @@
         td1.innerHTML = this.getCounter();
         let td2 = document.createElement('td');
         td2.innerHTML = callConfig.type;
+        let td3 = document.createElement('td');
+        td3.innerHTML = null;
 
         tr.appendChild(td1);
         tr.appendChild(td2);
+        tr.appendChild(td3);
 
         return tr;
     }
