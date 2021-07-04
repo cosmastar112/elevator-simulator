@@ -266,9 +266,9 @@
 
     function createSubpanelsView()
     {
-        let panelBuilder = root.getPanelCalls();
-        let panel = panelBuilder.construct();
-        let panelView = panel.getView();
+        let subpanels = root.getBuilder().getBuilding().getSubpanels();
+        let callsPanel = subpanels.getСallsPanel();
+        let panelView = callsPanel.getView();
 
         let container = document.createElement('div');
         container.appendChild(panelView);

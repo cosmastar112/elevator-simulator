@@ -11,7 +11,16 @@
             _view: null,
             _controlPanelsView: null,
             _ready: false,
-            _subpanelsView: null,
+            _subpanels: {
+                _callsPanel: null,
+                _view: null,
+                getСallsPanel: function() {
+                    return this._callsPanel;
+                },
+                getView: function() {
+                    return this._view;
+                }
+            },
             getFloors: function() {
                 return this._floors;
             },
@@ -45,8 +54,11 @@
 
                 return elevator;
             },
+            getSubpanels: function() {
+                return this._subpanels;
+            },
             getSubpanelsView: function() {
-                return this._subpanelsView;
+                return this._subpanels.getView();
             },
         };
     }
@@ -65,13 +77,12 @@
         _buildElevators(systemParams.total_elevators, systemParams.lifting_power, systemParams.total_floors);
         //маршрутизатор
         _buildRouter();
+        _buildSubpanels();
 
         // создать представление здания
         _building._view = _createView();
         // создать представление панелей управления
         _building._controlPanelsView = _createControlPanelsView();
-        //создать представление доп. панелей
-        _building._subpanelsView = _createSubpanelsView();
 
         // конструирование объекта успешно завершено
         _building._ready = true;
@@ -108,6 +119,17 @@
         _building._router = routerBuilder.construct({elevators: _building._elevators});
     }
 
+    function _buildSubpanels()
+    {
+        let panelCallsBuilder = root.getPanelCalls();
+        _building._subpanels._callsPanel = panelCallsBuilder.construct();
+
+        //создать представление доп. панелей
+        let render = root.getBuildingRender();
+        let view = render.createSubpanelsView();
+        _building._subpanels._view = view;
+    }
+
     function _createView()
     {
         let buildingRender = root.getBuildingRender();
@@ -120,14 +142,6 @@
     {
         let render = root.getBuildingRender();
         let view = render.createControlPanelsView(_building);
-
-        return view;
-    }
-
-    function _createSubpanelsView()
-    {
-        let render = root.getBuildingRender();
-        let view = render.createSubpanelsView();
 
         return view;
     }
