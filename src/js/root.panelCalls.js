@@ -59,10 +59,13 @@
         th2.innerHTML = 'Тип';
         let th3 = document.createElement('th');
         th3.innerHTML = 'Этаж назначения';
+        let th4 = document.createElement('th');
+        th4.innerHTML = 'Лифт';
 
         tr.appendChild(th1);
         tr.appendChild(th2);
         tr.appendChild(th3);
+        tr.appendChild(th4);
         table.appendChild(tr);
 
         return table;
@@ -87,10 +90,13 @@
         td2.innerHTML = callConfig.type;
         let td3 = document.createElement('td');
         td3.innerHTML = callConfig.unloadingFloor;
+        let td4 = document.createElement('td');
+        td4.innerHTML = null;
 
         tr.appendChild(td1);
         tr.appendChild(td2);
         tr.appendChild(td3);
+        tr.appendChild(td4);
 
         return tr;
     }
