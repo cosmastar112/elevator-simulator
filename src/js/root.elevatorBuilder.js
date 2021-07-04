@@ -54,7 +54,7 @@
             },
             memorizeLastDirection: function(call) {
                 let elevatorCurrentPosition = this.getCurrentPosition();
-                let directionInt = call.floor - elevatorCurrentPosition;
+                let directionInt = call.getFloor() - elevatorCurrentPosition;
                 let direction = directionInt > 0 ? 1 : -1;
                 console.log('Фиксация последнего направления движения: '+ direction);
                 this._lastDirection = direction;
@@ -177,7 +177,7 @@
             }
 
             if (nextCall) {
-                console.log('Следующая цель маршрута: ' + nextCall.floor, nextCall.direction);
+                console.log('Следующая цель маршрута: ' + nextCall.getFloor(), nextCall.getDirection());
                 //пометить вызов как «Находящийся в обработке»
                 nextCall.processing = true;
                 _setState.call(self, STATE_MOVE);
@@ -202,13 +202,13 @@
             //время, необходимое для движения на один этаж
             let oneMoveTime = 500;
             //количество необходимых движений для выполнения перемещения
-            let moves = Math.abs(self._currentPosition - call.floor);
+            let moves = Math.abs(self._currentPosition - call.getFloor());
             console.log('Нужно сделать ' + moves + ' движений');
             //выполненных движений
             let finishedMoves = 0;
             let moveOneFloorTimer = setInterval(function() {
                 if (moves === finishedMoves) {
-                    console.log('Перемещение завершено: ' + call.floor, call.direction);
+                    console.log('Перемещение завершено: ' + call.getFloor(), call.getDirection());
                     clearInterval(moveOneFloorTimer);
                     //убрать вызов из маршрута
                     self.getRoute().remove(call);
@@ -219,7 +219,7 @@
                     //запомнить предыдущую позицию
                     let oldPosition = self._currentPosition;
                     //изменить текущую позицию
-                    if (call.floor > self._currentPosition) {
+                    if (call.getFloor() > self._currentPosition) {
                         self._currentPosition++;
                     } else {
                         self._currentPosition--;
@@ -296,19 +296,19 @@
                 if (direction > 0) {
                     //движение наверх
                     let calls = this._route.filter(function(item) {
-                        return item.floor > elevatorCurrentPosition;
+                        return item.getFloor() > elevatorCurrentPosition;
                     });
                     calls.sort(function(a, b) {
-                        return parseInt(a.floor) > parseInt(b.floor) ? 1: -1;
+                        return parseInt(a.getFloor()) > parseInt(b.getFloor()) ? 1: -1;
                     });
                     return calls.shift();
                 } else if (direction < 0) {
                     //движение вниз
                     let calls = this._route.filter(function(item) {
-                        return item.floor < elevatorCurrentPosition;
+                        return item.getFloor() < elevatorCurrentPosition;
                     });
                     calls.sort(function(a, b) {
-                        return parseInt(a.floor) > parseInt(b.floor) ? 1: -1;
+                        return parseInt(a.getFloor()) > parseInt(b.getFloor()) ? 1: -1;
                     });
                     return calls.pop();
                 }
@@ -365,7 +365,7 @@
         if (!activeCall) {
             return true;
         } else {
-            activeCallFloor = activeCall.floor;
+            activeCallFloor = activeCall.getFloor();
         }
         //интервалы типа (1;2), (7;8), (6;5) и т.д.
         if (Math.abs(currentPosition - activeCallFloor) < 1) {
@@ -374,9 +374,9 @@
         let route = this.getRoute().getRoute();
         let newActiveCall = route.filter(function(item) {
             //движение наверх
-            let isC1 = !item.processing && item.floor > currentPosition && item.floor < activeCallFloor;
+            let isC1 = !item.processing && item.getFloor() > currentPosition && item.getFloor() < activeCallFloor;
             //движение вниз
-            let isC2 = !item.processing && item.floor < currentPosition && item.floor > activeCallFloor;
+            let isC2 = !item.processing && item.getFloor() < currentPosition && item.getFloor() > activeCallFloor;
             return isC1 || isC2;
         });
 

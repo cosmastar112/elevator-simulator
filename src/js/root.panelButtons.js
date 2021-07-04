@@ -48,7 +48,7 @@
                 //этаж назначения
                 let targetFloor = event.target.value;
                 console.log('Была нажата кнопка вызова лифта в кабине. Этаж: ', targetFloor);
-                let call = {type: CALLTYPE_CABIN, floor: targetFloor, fromCabin: true};
+                let call = root.getCallBuilder().construct({type: CALLTYPE_CABIN, floor: targetFloor, fromCabin: true});
                 //событие создания вызова
                 let elevatorCallCreatedEvent = _createCallEvent(call);
                 //оповестить подписчиков о создании вызова

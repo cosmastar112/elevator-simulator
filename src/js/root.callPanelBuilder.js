@@ -115,7 +115,7 @@
                 //код направления
                 let directionCode = (direction === CLASS_NAME_UP) ? DIRECTION_CODE_UP : DIRECTION_CODE_DOWN;
                 //вызов
-                let call = {type: CALLTYPE_FLOOR, floor: floor, direction: directionCode};
+                let call = root.getCallBuilder().construct({type: CALLTYPE_FLOOR, floor: floor, direction: directionCode});
                 //событие создания вызова
                 let elevatorCallCreatedEvent = _createCallEvent(call);
                 //оповестить подписчиков о создании вызова

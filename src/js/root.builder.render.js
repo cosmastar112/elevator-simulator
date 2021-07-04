@@ -292,8 +292,8 @@
 
     function _createCallConfig(callObject)
     {
-        let type = callObject.type;
-        let floor = callObject.floor;
+        let type = callObject.getType();
+        let floor = callObject.getFloor();
         let callConfig = {
             type: type,
             unloadingFloor: floor,

@@ -64,7 +64,7 @@
             }
 
             //создать группу людей
-            let floor = event.detail.call.floor;
+            let floor = event.detail.call.getFloor();
             // console.log(self.getNumber(), floor);
             if (self.getNumber() === parseInt(floor)) {
                 console.log('Создать на этаже ' + floor + ' группу людей');
