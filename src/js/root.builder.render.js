@@ -13,6 +13,8 @@
         document.addEventListener('panelPersonsTotalWeightModelUpdated', _panelPersonsTotalWeightModelUpdatedHandler);
         //слушать событие "назначение этажа погрузки пассажира"; реагирование: перерисовать соответствующее значение на дебаг-панели
         document.addEventListener('personUnloadingFloorUpdated', _personUnloadingFloorUpdatedHandler);
+        //слушать событие "создан вызов с этажа"; реагирование: отрисовать соответствующее значение на дебаг-панели
+        document.addEventListener('elevatorCallFromFloorCreated', _elevatorCallFromFloorCreatedHandler);
     }
 
     function createView(building)
@@ -274,6 +276,17 @@
         container.appendChild(panelView);
 
         return container;
+    }
+
+    function _elevatorCallFromFloorCreatedHandler(event)
+    {
+        console.log('Обновление debug-панели вызовов', event.detail);
+        let subpanels = root.getBuilder().getBuilding().getSubpanels();
+        let callsPanel = subpanels.getСallsPanel();
+        let callConfig = {
+            type: 'Этаж'
+        };
+        callsPanel.updateView(callConfig);
     }
 
     root.registerModule({

@@ -12,7 +12,8 @@
             _view: null,
             getView: function() {
                 return this._view;
-            }
+            },
+            updateView: _updateView,
         };
     }
 
@@ -55,6 +56,30 @@
         table.appendChild(tr);
 
         return table;
+    }
+
+    function _updateView(callConfig)
+    {
+        let view = this.getView();
+        let table = view.querySelector('#' + TABLE_ID);
+
+        //создать новую строку
+        let row = _createRow(callConfig);
+        table.appendChild(row);
+    }
+
+    function _createRow(callConfig)
+    {
+        let tr = document.createElement('tr');
+        let td1 = document.createElement('td');
+        td1.innerHTML = null;
+        let td2 = document.createElement('td');
+        td2.innerHTML = callConfig.type;
+
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+
+        return tr;
     }
 
     root.registerModule({
