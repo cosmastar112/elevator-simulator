@@ -77,6 +77,7 @@
     function _createRow(callConfig)
     {
         let tr = document.createElement('tr');
+        tr.dataset.key = callConfig.id;
         let td1 = document.createElement('td');
         td1.innerHTML = callConfig.id;
         let td2 = document.createElement('td');
