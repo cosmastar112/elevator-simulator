@@ -56,11 +56,14 @@
         th3.innerHTML = 'Этаж назначения';
         let th4 = document.createElement('th');
         th4.innerHTML = 'Лифт';
+        let th5 = document.createElement('th');
+        th5.innerHTML = 'Время содания вызова';
 
         tr.appendChild(th1);
         tr.appendChild(th2);
         tr.appendChild(th3);
         tr.appendChild(th4);
+        tr.appendChild(th5);
         table.appendChild(tr);
 
         return table;
@@ -89,11 +92,14 @@
         let td4 = document.createElement('td');
         td4.innerHTML = null;
         td4.classList.add(TD_ELEVATOR_CLASS);
+        let td5 = document.createElement('td');
+        td5.innerHTML = null;
 
         tr.appendChild(td1);
         tr.appendChild(td2);
         tr.appendChild(td3);
         tr.appendChild(td4);
+        tr.appendChild(td5);
 
         return tr;
     }
