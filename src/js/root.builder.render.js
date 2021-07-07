@@ -17,6 +17,8 @@
         document.addEventListener('elevatorCallFromFloorCreated', _elevatorCallCreatedHandler);
         //слушать событие "создан вызов из кабины"; реагирование: отрисовать соответствующее значение на дебаг-панели
         document.addEventListener('elevatorCallFromCabinCreated', _elevatorCallCreatedHandler);
+        //слушать событие "вызову назначен исполнитель (лифт)"; реагирование: перерисовать соответствующее значение на дебаг-панели
+        document.addEventListener('elevatorCallAllocated', _elevatorCallAllocatedHandler);
     }
 
     function createView(building)
@@ -302,6 +304,18 @@
         };
 
         return callConfig;
+    }
+
+    function _elevatorCallAllocatedHandler(event)
+    {
+        let callId = event.detail.callId;
+        let elevatorNumber = event.detail.elevatorNumber
+
+        console.log('Обновление столбца "лифт" debug-панели вызовов', event.detail);
+        let subpanels = root.getBuilder().getBuilding().getSubpanels();
+        let callsPanel = subpanels.getСallsPanel();
+
+        callsPanel.updateView_elevator(callId, elevatorNumber);
     }
 
     root.registerModule({
