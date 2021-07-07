@@ -11,6 +11,7 @@
             _floor: null,
             _direction: null,
             _fromCabin: null,
+            _created_at: null,
             getId: function() {
                 return this._id;
             },
@@ -26,6 +27,9 @@
             getFromCabin: function() {
                 return this._fromCabin;
             },
+            getCreatedAt: function() {
+                return this._created_at;
+            },
         };
     }
 
@@ -37,8 +41,18 @@
         newObj._floor = params.floor;
         newObj._direction = params.direction;
         newObj._fromCabin = params.fromCabin;
+        newObj._created_at = _generateCreatedAtString();
+
 
         return newObj;
+    }
+
+    function _generateCreatedAtString()
+    {
+        let dateObj = new Date();
+        let created_at = dateObj.toLocaleDateString() + ' ' + dateObj.toLocaleTimeString() + ' ' + dateObj.getMilliseconds();
+
+        return created_at;
     }
 
     root.registerModule({
