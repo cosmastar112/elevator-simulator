@@ -93,7 +93,7 @@
         td4.innerHTML = null;
         td4.classList.add(TD_ELEVATOR_CLASS);
         let td5 = document.createElement('td');
-        td5.innerHTML = null;
+        td5.innerHTML = callConfig.created_at;
 
         tr.appendChild(td1);
         tr.appendChild(td2);

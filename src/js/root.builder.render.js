@@ -301,6 +301,7 @@
             id: id,
             type: type,
             unloadingFloor: floor,
+            created_at: callObject.getCreatedAt(),
         };
 
         return callConfig;
