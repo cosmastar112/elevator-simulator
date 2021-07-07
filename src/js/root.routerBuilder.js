@@ -63,6 +63,21 @@
         //маршрут лифта
         let route = elevator.getRoute();
         route.add(call);
+
+        //уведомить о том, что вызов назначен исполнителю
+        _notifyAboutCallAllocated(call.getId(), elevator.getNumber());
+    }
+
+    function _notifyAboutCallAllocated(callId, elevatorNumber)
+    {
+        let eventDetail = {
+            callId: callId,
+            elevatorNumber: elevatorNumber,
+        };
+        let eventCallAllocated = new CustomEvent('elevatorCallAllocated', {
+            detail: eventDetail
+        });
+        document.dispatchEvent(eventCallAllocated);
     }
 
     root.registerModule({
