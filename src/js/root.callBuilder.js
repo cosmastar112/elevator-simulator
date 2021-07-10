@@ -10,7 +10,6 @@
             _type: null,
             _floor: null,
             _direction: null,
-            _fromCabin: null,
             _created_at: null,
             getId: function() {
                 return this._id;
@@ -23,9 +22,6 @@
             },
             getDirection: function() {
                 return this._direction;
-            },
-            getFromCabin: function() {
-                return this._fromCabin;
             },
             getCreatedAt: function() {
                 return this._created_at;
@@ -40,7 +36,6 @@
         newObj._type = params.type;
         newObj._floor = params.floor;
         newObj._direction = params.direction;
-        newObj._fromCabin = params.fromCabin;
         newObj._created_at = _generateCreatedAtString();
 
 
