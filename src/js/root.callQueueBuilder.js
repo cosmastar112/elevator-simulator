@@ -6,8 +6,7 @@
     {
         _obj = {
             _queue: [],
-            _elevatorCallFromFloorCreatedHandler: null,
-            _elevatorCallFromCabinCreatedHandler: null,
+            _elevatorCallCreatedHandler: null,
             getQueue: function() {
                 return this._queue;
             },
@@ -24,45 +23,32 @@
     function construct()
     {
         let newObj = Object.assign({}, _obj);
-        //подписаться на создание вызова лифта с этажа
-        newObj._elevatorCallFromFloorCreatedHandler = _createElevatorCallFromCallCreatedHandler(newObj);
-        document.addEventListener('elevatorCallFromFloorCreated', newObj._elevatorCallFromFloorCreatedHandler);
+        newObj._elevatorCallCreatedHandler = _createElevatorCallCreatedHandler(newObj);
 
+        //подписаться на создание вызова лифта с этажа
+        document.addEventListener('elevatorCallFromFloorCreated', newObj._elevatorCallCreatedHandler);
         //подписаться на создание вызова лифта из кабины
-        newObj._elevatorCallFromCabinCreatedHandler = _createElevatorCallFromCabinCreatedHandler(newObj);
-        document.addEventListener('elevatorCallFromCabinCreated', newObj._elevatorCallFromCabinCreatedHandler);
+        document.addEventListener('elevatorCallFromCabinCreated', newObj._elevatorCallCreatedHandler);
 
         return newObj;
     }
 
-    function _createElevatorCallFromCallCreatedHandler(self)
+    function _createElevatorCallCreatedHandler(self)
     {
         let cb = function(event) {
-            _pushCallFromFloor(event.detail.call, self);
+            let call = event.detail.call;
+            let type = call.getType();
 
-            // let floor = event.detail.call.floor;
-            // let direction = event.detail.call.direction;
-            // let text = 'В очередь попал вызов: ';
-            // text += 'этаж ' + floor + '; ';
-            // text += 'направление ' + direction;
-            // alert(text);
-            // console.log('поступил вызов лифта');
-        }
-
-        return cb;
-    }
-
-    function _createElevatorCallFromCabinCreatedHandler(self)
-    {
-        let cb = function(event) {
-            _pushCallFromCabin(event.detail.call, self);
-
-            // let floor = event.detail.call.floor;
-            // let direction = event.detail.call.direction;
-            // let text = 'В очередь попал вызов из кабины: ';
-            // text += 'этаж ' + floor;
-            // alert(text);
-            // console.log('поступил вызов лифта');
+            switch(type) {
+                case root.getCallBuilder().CALLTYPE_CABIN:
+                    _pushCallFromCabin(call, self);
+                    break;
+                case root.getCallBuilder().CALLTYPE_FLOOR:
+                    _pushCallFromFloor(call, self);
+                    break;
+                default:
+                    break;
+            }
         }
 
         return cb;
