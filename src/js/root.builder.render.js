@@ -321,6 +321,7 @@
         let callsPanel = subpanels.getСallsPanel();
 
         callsPanel.updateView_elevator(callId, elevatorNumber);
+        callsPanel.updateView_allocated(callId, call.getAllocatedAt());
     }
 
     function _elevatorCallRegisteredHandler(event)
