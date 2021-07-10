@@ -26,11 +26,20 @@
         return uniqueArray;
     }
 
+    function generateAtDateString()
+    {
+        let dateObj = new Date();
+        let atDate = dateObj.toLocaleDateString() + ' ' + dateObj.toLocaleTimeString() + ' ' + dateObj.getMilliseconds();
+
+        return atDate;
+    }
+
     root.registerModule({
         id: 'utils',
         init: init,
         getRandomIntInclusive: getRandomIntInclusive,
-        arrayUnique: arrayUnique
+        arrayUnique: arrayUnique,
+        generateAtDateString: generateAtDateString,
 
     });
 
