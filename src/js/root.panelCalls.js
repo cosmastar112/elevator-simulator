@@ -58,12 +58,15 @@
         th4.innerHTML = 'Лифт';
         let th5 = document.createElement('th');
         th5.innerHTML = 'Время содания вызова';
+        let th6 = document.createElement('th');
+        th6.innerHTML = 'Время регистрации';
 
         tr.appendChild(th1);
         tr.appendChild(th2);
         tr.appendChild(th3);
         tr.appendChild(th4);
         tr.appendChild(th5);
+        tr.appendChild(th6);
         table.appendChild(tr);
 
         return table;
@@ -94,12 +97,15 @@
         td4.classList.add(TD_ELEVATOR_CLASS);
         let td5 = document.createElement('td');
         td5.innerHTML = callConfig.created_at;
+        let td6 = document.createElement('td');
+        td6.innerHTML = null;
 
         tr.appendChild(td1);
         tr.appendChild(td2);
         tr.appendChild(td3);
         tr.appendChild(td4);
         tr.appendChild(td5);
+        tr.appendChild(td6);
 
         return tr;
     }
