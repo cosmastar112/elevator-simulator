@@ -66,8 +66,8 @@
     {
         self._queue.push(call);
         //событие поступления вызова в очередь
-        // let callFromCabinRegisteredEvent = _createCallFromCabinRegisteredEvent(call);
-        // document.dispatchEvent(callFromCabinRegisteredEvent);
+        let callFromCabinRegisteredEvent = _createCallFromCabinRegisteredEvent(call);
+        document.dispatchEvent(callFromCabinRegisteredEvent);
     }
 
     function _createCallFromFloorRegisteredEvent(call)
@@ -79,14 +79,14 @@
         });
     }
 
-    // function _createCallFromCabinRegisteredEvent(call)
-    // {
-    //     return new CustomEvent('callFromCabinRegistered', {
-    //         detail: {
-    //             call: call
-    //         }
-    //     });
-    // }
+    function _createCallFromCabinRegisteredEvent(call)
+    {
+        return new CustomEvent('callFromCabinRegistered', {
+            detail: {
+                call: call
+            }
+        });
+    }
 
     root.registerModule({
         id: 'callQueueBuilder',
