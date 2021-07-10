@@ -23,6 +23,7 @@
         document.addEventListener('callFromFloorRegistered', _elevatorCallRegisteredHandler);
         document.addEventListener('callFromCabinRegistered', _elevatorCallRegisteredHandler);
         document.addEventListener('callProcessingStarted', _elevatorCallProcessingStartedHandler);
+        document.addEventListener('callProcessingFinished', _elevatorCallProcessingFinishedHandler);
     }
 
     function createView(building)
@@ -349,6 +350,19 @@
         let callsPanel = subpanels.getСallsPanel();
 
         callsPanel.updateView_started(id, startedAt);
+    }
+
+    function _elevatorCallProcessingFinishedHandler(event)
+    {
+        let call = event.detail.call;
+        let id = call.getId();
+        let finishedAt = call.getFinishedAt();
+
+        console.log('Обновление столбца "время окончания обработки" debug-панели вызовов', event.detail);
+        let subpanels = root.getBuilder().getBuilding().getSubpanels();
+        let callsPanel = subpanels.getСallsPanel();
+
+        callsPanel.updateView_finished(id, finishedAt);
     }
 
     root.registerModule({
