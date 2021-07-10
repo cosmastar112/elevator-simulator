@@ -14,6 +14,31 @@
             },
             destruct: function() {
                 clearInterval(this._callQueueHandlerIntervalID);
+            },
+            isCallExists: function(targetFloor) {
+                let findedItem = false;
+
+                //1.искать вызов в очереди вызовов
+                let queueItems = this.getCallQueue().getQueue();
+                findedItem = queueItems.find(function(queueItem) {
+                    return queueItem.getFloor() === targetFloor;
+                })
+
+                //2.если вызов найден в очереди, закончить проверку
+                if (findedItem) return true;
+
+                //иначе проверить маршруты всех лифтов
+                for (let elevatorIndex = 0, l = this._elevators.length; elevatorIndex < l; elevatorIndex++) {
+                    let currentElevator = this._elevators[elevatorIndex];
+                    if (currentElevator.getRoute().isCallExists(targetFloor)) {
+                        //вызов найден в маршруте лифта
+                        findedItem = true;
+                        //прекратить поиск
+                        break;
+                    }
+                }
+
+                return findedItem;
             }
         };
     }
