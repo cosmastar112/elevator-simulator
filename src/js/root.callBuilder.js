@@ -54,6 +54,8 @@
         id: 'callBuilder',
         init: init,
         construct: construct,
+        CALLTYPE_CABIN: 'cabin',
+        CALLTYPE_FLOOR: 'floor',
     });
 
 })(window.ElevatorSimulator2021);
