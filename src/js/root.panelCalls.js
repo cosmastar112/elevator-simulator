@@ -70,6 +70,8 @@
         th7.innerHTML = 'Время назначения исполнителя';
         let th8 = document.createElement('th');
         th8.innerHTML = 'Время начала обработки';
+        let th9 = document.createElement('th');
+        th9.innerHTML = 'Время окончания обработки';
 
         tr.appendChild(th1);
         tr.appendChild(th2);
@@ -79,6 +81,7 @@
         tr.appendChild(th6);
         tr.appendChild(th7);
         tr.appendChild(th8);
+        tr.appendChild(th9);
         table.appendChild(tr);
 
         return table;
@@ -118,6 +121,8 @@
         let td8 = document.createElement('td');
         td8.classList.add(TD_STARTED_CLASS);
         td8.innerHTML = null;
+        let td9 = document.createElement('td');
+        td9.innerHTML = null;
 
         tr.appendChild(td1);
         tr.appendChild(td2);
@@ -127,6 +132,7 @@
         tr.appendChild(td6);
         tr.appendChild(td7);
         tr.appendChild(td8);
+        tr.appendChild(td9);
 
         return tr;
     }
