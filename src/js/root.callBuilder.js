@@ -14,6 +14,7 @@
             _floor: null,
             _direction: null,
             _created_at: null,
+            _registered_at: null,
             getId: function() {
                 return this._id;
             },
@@ -29,6 +30,9 @@
             getCreatedAt: function() {
                 return this._created_at;
             },
+            getRegisteredAt: function() {
+                return this._registered_at;
+            },
         };
     }
 
@@ -40,6 +44,7 @@
         newObj._floor = params.floor;
         newObj._direction = params.direction;
         newObj._created_at = _generateCreatedAtString();
+        newObj._registered_at = null;
 
 
         return newObj;
