@@ -19,6 +19,7 @@
             updateView: _updateView,
             updateView_elevator: _updateView_elevator,
             updateView_registered: _updateView_registered,
+            updateView_allocated: _updateView_allocated,
         };
     }
 
@@ -146,6 +147,20 @@
         let td = tr.getElementsByClassName(TD_REGISTERED_CLASS);
         if (td.length > 0) {
             td.item(0).innerHTML = registeredAt;
+        }
+    }
+
+    //найти соответствующую строку по callId (data-key строки)
+    //и записать в innerHTML элемента td значение allocatedAt (время назначения исполнителя)
+    function _updateView_allocated(callId, allocatedAt)
+    {
+        let view = this.getView();
+        let table = view.querySelector('#' + TABLE_ID);
+        let trDataKeySelector = 'tr[data-key="' + callId + '"]';
+        let tr = table.querySelector(trDataKeySelector);
+        let td = tr.getElementsByClassName(TD_ALLOCATED_CLASS);
+        if (td.length > 0) {
+            td.item(0).innerHTML = allocatedAt;
         }
     }
 
