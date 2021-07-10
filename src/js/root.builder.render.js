@@ -22,6 +22,7 @@
         //слушать событие "вызов зарегистрирован"; реагирование: перерисовать соответствующее значение на дебаг-панели
         document.addEventListener('callFromFloorRegistered', _elevatorCallRegisteredHandler);
         document.addEventListener('callFromCabinRegistered', _elevatorCallRegisteredHandler);
+        document.addEventListener('callProcessingStarted', _elevatorCallProcessingStartedHandler);
     }
 
     function createView(building)
@@ -335,6 +336,19 @@
         let callsPanel = subpanels.getСallsPanel();
 
         callsPanel.updateView_registered(id, registeredAt);
+    }
+
+    function _elevatorCallProcessingStartedHandler(event)
+    {
+        let call = event.detail.call;
+        let id = call.getId();
+        let startedAt = call.getStartedAt();
+
+        console.log('Обновление столбца "время начала обработки" debug-панели вызовов', event.detail);
+        let subpanels = root.getBuilder().getBuilding().getSubpanels();
+        let callsPanel = subpanels.getСallsPanel();
+
+        callsPanel.updateView_started(id, startedAt);
     }
 
     root.registerModule({
