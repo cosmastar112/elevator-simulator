@@ -102,3 +102,8 @@
     font-size: medium;
     color: white;
 }
+/*ширина таблицы debug-панели вызовов*/
+#buildingContainer table#panel_calls_table {
+    width: 80%;
+    margin: auto;
+}
