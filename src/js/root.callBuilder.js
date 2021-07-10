@@ -40,6 +40,9 @@
             getAllocatedAt: function() {
                 return this._allocated_at;
             },
+            setAllocatedAt: function() {
+                this._allocated_at = root.getUtils().generateAtDateString();
+            },
         };
     }
 
