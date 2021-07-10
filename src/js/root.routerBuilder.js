@@ -63,6 +63,8 @@
         //маршрут лифта
         let route = elevator.getRoute();
         route.add(call);
+        //запомнить время назначения исполнителя вызова
+        call.setAllocatedAt();
 
         //уведомить о том, что вызов назначен исполнителю
         _notifyAboutCallAllocated(call, elevator.getNumber());
