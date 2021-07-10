@@ -37,37 +37,34 @@
     {
         let cb = function(event) {
             let call = event.detail.call;
-            let type = call.getType();
+            self._queue.push(call);
 
-            switch(type) {
-                case root.getCallBuilder().CALLTYPE_CABIN:
-                    _pushCallFromCabin(call, self);
-                    break;
-                case root.getCallBuilder().CALLTYPE_FLOOR:
-                    _pushCallFromFloor(call, self);
-                    break;
-                default:
-                    break;
+            let callRegisteredEvent = _createCallRegisteredEvent(call);
+            if (callRegisteredEvent) {
+                document.dispatchEvent(callRegisteredEvent);
             }
         }
 
         return cb;
     }
 
-    function _pushCallFromFloor(call, self)
+    function _createCallRegisteredEvent(call)
     {
-        self._queue.push(call);
-        //событие поступления вызова в очередь
-        let callFromFloorRegisteredEvent = _createCallFromFloorRegisteredEvent(call);
-        document.dispatchEvent(callFromFloorRegisteredEvent);
-    }
+        let newEvent = null;
+        let callType = call.getType();
 
-    function _pushCallFromCabin(call, self)
-    {
-        self._queue.push(call);
-        //событие поступления вызова в очередь
-        let callFromCabinRegisteredEvent = _createCallFromCabinRegisteredEvent(call);
-        document.dispatchEvent(callFromCabinRegisteredEvent);
+        switch(callType) {
+            case root.getCallBuilder().CALLTYPE_CABIN:
+                newEvent = _createCallFromCabinRegisteredEvent(call);
+                break;
+            case root.getCallBuilder().CALLTYPE_FLOOR:
+                newEvent = _createCallFromFloorRegisteredEvent(call);
+                break;
+            default:
+                break;
+        }
+
+        return newEvent;
     }
 
     function _createCallFromFloorRegisteredEvent(call)
