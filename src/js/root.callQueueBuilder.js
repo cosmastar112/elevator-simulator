@@ -38,6 +38,8 @@
         let cb = function(event) {
             let call = event.detail.call;
             self._queue.push(call);
+            //запомнить время регистрации вызова
+            call.setRegisteredAt();
 
             let callRegisteredEvent = _createCallRegisteredEvent(call);
             if (callRegisteredEvent) {
