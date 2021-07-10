@@ -47,6 +47,9 @@
             getStartedAt: function() {
                 return this._started_at;
             },
+            setStartedAt: function() {
+                this._started_at = root.getUtils().generateAtDateString();
+            },
         };
     }
 
