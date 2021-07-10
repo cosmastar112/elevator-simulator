@@ -43,6 +43,9 @@
             getTotalFloors: function() {
                 return this._floors.length;
             },
+            getRouter: function() {
+                return this._router;
+            },
             stopRouter: function() {
                 this._router.destruct();
             },
