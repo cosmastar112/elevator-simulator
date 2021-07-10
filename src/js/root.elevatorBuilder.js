@@ -226,7 +226,7 @@
                     }
                     console.log('Сделано движение ' + finishedMoves);
                     //уведомить об изменении позиции лифта
-                    _notifyAboutUpdatElevatorPosition(oldPosition, self._currentPosition, self);
+                    _notifyAboutUpdateElevatorPosition(oldPosition, self._currentPosition, self);
                     //проверка необходимости прерывания текущего движения и смены активного вызова
                     if (!_isCurrentActiveCallRelevant.call(self)) {
                         console.log('Прерывание текущего движения: смена активного вызова');
@@ -336,7 +336,7 @@
         return newObj;
     }
 
-    function _notifyAboutUpdatElevatorPosition(oldPosition, newPosition, elevator)
+    function _notifyAboutUpdateElevatorPosition(oldPosition, newPosition, elevator)
     {
         let eventDetail = {
             oldPosition: oldPosition,
