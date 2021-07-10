@@ -6,6 +6,7 @@
     const TABLE_ID = 'panel_calls_table';
     const TD_ELEVATOR_CLASS = 'col-elevator';
     const TD_REGISTERED_CLASS = 'col-registered';
+    const TD_ALLOCATED_CLASS = 'col-allocated';
 
     function init()
     {
@@ -106,6 +107,7 @@
         td6.classList.add(TD_REGISTERED_CLASS);
         td6.innerHTML = null;
         let td7 = document.createElement('td');
+        td7.classList.add(TD_ALLOCATED_CLASS);
         td7.innerHTML = null;
 
         tr.appendChild(td1);
