@@ -15,6 +15,7 @@
             _direction: null,
             _created_at: null,
             _registered_at: null,
+            _allocated_at: null,
             getId: function() {
                 return this._id;
             },
@@ -36,6 +37,9 @@
             getRegisteredAt: function() {
                 return this._registered_at;
             },
+            getAllocatedAt: function() {
+                return this._allocated_at;
+            },
         };
     }
 
@@ -48,6 +52,7 @@
         newObj._direction = params.direction;
         newObj._created_at = root.getUtils().generateAtDateString();
         newObj._registered_at = null;
+        newObj._allocated_at = null;
 
 
         return newObj;
