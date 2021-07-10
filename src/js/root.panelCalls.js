@@ -17,6 +17,7 @@
             },
             updateView: _updateView,
             updateView_elevator: _updateView_elevator,
+            updateView_registered: _updateView_registered,
         };
     }
 
@@ -123,6 +124,20 @@
         let td = tr.getElementsByClassName(TD_ELEVATOR_CLASS);
         if (td.length > 0) {
             td.item(0).innerHTML = elevatorNumber;
+        }
+    }
+
+    //найти соответствующую строку по callId (data-key строки)
+    //и записать в innerHTML элемента td значение registeredAt (время регистрации)
+    function _updateView_registered(callId, registeredAt)
+    {
+        let view = this.getView();
+        let table = view.querySelector('#' + TABLE_ID);
+        let trDataKeySelector = 'tr[data-key="' + callId + '"]';
+        let tr = table.querySelector(trDataKeySelector);
+        let td = tr.getElementsByClassName(TD_REGISTERED_CLASS);
+        if (td.length > 0) {
+            td.item(0).innerHTML = registeredAt;
         }
     }
 
