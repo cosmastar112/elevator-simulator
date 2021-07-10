@@ -23,6 +23,7 @@
             updateView_registered: _updateView_registered,
             updateView_allocated: _updateView_allocated,
             updateView_started: _updateView_started,
+            updateView_finished: _updateView_finished,
         };
     }
 
@@ -182,7 +183,7 @@
     }
 
     //найти соответствующую строку по callId (data-key строки)
-    //и записать в innerHTML элемента td значение startedAt (время назначения исполнителя)
+    //и записать в innerHTML элемента td значение startedAt (время начала обработки вызова)
     function _updateView_started(callId, startedAt)
     {
         let view = this.getView();
@@ -192,6 +193,20 @@
         let td = tr.getElementsByClassName(TD_STARTED_CLASS);
         if (td.length > 0) {
             td.item(0).innerHTML = startedAt;
+        }
+    }
+
+    //найти соответствующую строку по callId (data-key строки)
+    //и записать в innerHTML элемента td значение finishedAt (время окончания обработки вызова)
+    function _updateView_finished(callId, finishedAt)
+    {
+        let view = this.getView();
+        let table = view.querySelector('#' + TABLE_ID);
+        let trDataKeySelector = 'tr[data-key="' + callId + '"]';
+        let tr = table.querySelector(trDataKeySelector);
+        let td = tr.getElementsByClassName(TD_FINISHED_CLASS);
+        if (td.length > 0) {
+            td.item(0).innerHTML = finishedAt;
         }
     }
 
