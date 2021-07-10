@@ -59,7 +59,7 @@
         let th4 = document.createElement('th');
         th4.innerHTML = 'Лифт';
         let th5 = document.createElement('th');
-        th5.innerHTML = 'Время содания вызова';
+        th5.innerHTML = 'Время создания';
         let th6 = document.createElement('th');
         th6.innerHTML = 'Время регистрации';
 
