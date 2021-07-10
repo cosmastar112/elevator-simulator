@@ -16,6 +16,7 @@
             _created_at: null,
             _registered_at: null,
             _allocated_at: null,
+            _started_at: null,
             getId: function() {
                 return this._id;
             },
@@ -43,6 +44,9 @@
             setAllocatedAt: function() {
                 this._allocated_at = root.getUtils().generateAtDateString();
             },
+            getStartedAt: function() {
+                return this._started_at;
+            },
         };
     }
 
@@ -56,6 +60,7 @@
         newObj._created_at = root.getUtils().generateAtDateString();
         newObj._registered_at = null;
         newObj._allocated_at = null;
+        newObj._started_at = null;
 
 
         return newObj;
