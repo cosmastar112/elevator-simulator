@@ -43,19 +43,11 @@
         newObj._type = params.type;
         newObj._floor = params.floor;
         newObj._direction = params.direction;
-        newObj._created_at = _generateCreatedAtString();
+        newObj._created_at = root.getUtils().generateAtDateString();
         newObj._registered_at = null;
 
 
         return newObj;
-    }
-
-    function _generateCreatedAtString()
-    {
-        let dateObj = new Date();
-        let created_at = dateObj.toLocaleDateString() + ' ' + dateObj.toLocaleTimeString() + ' ' + dateObj.getMilliseconds();
-
-        return created_at;
     }
 
     root.registerModule({
