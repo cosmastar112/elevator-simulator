@@ -46,6 +46,15 @@
                 //этаж назначения
                 let targetFloor = event.target.value;
                 console.log('Была нажата кнопка вызова лифта в кабине. Этаж: ', targetFloor);
+
+                //проверка: если вызов уже создан, не создавать новый:
+                if (root.getBuilder().getBuilding().getRouter().isCallExists(targetFloor)) {
+                    console.log('Т.к. вызов на данный этаж уже создан, он не будет создан повторно. Этаж: ', targetFloor);
+                    //но нажать кнопку, будто вызов был создан
+                    _pressBtn(event.target);
+                    return;
+                }
+
                 let call = root.getCallBuilder().construct({type: root.getCallBuilder().CALLTYPE_CABIN, floor: targetFloor});
                 //событие создания вызова
                 let elevatorCallCreatedEvent = _createCallEvent(call);
