@@ -214,6 +214,8 @@
                     clearInterval(moveOneFloorTimer);
                     //убрать вызов из маршрута
                     self.getRoute().remove(call);
+                    //уведомить подписчиков о том, что обработка вызова закончилась
+                    _notifyAboutCallProcessingFinished(call);
                     _setState.call(self, STATE_STOP);
                 } else {
                     //движение (на один этаж) выполнено
@@ -504,6 +506,18 @@
         //запомнить время начала обработки вызова
         call.setStartedAt();
         let event = new CustomEvent('callProcessingStarted', {
+            detail: {
+                call: call
+            }
+        });
+        document.dispatchEvent(event);
+    }
+
+    function _notifyAboutCallProcessingFinished(call)
+    {
+        //запомнить время окончания обработки вызова
+        call.setFinishedAt();
+        let event = new CustomEvent('callProcessingFinished', {
             detail: {
                 call: call
             }
