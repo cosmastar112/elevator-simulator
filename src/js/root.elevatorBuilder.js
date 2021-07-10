@@ -333,6 +333,13 @@
                     return item.processing && item.processing === true;
                 });
                 this._route.splice(itemIndex, 1);
+            },
+            isCallExists: function(targetFloor) {
+                let item = this._route.find(function(item) {
+                    return item.getFloor() === targetFloor;
+                });
+
+                return item ? true : false;
             }
 
         };
