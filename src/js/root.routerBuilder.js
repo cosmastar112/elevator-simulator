@@ -65,13 +65,13 @@
         route.add(call);
 
         //уведомить о том, что вызов назначен исполнителю
-        _notifyAboutCallAllocated(call.getId(), elevator.getNumber());
+        _notifyAboutCallAllocated(call, elevator.getNumber());
     }
 
-    function _notifyAboutCallAllocated(callId, elevatorNumber)
+    function _notifyAboutCallAllocated(call, elevatorNumber)
     {
         let eventDetail = {
-            callId: callId,
+            call: call,
             elevatorNumber: elevatorNumber,
         };
         let eventCallAllocated = new CustomEvent('elevatorCallAllocated', {

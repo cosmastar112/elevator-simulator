@@ -312,7 +312,8 @@
 
     function _elevatorCallAllocatedHandler(event)
     {
-        let callId = event.detail.callId;
+        let call = event.detail.call;
+        let callId = call.getId();
         let elevatorNumber = event.detail.elevatorNumber
 
         console.log('Обновление столбца "лифт" debug-панели вызовов', event.detail);
