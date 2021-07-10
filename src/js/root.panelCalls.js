@@ -8,6 +8,7 @@
     const TD_REGISTERED_CLASS = 'col-registered';
     const TD_ALLOCATED_CLASS = 'col-allocated';
     const TD_STARTED_CLASS = 'col-started';
+    const TD_FINISHED_CLASS = 'col-finished';
 
     function init()
     {
@@ -122,6 +123,7 @@
         td8.classList.add(TD_STARTED_CLASS);
         td8.innerHTML = null;
         let td9 = document.createElement('td');
+        td9.classList.add(TD_FINISHED_CLASS);
         td9.innerHTML = null;
 
         tr.appendChild(td1);
