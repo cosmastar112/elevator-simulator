@@ -3,6 +3,9 @@
     let _obj;
     let counter = 0;
 
+    const CALLTYPE_CABIN = 'cabin';
+    const CALLTYPE_FLOOR = 'floor';
+
     function init()
     {
         _obj = {
@@ -54,8 +57,8 @@
         id: 'callBuilder',
         init: init,
         construct: construct,
-        CALLTYPE_CABIN: 'cabin',
-        CALLTYPE_FLOOR: 'floor',
+        CALLTYPE_CABIN: CALLTYPE_CABIN,
+        CALLTYPE_FLOOR: CALLTYPE_FLOOR,
     });
 
 })(window.ElevatorSimulator2021);
