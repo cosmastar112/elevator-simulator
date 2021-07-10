@@ -30,6 +30,9 @@
             getCreatedAt: function() {
                 return this._created_at;
             },
+            setRegisteredAt: function() {
+                this._registered_at = root.getUtils().generateAtDateString();
+            },
             getRegisteredAt: function() {
                 return this._registered_at;
             },
