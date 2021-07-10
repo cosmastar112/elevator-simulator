@@ -7,6 +7,7 @@
     const TD_ELEVATOR_CLASS = 'col-elevator';
     const TD_REGISTERED_CLASS = 'col-registered';
     const TD_ALLOCATED_CLASS = 'col-allocated';
+    const TD_STARTED_CLASS = 'col-started';
 
     function init()
     {
@@ -114,6 +115,7 @@
         td7.classList.add(TD_ALLOCATED_CLASS);
         td7.innerHTML = null;
         let td8 = document.createElement('td');
+        td8.classList.add(TD_STARTED_CLASS);
         td8.innerHTML = null;
 
         tr.appendChild(td1);
