@@ -17,6 +17,7 @@
             _registered_at: null,
             _allocated_at: null,
             _started_at: null,
+            _finished_at: null,
             getId: function() {
                 return this._id;
             },
@@ -50,6 +51,12 @@
             setStartedAt: function() {
                 this._started_at = root.getUtils().generateAtDateString();
             },
+            getFinishedAt: function() {
+                return this._finished_at;
+            },
+            setFinishedAt: function() {
+                this._finished_at = root.getUtils().generateAtDateString();
+            },
         };
     }
 
@@ -64,6 +71,7 @@
         newObj._registered_at = null;
         newObj._allocated_at = null;
         newObj._started_at = null;
+        newObj._finished_at = null;
 
 
         return newObj;
