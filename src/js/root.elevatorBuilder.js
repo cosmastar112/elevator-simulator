@@ -196,6 +196,8 @@
                 return;
             }
 
+            //уведомить подписчиков о том, что началась обработка вызова
+            _notifyAboutCallProcessingStarted(call);
             //запомнить последнее направление движения
             self.memorizeLastDirection(call);
 
@@ -495,6 +497,18 @@
         });
 
         return choosedFloors;
+    }
+
+    function _notifyAboutCallProcessingStarted(call)
+    {
+        //запомнить время начала обработки вызова
+        call.setStartedAt();
+        let event = new CustomEvent('callProcessingStarted', {
+            detail: {
+                call: call
+            }
+        });
+        document.dispatchEvent(event);
     }
 
     root.registerModule({
