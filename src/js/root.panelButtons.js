@@ -7,8 +7,6 @@
 
     const CLASS_NAME_PRESSED = 'control_panel_button-pressed';
 
-    const CALLTYPE_CABIN = 'cabin';
-
     function init()
     {
         _obj = {
@@ -48,7 +46,7 @@
                 //этаж назначения
                 let targetFloor = event.target.value;
                 console.log('Была нажата кнопка вызова лифта в кабине. Этаж: ', targetFloor);
-                let call = root.getCallBuilder().construct({type: CALLTYPE_CABIN, floor: targetFloor});
+                let call = root.getCallBuilder().construct({type: root.getCallBuilder().CALLTYPE_CABIN, floor: targetFloor});
                 //событие создания вызова
                 let elevatorCallCreatedEvent = _createCallEvent(call);
                 //оповестить подписчиков о создании вызова
