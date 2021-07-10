@@ -19,6 +19,9 @@
         document.addEventListener('elevatorCallFromCabinCreated', _elevatorCallCreatedHandler);
         //слушать событие "вызову назначен исполнитель (лифт)"; реагирование: перерисовать соответствующее значение на дебаг-панели
         document.addEventListener('elevatorCallAllocated', _elevatorCallAllocatedHandler);
+        //слушать событие "вызов зарегистрирован"; реагирование: перерисовать соответствующее значение на дебаг-панели
+        document.addEventListener('callFromFloorRegistered', _elevatorCallRegisteredHandler);
+        document.addEventListener('callFromCabinRegistered', _elevatorCallRegisteredHandler);
     }
 
     function createView(building)
@@ -317,6 +320,19 @@
         let callsPanel = subpanels.getСallsPanel();
 
         callsPanel.updateView_elevator(callId, elevatorNumber);
+    }
+
+    function _elevatorCallRegisteredHandler(event)
+    {
+        let call = event.detail.call;
+        let id = call.getId();
+        let registeredAt = call.getRegisteredAt();
+
+        console.log('Обновление столбца "время регистрации" debug-панели вызовов', event.detail);
+        let subpanels = root.getBuilder().getBuilding().getSubpanels();
+        let callsPanel = subpanels.getСallsPanel();
+
+        callsPanel.updateView_registered(id, registeredAt);
     }
 
     root.registerModule({
