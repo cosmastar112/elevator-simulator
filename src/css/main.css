@@ -111,3 +111,7 @@
 .panel_passengers_table_tr-detached {
     background-color: greenyellow;
 }
+/*строка "вызов обработан" в debug-панели вызовов*/
+.panel_calls_tr-finished {
+    background-color: greenyellow;
+}
