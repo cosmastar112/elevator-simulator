@@ -534,11 +534,23 @@
                     let pId = currentPassenger.getId();
                     console.log('Пассажир ' + pId + ' прибыл на этаж назначения (' + currentFloor + ') и вышел из лифта');
                     self.detachPassenger(pId);
+                    _notifyAboutPassengerDetached(pId, self.getNumber());
                     break;
                 }
             }
 
         }
+    }
+
+    function _notifyAboutPassengerDetached(pId, eId)
+    {
+        let event = new CustomEvent('passengerDetached', {
+            detail: {
+                pId: pId,
+                eId: eId,
+            }
+        });
+        document.dispatchEvent(event);
     }
 
     root.registerModule({
