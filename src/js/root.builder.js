@@ -57,6 +57,13 @@
 
                 return elevator;
             },
+            getElevatorByNumber: function(elevatorNumber) {
+                let elevator = this.getElevators().find(function(item) {
+                    return item.getNumber() === elevatorNumber;
+                });
+
+                return elevator;
+            },
             getSubpanels: function() {
                 return this._subpanels;
             },
