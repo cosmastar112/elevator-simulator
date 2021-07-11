@@ -247,9 +247,14 @@
             _setState.call(self, STATE_DOORS_OPENING);
         } else if(state === STATE_DOORS_OPENING) {
             console.log('STATE_DOORS_OPENING');
-            // _setState.call(self, STATE_UNLOADING);
-            //погрузка
-            _setState.call(self, STATE_LOADING);
+            //решить нужна ли выгрузка пассажиров
+            if (_hasPassengersWhoWillUnload(self)) {
+                //нужна
+                _setState.call(self, STATE_UNLOADING);
+            } else {
+                //не нужна
+                _setState.call(self, STATE_LOADING);
+            }
         } else if(state === STATE_UNLOADING) {
             console.log('STATE_UNLOADING');
             //погрузка
@@ -477,6 +482,24 @@
             }
         });
         document.dispatchEvent(event);
+    }
+
+    function _hasPassengersWhoWillUnload(self)
+    {
+        let willUnload = false;
+
+        let currentFloor = self.getCurrentPosition();
+        let passengersInCabin = self.getPassengersInCabin();
+        for (let passengerIndex = 0, l = passengersInCabin.length; passengerIndex < l; passengerIndex++) {
+            let currentPassenger = passengersInCabin[passengerIndex];
+            let ufloor = currentPassenger.getUnloadingFloor();
+            if (ufloor && ufloor === currentFloor) {
+                willUnload = true;
+                break;
+            }
+        }
+
+        return willUnload;
     }
 
     root.registerModule({
