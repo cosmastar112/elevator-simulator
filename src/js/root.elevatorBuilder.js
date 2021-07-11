@@ -66,6 +66,9 @@
             getLastDirection: function() {
                 return this._lastDirection;
             },
+            getPassengersInCabin: function() {
+                return this._passengersInCabin;
+            },
             attachPassenger: function(passenger) {
                 this._passengersInCabin.push(passenger);
                 //синхронизация модели панели
