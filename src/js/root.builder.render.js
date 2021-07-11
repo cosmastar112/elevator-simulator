@@ -365,6 +365,7 @@
         let callsPanel = subpanels.getСallsPanel();
 
         callsPanel.updateView_finished(id, finishedAt);
+        callsPanel.updateView_trfinished(id);
     }
 
     function _passengerDetachedHandler(event)
