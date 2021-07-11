@@ -60,7 +60,7 @@
     }
 
     root.registerModule({
-        id: 'panelPersonsTotalNum',
+        id: 'panelPersonsTotalNumBuilder',
         init: init,
         construct: construct,
     });

@@ -79,7 +79,7 @@
 
     function _createPanelPersonsTotalNum()
     {
-        let panelBuilder = root.getPanelPersonsTotalNum();
+        let panelBuilder = root.getPanelPersonsTotalNumBuilder();
         let controlPanel = panelBuilder.construct();
 
         return controlPanel;

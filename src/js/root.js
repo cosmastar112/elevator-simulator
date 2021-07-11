@@ -80,9 +80,9 @@ window.ElevatorSimulator2021 = (function() {
         return module;
     }
 
-    function getPanelPersonsTotalNum()
+    function getPanelPersonsTotalNumBuilder()
     {
-        let module = _getModuleById('panelPersonsTotalNum');
+        let module = _getModuleById('panelPersonsTotalNumBuilder');
 
         return module;
     }
@@ -193,7 +193,7 @@ window.ElevatorSimulator2021 = (function() {
         getCallQueueBuilder: getCallQueueBuilder,
         getPeopleBuilder: getPeopleBuilder,
         getPersonBuilder: getPersonBuilder,
-        getPanelPersonsTotalNum: getPanelPersonsTotalNum,
+        getPanelPersonsTotalNumBuilder: getPanelPersonsTotalNumBuilder,
         getPanelPersonsTotalWeight: getPanelPersonsTotalWeight,
         getPanelOverWeight: getPanelOverWeight,
         getPanelButtons: getPanelButtons,
