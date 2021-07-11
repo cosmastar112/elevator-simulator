@@ -24,6 +24,8 @@
         document.addEventListener('callFromCabinRegistered', _elevatorCallRegisteredHandler);
         document.addEventListener('callProcessingStarted', _elevatorCallProcessingStartedHandler);
         document.addEventListener('callProcessingFinished', _elevatorCallProcessingFinishedHandler);
+        //слушать событие "пассажир вышел из кабины лифта"; реагирование: выделить соответствующую строку на дебаг-панели
+        document.addEventListener('passengerDetached', _passengerDetachedHandler);
     }
 
     function createView(building)
@@ -363,6 +365,20 @@
         let callsPanel = subpanels.getСallsPanel();
 
         callsPanel.updateView_finished(id, finishedAt);
+    }
+
+    function _passengerDetachedHandler(event)
+    {
+        //id персоны
+        let pId = event.detail.pId;
+        //id лифта
+        let eId = event.detail.eId;
+
+        //определить в каком лифте находится пассажир
+        let elevator = root.getBuilder().getBuilding().getElevatorByNumber(eId);
+        if (elevator) {
+            elevator.getControlPanel().getPanelPassengers().updateView_passengerDetached(pId);
+        }
     }
 
     root.registerModule({
