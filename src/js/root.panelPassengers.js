@@ -6,6 +6,7 @@
     const TABLE_ID = 'panel_passengers_table';
 
     const CLASS_TD_UNLOADING_FLOOR_DEFAULT = 'panel_passengers_table_td-unloadingfloor';
+    const CLASS_TR_DETACHED = 'panel_passengers_table_tr-detached';
 
     function init()
     {
@@ -17,6 +18,7 @@
             },
             updateView: _updateView,
             updateView_PassengerUnloadingFloor: _updateView_PassengerUnloadingFloor,
+            updateView_passengerDetached: _updateView_passengerDetached,
         };
     }
 
@@ -136,6 +138,16 @@
     {
         let td = tr.querySelector('td.' + CLASS_TD_UNLOADING_FLOOR_DEFAULT);
         return td;
+    }
+
+    //выделить соответствующую строку, чтобы показать, что пассажир вышел из кабины
+    function _updateView_passengerDetached(id)
+    {
+        let view = this.getView();
+        if (view) {
+            let tr = _getRowByDataKey(view, id);
+            tr.classList.add(CLASS_TR_DETACHED);
+        }
     }
 
     root.registerModule({
