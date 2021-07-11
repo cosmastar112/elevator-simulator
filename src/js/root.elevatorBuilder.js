@@ -511,6 +511,28 @@
         return willUnload;
     }
 
+    function _unloadPassengers(self)
+    {
+        let currentFloor = self.getCurrentPosition();
+        //пока в кабине есть пассажиры, которые прибыли на этаж назначения
+        while(_hasPassengersWhoWillUnload(self)) {
+
+            let passengersInCabin = self.getPassengersInCabin();
+            //выгружать таких пассажиров
+            for (let passengerIndex = 0, l = passengersInCabin.length; passengerIndex < l; passengerIndex++) {
+                let currentPassenger = passengersInCabin[passengerIndex];
+                let ufloor = currentPassenger.getUnloadingFloor();
+                if (ufloor && ufloor === currentFloor) {
+                    let pId = currentPassenger.getId();
+                    console.log('Пассажир ' + pId + ' прибыл на этаж назначения (' + currentFloor + ') и вышел из лифта');
+                    self.detachPassenger(pId);
+                    break;
+                }
+            }
+
+        }
+    }
+
     root.registerModule({
         id: 'elevatorBuilder',
         init: init,
