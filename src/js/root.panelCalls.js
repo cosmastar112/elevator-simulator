@@ -9,6 +9,7 @@
     const TD_ALLOCATED_CLASS = 'col-allocated';
     const TD_STARTED_CLASS = 'col-started';
     const TD_FINISHED_CLASS = 'col-finished';
+    const TR_FINISHED_CLASS = 'panel_calls_tr-finished';
 
     function init()
     {
@@ -24,6 +25,7 @@
             updateView_allocated: _updateView_allocated,
             updateView_started: _updateView_started,
             updateView_finished: _updateView_finished,
+            updateView_trfinished: _updateView_trfinished,
         };
     }
 
@@ -208,6 +210,16 @@
         if (td.length > 0) {
             td.item(0).innerHTML = finishedAt;
         }
+    }
+
+    //найти соответствующую строку по callId (data-key строки) и выделить её как "обработана"
+    function _updateView_trfinished(callId)
+    {
+        let view = this.getView();
+        let table = view.querySelector('#' + TABLE_ID);
+        let trDataKeySelector = 'tr[data-key="' + callId + '"]';
+        let tr = table.querySelector(trDataKeySelector);
+        tr.classList.add(TR_FINISHED_CLASS);
     }
 
     root.registerModule({
