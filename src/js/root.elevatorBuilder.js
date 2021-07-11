@@ -249,7 +249,8 @@
             _setState.call(self, STATE_LOADING);
         } else if(state === STATE_UNLOADING) {
             console.log('STATE_UNLOADING');
-            _setState.call(self, STATE_WAITING_FOR_INPUT);
+            //погрузка
+            _setState.call(self, STATE_LOADING);
         } else if(state === STATE_LOADING) {
             console.log('STATE_LOADING');
             //уведомить о готовности лифта к погрузке
