@@ -74,6 +74,15 @@
                 //синхронизация модели панели
                 _syncControlPanelModel(this, this._passengersInCabin);
             },
+            detachPassenger: function(passengerId) {
+                let pIndex = this._passengersInCabin.findIndex(function(passenger) {
+                    return passenger.getId() === passengerId;
+                });
+                //удалить элемент
+                if (pIndex !== -1) {
+                    this._passengersInCabin.splice(pIndex, 1);
+                }
+            },
             //проверить: есть ли в кабине лифта пассажир с указанным id
             isPassengerInCabin: function(passengerId) {
                 let person = this._passengersInCabin.find(function(item) {
