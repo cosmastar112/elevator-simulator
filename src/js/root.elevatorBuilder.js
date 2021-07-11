@@ -266,8 +266,16 @@
             }
         } else if(state === STATE_UNLOADING) {
             console.log('STATE_UNLOADING');
-            //погрузка
-            _setState.call(self, STATE_LOADING);
+
+            //выгрузка пассажиров
+            let unloadingPromise = new Promise(function(resolve, reject) {
+                _unloadPassengers(self);
+                resolve('result');
+            });
+            unloadingPromise.then(function(result) {
+                //погрузка
+                _setState.call(self, STATE_LOADING);
+            });
         } else if(state === STATE_LOADING) {
             console.log('STATE_LOADING');
             //уведомить о готовности лифта к погрузке
