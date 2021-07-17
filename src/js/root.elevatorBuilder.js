@@ -468,7 +468,12 @@
         // console.log('Погруженные пассажиры', passengersWithoutUnloadingFloor);
 
         let choosedFloors = passengersWithoutUnloadingFloor.map(function(passenger) {
-            let choosedFloor = 5;
+            let choosedFloor = root.getPersonUnloadingFloorBuilder().construct({
+                minFloor: 1,
+                maxFloor: root.getBuilder().getBuilding().getTotalFloors(),
+                currentFloor: elevator.getCurrentPosition(),
+                moveDirection: elevator.getLastDirection(),
+            });
             passenger.setUnloadingFloor(choosedFloor);
 
             return passenger.getUnloadingFloor();
