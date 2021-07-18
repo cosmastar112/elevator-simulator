@@ -82,6 +82,8 @@
                 if (pIndex !== -1) {
                     this._passengersInCabin.splice(pIndex, 1);
                 }
+                //синхронизация модели панели
+                _syncControlPanelModel(this, this._passengersInCabin);
             },
             //проверить: есть ли в кабине лифта пассажир с указанным id
             isPassengerInCabin: function(passengerId) {
