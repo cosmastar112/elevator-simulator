@@ -102,12 +102,33 @@
             loadedPersons.push(person);
             //добавить пассажира в хранилище "пассажиры в кабине"
             elevator.attachPassenger(person);
+
+            _checkOverweight(elevator);
         }
 
         //убрать пустую группу людей с этажа
         floor.removePeople();
 
         return loadedPersons;
+    }
+
+    //сигнализировать в случае перегруза
+    function _checkOverweight(elevator)
+    {
+        let isOverweighted = elevator.isOverweighted();
+        let str = elevator.getTotalWeight().toString() + '; ' + isOverweighted.toString();
+        _notifyAboutOverweight(elevator, isOverweighted);
+    }
+
+    function _notifyAboutOverweight(elevator, isOverweighted)
+    {
+        let event = new CustomEvent('elevatorOverweight', {
+            detail: {
+                elevator: elevator,
+                isOverweighted: isOverweighted,
+            }
+        });
+        document.dispatchEvent(event);
     }
 
     function _fixOverweight()
