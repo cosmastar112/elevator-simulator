@@ -143,6 +143,13 @@ window.ElevatorSimulator2021 = (function() {
         return module;
     }
 
+    function getLoadingAndUnloadingManager()
+    {
+        let module = _getModuleById('loadingAndUnloadingManager');
+
+        return module;
+    }
+
     function getUtils()
     {
         let module = _getModuleById('utils');
@@ -209,6 +216,7 @@ window.ElevatorSimulator2021 = (function() {
         getCallBuilder: getCallBuilder,
         getRouteBuilder: getRouteBuilder,
         getPersonUnloadingFloorBuilder: getPersonUnloadingFloorBuilder,
+        getLoadingAndUnloadingManager: getLoadingAndUnloadingManager,
         getUtils: getUtils,
         onBuildEnd: onBuildEnd,
     };

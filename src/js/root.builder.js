@@ -11,6 +11,7 @@
             _view: null,
             _controlPanelsView: null,
             _ready: false,
+            _loadingAndUnloadingManager: null,
             _subpanels: {
                 _callsPanel: null,
                 _view: null,
@@ -70,6 +71,9 @@
             getSubpanelsView: function() {
                 return this._subpanels.getView();
             },
+            getLoadingAndUnloadingManager: function() {
+                return this._loadingAndUnloadingManager;
+            },
         };
     }
 
@@ -87,6 +91,8 @@
         _buildElevators(systemParams.total_elevators, systemParams.lifting_power, systemParams.total_floors);
         //маршрутизатор
         _buildRouter();
+        //погрузчик/выгрузчик пассажиров
+        _buildLoadingAndUnloadingManager();
         _buildSubpanels();
 
         // создать представление здания
@@ -154,6 +160,12 @@
         let view = render.createControlPanelsView(_building);
 
         return view;
+    }
+
+    function _buildLoadingAndUnloadingManager()
+    {
+        let moduleBuilder = root.getLoadingAndUnloadingManager();
+        _building._loadingAndUnloadingManager = moduleBuilder.construct();
     }
 
     root.registerModule({
