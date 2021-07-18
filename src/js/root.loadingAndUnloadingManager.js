@@ -98,8 +98,6 @@
         //погрузить всех пассажиров на этаже
         while (!people.isEmpty()) {
             let person = people.detachPerson();
-            //добавить пассажира в список погруженных пассажиров
-            loadedPersons.push(person);
             //добавить пассажира в хранилище "пассажиры в кабине"
             elevator.attachPassenger(person);
 
@@ -108,6 +106,15 @@
 
         //убрать пустую группу людей с этажа
         floor.removePeople();
+
+        //устранить перегруз если он есть
+        if (elevator.isOverweighted()) {
+            // alert('Устранение перегруза');
+            _fixOverweight(elevator);
+        }
+
+        //список погруженных пассажиров
+        loadedPersons = elevator.getNewPassengers();
 
         return loadedPersons;
     }
@@ -131,9 +138,18 @@
         document.dispatchEvent(event);
     }
 
-    function _fixOverweight()
+    //пассажир отказывается от поездки, т.к. он вызывает перегруз.
+    //отказывается === выходит из кабины
+    function _fixOverweight(elevator)
     {
+        //найти всех пассажиров, не имеющих этажа назначения (новые пассажиры).
+        //до тех пор, пока общий вес не стабилизирован, выгружать по одному пассажиру из числа новых
+        do {
 
+            let newPassengers = elevator.getNewPassengers();
+            elevator.detachPassenger(newPassengers[0].getId());
+
+        } while (elevator.isOverweighted())
     }
 
     root.registerModule({
