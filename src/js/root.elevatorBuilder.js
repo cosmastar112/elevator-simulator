@@ -99,6 +99,9 @@
                     return accumulator + currentValue;
                 }, 0);
             },
+            isOverweighted: function() {
+                return this.getLiftingPower() < this.getTotalWeight();
+            },
             _setState: _setState,
         };
     }
