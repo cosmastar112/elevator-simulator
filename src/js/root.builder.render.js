@@ -26,6 +26,8 @@
         document.addEventListener('callProcessingFinished', _elevatorCallProcessingFinishedHandler);
         //слушать событие "пассажир вышел из кабины лифта"; реагирование: выделить соответствующую строку на дебаг-панели
         document.addEventListener('passengerDetached', _passengerDetachedHandler);
+        //перегруз в лифте
+        document.addEventListener('elevatorOverweight', _elevatorOverweightHandler);
     }
 
     function createView(building)
@@ -379,6 +381,15 @@
         let elevator = root.getBuilder().getBuilding().getElevatorByNumber(eId);
         if (elevator) {
             elevator.getControlPanel().getPanelPassengers().updateView_passengerDetached(pId);
+        }
+    }
+
+    function _elevatorOverweightHandler(event)
+    {
+        let elevator = event.detail.elevator;
+        let isOverweighted = event.detail.isOverweighted;
+        if (elevator) {
+            elevator.getControlPanel().getPanelOverweight().updateView_overweight(isOverweighted);
         }
     }
 
