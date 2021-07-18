@@ -102,6 +102,12 @@
             isOverweighted: function() {
                 return this.getLiftingPower() < this.getTotalWeight();
             },
+            getNewPassengers: function() {
+                //определить только что погруженных пассажиров (по косвенному признаку - без этажа назначения)
+                return this.getPassengersInCabin().filter(function(passenger) {
+                    return passenger.getUnloadingFloor() === null;
+                });
+            },
             _setState: _setState,
         };
     }
@@ -448,9 +454,7 @@
     function _chooseFloors(elevator)
     {
         //определить только что погруженных пассажиров (по косвенному признаку - без этажа назначения)
-        let passengersWithoutUnloadingFloor = elevator._passengersInCabin.filter(function(passenger) {
-            return passenger.getUnloadingFloor() === null;
-        });
+        let passengersWithoutUnloadingFloor = elevator.getNewPassengers();
         // console.log('Погруженные пассажиры', passengersWithoutUnloadingFloor);
 
         let choosedFloors = passengersWithoutUnloadingFloor.map(function(passenger) {
