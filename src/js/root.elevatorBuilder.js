@@ -93,6 +93,12 @@
 
                 return person ? true : false;
             },
+            getTotalWeight: function() {
+                return this.getPassengersInCabin().reduce(function(accumulator, passenger) {
+                    let currentValue = passenger.getWeight();
+                    return accumulator + currentValue;
+                }, 0);
+            },
             _setState: _setState,
         };
     }
@@ -402,7 +408,7 @@
         _notifyAboutPanelPersonsTotalNumModelUpdated(elevator);
 
         //панель "Общий вес пассажиров"
-        let weight = _getTotalWeight(passengers);
+        let weight = elevator.getTotalWeight();
         elevator.getControlPanel().getPanelPersonsTotalWeight().setTotal(weight);
         _notifyAboutPanelPersonsTotalWeightModelUpdated(elevator);
     }
@@ -418,14 +424,6 @@
         return new CustomEvent('panelPersonsTotalNumModelUpdated', {
             detail: detail
         });
-    }
-
-    function _getTotalWeight(passengers)
-    {
-        return passengers.reduce(function(accumulator, passenger) {
-            let currentValue = passenger.getWeight();
-            return accumulator + currentValue;
-        }, 0);
     }
 
     function _notifyAboutPanelPersonsTotalWeightModelUpdated(elevator)
