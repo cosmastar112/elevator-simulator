@@ -17,7 +17,8 @@
             },
             getView: function() {
                 return this._view;
-            }
+            },
+            updateView_overweight: _updateView_overweight,
         };
     }
 
@@ -44,6 +45,22 @@
         view.appendChild(panelIndicator);
 
         return view;
+    }
+
+    function _updateView_overweight(isOverweighted)
+    {
+        let spansCollection = document.getElementsByClassName(CLASS_NAME_INDICATOR);
+        if (spansCollection.length > 0) {
+            let span = spansCollection.item(0);
+            //обновление значения
+            span.innerHTML = isOverweighted;
+
+            if (isOverweighted) {
+                span.classList.add(CLASS_NAME_INDICATOR_OVERWEIGHTED);
+            } else {
+                span.classList.remove(CLASS_NAME_INDICATOR_OVERWEIGHTED);
+            }
+        }
     }
 
     root.registerModule({
