@@ -115,69 +115,10 @@
         console.log('Отжать кнопки вызова на панели на этаже', event.detail, callPanel);
     }
 
-    //@return array
-    function _loadPassengers(people, floor, elevator)
-    {
-        console.log('Погрузка пассажиров...', people);
-        //успешно погруженные пассажиры
-        let loadedPersons = [];
-
-        //на этаже нет группы людей
-        if (!people) {
-            return loadedPersons;
-        }
-
-        while (!people.isEmpty()) {
-            let person = people.detachPerson();
-            //попытаться его погрузить
-            if (_loadPerson(person)) {
-                //если погрузка прошла успешно (перегруз не наступил), добавить его в список погруженных пассажиров
-                loadedPersons.push(person);
-                //добавить пассажира в хранилище "пассажиры в кабине"
-                elevator.attachPassenger(person);
-            } else {
-                //если наступил перегруз, устранить его
-                _fixOverweight();
-            }
-        }
-
-        //убрать пустую группу людей с этажа
-        floor.removePeople();
-
-        return loadedPersons;
-    }
-
-    //погрузка пассажира в кабину лифта
-    function _loadPerson(person)
-    {
-        let weight = person.getWeight();
-        //пока что выполняется ВСЕГДА успешно
-        return true;
-    }
-
-    function _fixOverweight()
-    {
-
-    }
-
-    //погрузка
-    function loading(floorNumber, elevator)
-    {
-        //этаж
-        let floor = root.getBuilder().getBuilding().getFloorByNumber(floorNumber);
-        //найти группу людей на указанном этаже
-        let people = floor.getPeople();
-        //успешно погруженные пассажиры
-        let loadedPersons = _loadPassengers(people, floor, elevator);
-
-        return loadedPersons;
-    }
-
     root.registerModule({
         id: 'floorBuilder',
         init: init,
         constructFloor: constructFloor,
-        loading: loading,
     });
 
 })(window.ElevatorSimulator2021);

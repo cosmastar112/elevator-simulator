@@ -254,7 +254,7 @@
         } else if(state === STATE_DOORS_OPENING) {
             console.log('STATE_DOORS_OPENING');
             //решить нужна ли выгрузка пассажиров
-            if (_hasPassengersWhoWillUnload(self)) {
+            if (root.getBuilder().getBuilding().getLoadingAndUnloadingManager().hasPassengersWhoWillUnload(self)) {
                 //нужна
                 _setState.call(self, STATE_UNLOADING);
             } else {
@@ -266,7 +266,7 @@
 
             //выгрузка пассажиров
             let unloadingPromise = new Promise(function(resolve, reject) {
-                _unloadPassengers(self);
+                root.getBuilder().getBuilding().getLoadingAndUnloadingManager().unload(self);
                 resolve('result');
             });
             unloadingPromise.then(function(result) {
@@ -279,7 +279,7 @@
             let floor = self.getCurrentPosition();
             let loadingPromise = new Promise(function(resolve, reject) {
                 // console.log('Погрузка начата');
-                let loadedPersons = root.getFloorBuilder().loading(floor, self);
+                let loadedPersons = root.getBuilder().getBuilding().getLoadingAndUnloadingManager().load(floor, self);
                 resolve(loadedPersons);
             });
             loadingPromise.then(function(loadedPersons) {
@@ -483,58 +483,6 @@
         let event = new CustomEvent('callProcessingFinished', {
             detail: {
                 call: call
-            }
-        });
-        document.dispatchEvent(event);
-    }
-
-    function _hasPassengersWhoWillUnload(self)
-    {
-        let willUnload = false;
-
-        let currentFloor = self.getCurrentPosition();
-        let passengersInCabin = self.getPassengersInCabin();
-        for (let passengerIndex = 0, l = passengersInCabin.length; passengerIndex < l; passengerIndex++) {
-            let currentPassenger = passengersInCabin[passengerIndex];
-            let ufloor = currentPassenger.getUnloadingFloor();
-            if (ufloor && ufloor === currentFloor) {
-                willUnload = true;
-                break;
-            }
-        }
-
-        return willUnload;
-    }
-
-    function _unloadPassengers(self)
-    {
-        let currentFloor = self.getCurrentPosition();
-        //пока в кабине есть пассажиры, которые прибыли на этаж назначения
-        while(_hasPassengersWhoWillUnload(self)) {
-
-            let passengersInCabin = self.getPassengersInCabin();
-            //выгружать таких пассажиров
-            for (let passengerIndex = 0, l = passengersInCabin.length; passengerIndex < l; passengerIndex++) {
-                let currentPassenger = passengersInCabin[passengerIndex];
-                let ufloor = currentPassenger.getUnloadingFloor();
-                if (ufloor && ufloor === currentFloor) {
-                    let pId = currentPassenger.getId();
-                    console.log('Пассажир ' + pId + ' прибыл на этаж назначения (' + currentFloor + ') и вышел из лифта');
-                    self.detachPassenger(pId);
-                    _notifyAboutPassengerDetached(pId, self.getNumber());
-                    break;
-                }
-            }
-
-        }
-    }
-
-    function _notifyAboutPassengerDetached(pId, eId)
-    {
-        let event = new CustomEvent('passengerDetached', {
-            detail: {
-                pId: pId,
-                eId: eId,
             }
         });
         document.dispatchEvent(event);
