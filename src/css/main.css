@@ -115,3 +115,7 @@
 .panel_calls_tr-finished {
     background-color: greenyellow;
 }
+/*класс индикатора перегруза, когда наступил перегруз*/
+.panel_overweight_indicator-overweighted {
+    background-color: orangered;
+}

@@ -4,6 +4,7 @@
 
     const CLASS_NAME = 'panel_overweight';
     const CLASS_NAME_INDICATOR = 'panel_overweight_indicator';
+    const CLASS_NAME_INDICATOR_OVERWEIGHTED = 'panel_overweight_indicator-overweighted';
 
     function init()
     {
