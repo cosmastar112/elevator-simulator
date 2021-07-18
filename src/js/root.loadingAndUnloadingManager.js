@@ -95,31 +95,19 @@
             return loadedPersons;
         }
 
+        //погрузить всех пассажиров на этаже
         while (!people.isEmpty()) {
             let person = people.detachPerson();
-            //попытаться его погрузить
-            if (_loadPerson(person)) {
-                //если погрузка прошла успешно (перегруз не наступил), добавить его в список погруженных пассажиров
-                loadedPersons.push(person);
-                //добавить пассажира в хранилище "пассажиры в кабине"
-                elevator.attachPassenger(person);
-            } else {
-                //если наступил перегруз, устранить его
-                _fixOverweight();
-            }
+            //добавить пассажира в список погруженных пассажиров
+            loadedPersons.push(person);
+            //добавить пассажира в хранилище "пассажиры в кабине"
+            elevator.attachPassenger(person);
         }
 
         //убрать пустую группу людей с этажа
         floor.removePeople();
 
         return loadedPersons;
-    }
-
-    function _loadPerson(person)
-    {
-        let weight = person.getWeight();
-        //пока что выполняется ВСЕГДА успешно
-        return true;
     }
 
     function _fixOverweight()
