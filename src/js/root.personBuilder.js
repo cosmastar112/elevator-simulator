@@ -32,6 +32,12 @@
                 this._unloadingFloor = value;
                 _notifyAboutUnloadingFloorUpdated(this.getId(), value);
             },
+            chooseUnloadingFloor: function(params) {
+                let floor = root.getPersonUnloadingFloorBuilder().construct(params);
+                this.setUnloadingFloor(floor);
+
+                return floor;
+            },
             getWeight: function() {
                 return this._weight;
             }
