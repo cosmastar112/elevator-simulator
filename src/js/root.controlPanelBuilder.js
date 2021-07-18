@@ -28,6 +28,9 @@
             getPanelPersonsTotalWeight: function() {
                 return this._panelPersonsTotalWeight;
             },
+            getPanelOverweight: function() {
+                return this._panelOverweight;
+            },
             getPanelButtons: function() {
                 return this._panelButtons;
             }
