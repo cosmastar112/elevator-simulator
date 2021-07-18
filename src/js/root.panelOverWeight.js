@@ -3,6 +3,7 @@
     let _obj;
 
     const CLASS_NAME = 'panel_overweight';
+    const CLASS_NAME_INDICATOR = 'panel_overweight_indicator';
 
     function init()
     {
@@ -37,6 +38,7 @@
         view.appendChild(panelTitle);
         //количество пассажиров
         let panelIndicator = document.createElement('span');
+        panelIndicator.classList.add(CLASS_NAME_INDICATOR);
         panelIndicator.innerHTML = self.getIndicatorValue();
         view.appendChild(panelIndicator);
 
