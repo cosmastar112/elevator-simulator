@@ -93,9 +93,6 @@
             },
             _setState: _setState,
         };
-
-        //коллбек окончания погрузки
-        document.addEventListener('elevatorLoadingCompleted', _elevatorLoadingCompletedHandler);
     }
 
     function construct(params)
@@ -278,10 +275,20 @@
             });
         } else if(state === STATE_LOADING) {
             console.log('STATE_LOADING');
-            //уведомить о готовности лифта к погрузке
+
             let floor = self.getCurrentPosition();
-            _notifyAboutReadinessForLoading(floor, self);
-            //ожидать окончания погрузки; после этого срабатывает коллбек _elevatorLoadingCompletedHandler
+            let loadingPromise = new Promise(function(resolve, reject) {
+                // console.log('Погрузка начата');
+                let loadedPersons = root.getFloorBuilder().loading(floor, self);
+                resolve(loadedPersons);
+            });
+            loadingPromise.then(function(loadedPersons) {
+                // console.log('Погрузка завершена');
+                //уведомить об окончании погрузки
+                let elevatorLoadingCompletedEvent = _createElevatorLoadingCompletedEvent(loadedPersons, self, floor);
+                document.dispatchEvent(elevatorLoadingCompletedEvent);
+                _setState.call(self, STATE_WAITING_FOR_INPUT);
+            });
         } else if(state === STATE_WAITING_FOR_INPUT) {
             console.log('STATE_WAITING_FOR_INPUT');
             //выбор пассажирами этажей назначения
@@ -383,30 +390,6 @@
         return new CustomEvent('elevatorDoorsClosed', {
             detail: detail
         });
-    }
-
-    function _notifyAboutReadinessForLoading(floorNumber, elevator)
-    {
-        let eventDetail = {
-            floorNumber: floorNumber,
-            elevator: elevator,
-        };
-        let event = _createElevatorReadyForLoadingEvent(eventDetail);
-        document.dispatchEvent(event);
-    }
-
-    function _createElevatorReadyForLoadingEvent(detail)
-    {
-        return new CustomEvent('elevatorReadyForLoading', {
-            detail: detail
-        });
-    }
-
-    function _elevatorLoadingCompletedHandler(event)
-    {
-        console.log('Погрузка завершена', event.detail);
-        let elevator = event.detail.elevator;
-        _setState.call(elevator, STATE_WAITING_FOR_INPUT);
     }
 
     function _syncControlPanelModel(elevator, passengers)
@@ -555,6 +538,17 @@
             }
         });
         document.dispatchEvent(event);
+    }
+
+    function _createElevatorLoadingCompletedEvent(loadedPersons, elevator, floorNumber)
+    {
+        return new CustomEvent('elevatorLoadingCompleted', {
+            detail: {
+                loadedPersons: loadedPersons,
+                elevator: elevator,
+                floorNumber: floorNumber,
+            }
+        });
     }
 
     root.registerModule({

@@ -29,9 +29,6 @@
                 this._hasPeople = null;
             }
         };
-
-        //обработчик готовности лифта к погрузке
-        document.addEventListener('elevatorReadyForLoading', _elevatorReadyForLoadingHandler);
     }
 
     function constructFloor(floorParams)
@@ -118,38 +115,6 @@
         console.log('Отжать кнопки вызова на панели на этаже', event.detail, callPanel);
     }
 
-    //обработчик готовности лифта к погрузке
-    function _elevatorReadyForLoadingHandler(event)
-    {
-        //найти группу людей на указанном этаже
-        let floorNumber = event.detail.floorNumber;
-        let elevator = event.detail.elevator;
-        //этаж
-        let floor = root.getBuilder().getBuilding().getFloorByNumber(floorNumber);
-        //группа людей
-        let people = floor.getPeople();
-        //успешно погруженные пассажиры
-        let loadedPersons = _loadPassengers(people, floor, elevator);
-
-        //имитация асинхронности
-        setTimeout(function() {
-            //уведомить об окончании погрузки
-            let elevatorLoadingCompletedEvent = _createElevatorLoadingCompletedEvent(loadedPersons, elevator, floorNumber);
-            document.dispatchEvent(elevatorLoadingCompletedEvent);
-        }, 1000);
-    }
-
-    function _createElevatorLoadingCompletedEvent(loadedPersons, elevator, floorNumber)
-    {
-        return new CustomEvent('elevatorLoadingCompleted', {
-            detail: {
-                loadedPersons: loadedPersons,
-                elevator: elevator,
-                floorNumber: floorNumber,
-            }
-        });
-    }
-
     //@return array
     function _loadPassengers(people, floor, elevator)
     {
@@ -195,10 +160,24 @@
 
     }
 
+    //погрузка
+    function loading(floorNumber, elevator)
+    {
+        //этаж
+        let floor = root.getBuilder().getBuilding().getFloorByNumber(floorNumber);
+        //найти группу людей на указанном этаже
+        let people = floor.getPeople();
+        //успешно погруженные пассажиры
+        let loadedPersons = _loadPassengers(people, floor, elevator);
+
+        return loadedPersons;
+    }
+
     root.registerModule({
         id: 'floorBuilder',
         init: init,
         constructFloor: constructFloor,
+        loading: loading,
     });
 
 })(window.ElevatorSimulator2021);
