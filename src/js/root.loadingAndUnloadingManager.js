@@ -106,6 +106,7 @@
 
         //убрать пустую группу людей с этажа
         floor.removePeople();
+        _notifyAboutPeopleRemoved(floor)
 
         //устранить перегруз если он есть
         if (elevator.isOverweighted()) {
@@ -150,6 +151,16 @@
             elevator.detachPassenger(newPassengers[0].getId());
 
         } while (elevator.isOverweighted())
+    }
+
+    function _notifyAboutPeopleRemoved(floor)
+    {
+        let e = new CustomEvent('peopleRemoved', {
+            detail: {
+                floor: floor
+            }
+        });
+        document.dispatchEvent(e);
     }
 
     root.registerModule({

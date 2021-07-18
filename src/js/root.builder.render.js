@@ -28,6 +28,8 @@
         document.addEventListener('passengerDetached', _passengerDetachedHandler);
         //перегруз в лифте
         document.addEventListener('elevatorOverweight', _elevatorOverweightHandler);
+        //слушать событие "группа людей удалена"; реагирование: удалить рендер группы людей
+        document.addEventListener('peopleRemoved', _peopleRemovedHandler);
     }
 
     function createView(building)
@@ -144,6 +146,26 @@
         //отрисовать группу людей в ячейке
         td.appendChild(peopleView);
         // console.log('_peopleCreatedHandler', event, loadingFloor, row, td);
+    }
+
+    function _peopleRemovedHandler(event)
+    {
+        //этаж, на котором размещена группа людей
+        let floor = event.detail.floor;
+        let floorNumber = floor.getNumber();
+        //найти строку таблицы, соответствующую этажу
+        let row = document.getElementById('floor_'+floorNumber);
+        //найти ячейку строки, в которой размещается группа людей (коллекция)
+        let tdCollection = row.getElementsByClassName('column_people');
+        //извлечь ячейку из коллекции
+        let td = tdCollection.item(0);
+
+        //удалить все содержимое ячейки
+        let child = td.lastElementChild;
+        while(child) {
+            td.removeChild(child);
+            child = td.lastElementChild;
+        }
     }
 
     function _elevatorPositionUpdatedHandler(event)
