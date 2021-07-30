@@ -1,16 +1,16 @@
 ﻿/*сместить контейнер от верхнего края*/
-#buildingContainer {
+/*#buildingContainer {
     margin-top: 20px;
-}
+}*/
 /*выровнять таблицу по центру*/
-#buildingContainer table {
+/*#buildingContainer table {
     width: 500px;
     margin: auto;
-}
+}*/
 /*граница между ячейками*/
 #buildingContainer table td, 
 #buildingContainer table th 
- {
+{
     border: 1px solid;
 }
 /*убрать промежутки между ячейками*/
@@ -103,10 +103,10 @@
     color: white;
 }
 /*ширина таблицы debug-панели вызовов*/
-#buildingContainer table#panel_calls_table {
+/*#buildingContainer table#panel_calls_table {
     width: 80%;
     margin: auto;
-}
+}*/
 /*строка "пассажир вышел из кабины" в debug-панели пассажиров*/
 .panel_passengers_table_tr-detached {
     background-color: greenyellow;
