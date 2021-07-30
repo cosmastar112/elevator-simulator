@@ -119,3 +119,39 @@
 .panel_overweight_indicator-overweighted {
     background-color: orangered;
 }
+
+/*выступ и отступ всего шаблона*/
+.template {
+    margin: 15px;
+    padding: 5px;
+}
+/*высота заголовка*/
+.template__header {
+    height: 50px;
+}
+/*высота главного блока приложения*/
+.template__body {
+    height: 800px;
+}
+/*oveflow блоков внутри главного блока приложения*/
+.template__building,
+.template__elevator-control-panel,
+.template__debug-panels {
+    overflow-x: auto;
+    overflow-y: auto;
+}
+/*разбить блоки внутри главного блока приложения на 3 горизонтальных блока */
+.template__building,
+.template__elevator-control-panel,
+.template__debug-panels {
+    float: left;
+}
+/*ширина блока дебаг-панелей*/
+.template__debug-panels {
+    width: 40%;
+}
+/*правый выступ 2-го и 3-его блоков главного блока приложения*/
+.template__elevator-control-panel,
+.template__debug-panels {
+    margin-left: 25px;
+}
