@@ -30,38 +30,9 @@
 
     function _render(building)
     {
-        let buildingView = building.getView();
-        let buildingContainerId = 'buildingContainer';
-        // контейнер здания
-        let buildingContainer = document.getElementById(buildingContainerId);
-        if (!buildingContainer) {
-            return;
-        }
-
-        let panelsContainerId = 'panelsContainer';
-        // контейнер панелей управления
-        let panelsContainer = document.getElementById(panelsContainerId);
-        if (!panelsContainer) {
-            return;
-        }
-
-        let subpanelsContainerId = 'subpanelsContainer';
-        // контейнер доп. панелей
-        let subpanelsContainer = document.getElementById(subpanelsContainerId);
-        if (!subpanelsContainer) {
-            return;
-        }
-
-        // отрисовать контейнер здания
-        buildingContainer.insertBefore(buildingView, panelsContainer);
-
-        let controlPanelsView = building.getControlPanelsView();
-        // отрисовать контейнер панелей управления
-        panelsContainer.appendChild(controlPanelsView);
-
-        let subpanelsView = building.getSubpanelsView();
-        //отрисовать контейнер с дополнительными панелями
-        subpanelsContainer.appendChild(subpanelsView);
+        document.getElementById('buildingContainer').appendChild(building.getView());
+        document.getElementById('panelsContainer').appendChild(building.getControlPanelsView());
+        document.getElementById('subpanelsContainer').appendChild(building.getSubpanelsView());
     }
 
     function _startHandler(event)
