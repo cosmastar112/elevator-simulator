@@ -303,12 +303,20 @@
 
     function createSubpanelsView()
     {
+        let container = document.createElement('div');
+
         let subpanels = root.getBuilder().getBuilding().getSubpanels();
         let callsPanel = subpanels.getСallsPanel();
         let panelView = callsPanel.getView();
-
-        let container = document.createElement('div');
         container.appendChild(panelView);
+
+        let elevators = root.getBuilder().getBuilding().getElevators();
+        for(let elevatorIndex = 0; elevatorIndex < elevators.length; elevators++) {
+            let currentElevator = elevators[elevatorIndex];
+            //панель "пасажиры"
+            let panelPassengers = currentElevator.getControlPanel().getPanelPassengers().getView();
+            container.appendChild(panelPassengers);
+        }
 
         return container;
     }

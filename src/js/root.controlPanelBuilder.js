@@ -73,9 +73,6 @@
         //кнопочная панель
         let panelButtons = self._panelButtons.getView();
         view.appendChild(panelButtons);
-        //панель "пасажиры"
-        let panelPassengers = self._panelPassengers.getView();
-        view.appendChild(panelPassengers);
 
         return view;
     }
