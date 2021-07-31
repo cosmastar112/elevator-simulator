@@ -223,3 +223,21 @@
     font-size: 20px;
     font-weight: bold;
 }
+/*границы и выравнивание текста в ячейках таблицы debug-панели*/
+.template__debug-panels table td,
+.template__debug-panels table th {
+    border: 1px solid;
+    text-align: center;
+}
+.template__debug-panels table {
+    border-collapse: collapse;
+}
+/*отделение debug-панелей*/
+div.panel_passengers div.debug-panel__title {
+    margin-top: 10px;
+}
+/*шрифт в таблицах debug-панелей*/
+.template__debug-panels table {
+    font-family: Serif, Georgia, "Times New Roman";
+    font-size: 18px;
+}
