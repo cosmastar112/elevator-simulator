@@ -182,7 +182,7 @@
             // console.log(activeCall);
             if (activeCall) {
                 //снять с текущего активного вызова отметку «Находящийся в обработке»
-                activeCall.processing = false;
+                activeCall.setProcessing(false);
             }
 
             //если предыдущее состояние - НЕ бездействие
@@ -205,7 +205,7 @@
             if (nextCall) {
                 console.log('Следующая цель маршрута: ' + nextCall.getFloor(), nextCall.getDirection());
                 //пометить вызов как «Находящийся в обработке»
-                nextCall.processing = true;
+                nextCall.setProcessing(true);
                 _setState.call(self, STATE_MOVE);
             } else {
                 console.log('Все цели маршрута обработаны', self);
@@ -378,9 +378,9 @@
         let route = this.getRoute().getRoute();
         let newActiveCall = route.filter(function(item) {
             //движение наверх
-            let isC1 = !item.processing && item.getFloor() > currentPosition && item.getFloor() < activeCallFloor;
+            let isC1 = !item.getProcessing() && item.getFloor() > currentPosition && item.getFloor() < activeCallFloor;
             //движение вниз
-            let isC2 = !item.processing && item.getFloor() < currentPosition && item.getFloor() > activeCallFloor;
+            let isC2 = !item.getProcessing() && item.getFloor() < currentPosition && item.getFloor() > activeCallFloor;
             return isC1 || isC2;
         });
 

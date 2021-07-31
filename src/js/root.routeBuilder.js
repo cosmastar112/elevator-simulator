@@ -44,13 +44,13 @@
             },
             getActiveCall: function() {
                 let item = this._route.find(function(item) {
-                    return item.processing && item.processing === true;
+                    return item.getProcessing() && item.getProcessing() === true;
                 });
                 return item;
             },
             remove: function(call) {
                 let itemIndex = this._route.findIndex(function(item) {
-                    return item.processing && item.processing === true;
+                    return item.getProcessing() && item.getProcessing() === true;
                 });
                 this._route.splice(itemIndex, 1);
             },

@@ -18,6 +18,7 @@
             _allocated_at: null,
             _started_at: null,
             _finished_at: null,
+            _processing: null,
             getId: function() {
                 return this._id;
             },
@@ -57,6 +58,12 @@
             setFinishedAt: function() {
                 this._finished_at = root.getUtils().generateAtDateString();
             },
+            getProcessing: function() {
+                return this._processing;
+            },
+            setProcessing: function(value) {
+                this._processing = value;
+            },
         };
     }
 
@@ -72,6 +79,7 @@
         newObj._allocated_at = null;
         newObj._started_at = null;
         newObj._finished_at = null;
+        newObj._processing = null;
 
 
         return newObj;
