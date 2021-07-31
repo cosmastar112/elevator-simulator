@@ -211,3 +211,9 @@
     font-weight: bold;
     margin-bottom: 10px;
 }
+.panel__title {
+    font-family: Serif, Georgia, "Times New Roman";
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}

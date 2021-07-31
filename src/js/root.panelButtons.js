@@ -6,6 +6,7 @@
     const CLASS_NAME_BTN_DEFAULT = 'control_panel_button';
 
     const CLASS_NAME_PRESSED = 'control_panel_button-pressed';
+    const PANEL_TITLE_CLASS = 'panel__title';
 
     function init()
     {
@@ -83,6 +84,7 @@
         //название панели
         let panelTitle = document.createElement('div');
         panelTitle.innerHTML = self._name;
+        panelTitle.classList.add(PANEL_TITLE_CLASS);
         view.appendChild(panelTitle);
         // let totalFloors = document.createElement('p');
         // totalFloors.innerHTML = 'Всего этажей: ' + params.total_floors;

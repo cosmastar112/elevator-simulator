@@ -4,6 +4,7 @@
 
     const CLASS_NAME = 'panel_total-persons-num';
     const CLASS_TOTAL_CONTAINER = 'panel_total-persons-num_total';
+    const PANEL_TITLE_CLASS = 'panel__title';
 
     function init()
     {
@@ -42,6 +43,7 @@
         //название панели
         let panelTitle = document.createElement('div');
         panelTitle.innerHTML = self._name;
+        panelTitle.classList.add(PANEL_TITLE_CLASS);
         view.appendChild(panelTitle);
         //количество пассажиров
         let panelIndicator = _createViewPanelIndicator.call(self);
