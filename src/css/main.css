@@ -173,9 +173,11 @@
     font-size: 20px;
 }
 /*разбить блок меню в заголовке на 2 горизонтальных блока */
-.template__labels,
-.template__buttons {
+.template__labels {
     float: left;
+}
+.template__buttons {
+    float: right;
 }
 /*отделение блока кнопок от блока лейблов*/
 .template__buttons {
