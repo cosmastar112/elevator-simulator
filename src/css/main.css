@@ -189,3 +189,18 @@
 .template__labels label {
     margin-right: 20px;
 }
+/*расположения в ряд названия и значения индикатора "Количество пассажиров" в панели управления лифтом*/
+.panel_total-persons-num div,
+.panel_total-persons-num span {
+    display: inline-block;
+}
+/*расположения в ряд названия и значения индикатора "Общий вес пассажиров" в панели управления лифтом*/
+.panel_total-persons-weight div,
+.panel_total-persons-weight span {
+    display: inline-block;
+}
+/*расположения в ряд названия и значения индикатора перегруза в панели управления лифтом*/
+.panel_overweight div,
+.panel_overweight span {
+    display: inline-block;
+}
