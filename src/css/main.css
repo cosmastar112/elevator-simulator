@@ -241,3 +241,8 @@ div.panel_passengers div.debug-panel__title {
     font-family: Serif, Georgia, "Times New Roman";
     font-size: 18px;
 }
+
+.debug-panel__table-container {
+    overflow-y: scroll;
+    max-height: 350px;
+}
