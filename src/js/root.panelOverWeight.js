@@ -35,7 +35,7 @@
         let view = document.createElement('div');
         view.classList.add(CLASS_NAME);
         //название панели
-        let panelTitle = document.createElement('h3');
+        let panelTitle = document.createElement('div');
         panelTitle.innerHTML = self._name;
         view.appendChild(panelTitle);
         //количество пассажиров

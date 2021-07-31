@@ -81,7 +81,7 @@
         let view = document.createElement('div');
         view.classList.add(CLASS_NAME_CONTAINER);
         //название панели
-        let panelTitle = document.createElement('h3');
+        let panelTitle = document.createElement('div');
         panelTitle.innerHTML = self._name;
         view.appendChild(panelTitle);
         // let totalFloors = document.createElement('p');

@@ -58,7 +58,7 @@
         //id панели управления (связь с id лифта)
         view.id = 'control_panel-' + self._number;
         //название панели
-        let panelTitle = document.createElement('h2');
+        let panelTitle = document.createElement('div');
         panelTitle.innerHTML = _obj._basename + params.number;
         view.appendChild(panelTitle);
         //индикатор количества пассажиров
