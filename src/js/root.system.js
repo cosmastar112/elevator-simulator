@@ -15,6 +15,9 @@
 
     function _start(systemParams)
     {
+        //скрыть стартовое сообщение
+        document.getElementsByClassName('template__startscreen').item(0).hidden = true;
+
         // инициализировать систему
         // console.log(systemParams);
         let builder = root.getBuilder();

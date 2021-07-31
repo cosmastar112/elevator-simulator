@@ -246,3 +246,8 @@ div.panel_passengers div.debug-panel__title {
     overflow-y: scroll;
     max-height: 350px;
 }
+.template__startscreen {
+    text-align: center;
+    font-family: Serif, Georgia, "Times New Roman";
+    font-size: 36px;
+}
