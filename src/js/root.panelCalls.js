@@ -10,6 +10,7 @@
     const TD_STARTED_CLASS = 'col-started';
     const TD_FINISHED_CLASS = 'col-finished';
     const TR_FINISHED_CLASS = 'panel_calls_tr-finished';
+    const DEBUG_PANEL_TITLE_CLASS = 'debug-panel__title';
 
     function init()
     {
@@ -44,6 +45,7 @@
         //название панели
         let panelTitle = document.createElement('div');
         panelTitle.innerHTML = self._name;
+        panelTitle.classList.add(DEBUG_PANEL_TITLE_CLASS);
         view.appendChild(panelTitle);
 
         //таблица
