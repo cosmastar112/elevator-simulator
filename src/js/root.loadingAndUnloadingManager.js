@@ -112,6 +112,7 @@
         if (elevator.isOverweighted()) {
             // alert('Устранение перегруза');
             _fixOverweight(elevator);
+            _checkOverweight(elevator)
         }
 
         //список погруженных пассажиров
