@@ -129,6 +129,10 @@
 .template__header {
     height: 50px;
 }
+/*нижний выступ заголовка*/
+.template__header {
+    margin-bottom: 25px;
+}
 /*высота главного блока приложения*/
 .template__body {
     height: 800px;
@@ -154,4 +158,34 @@
 .template__elevator-control-panel,
 .template__debug-panels {
     margin-left: 25px;
+}
+/*стиль блока меню в заголовке*/
+.template__menu {
+    width: 75%;
+    margin: 0 auto;
+    padding-top: 15px;
+}
+/*шрифт в элементах заголовка*/
+.template__labels label,
+.template__labels label select,
+.template__buttons input {
+    font-family: Serif, Georgia, "Times New Roman";
+    font-size: 20px;
+}
+/*разбить блок меню в заголовке на 2 горизонтальных блока */
+.template__labels,
+.template__buttons {
+    float: left;
+}
+/*отделение блока кнопок от блока лейблов*/
+.template__buttons {
+    margin-left: 35px;
+}
+/*отделение элементов блока кнопок друг от друга*/
+.template__buttons input:first-child {
+    margin-right: 20px;
+}
+/*отделение полей в блоке лейблов друг от друга*/
+.template__labels label {
+    margin-right: 20px;
 }
