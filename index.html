@@ -28,63 +28,60 @@
         <script type="text/javascript" src="./src/js/root.loadingAndUnloadingManager.js" charset="utf-8"></script>
     </head>
     <body>
-        <div class="template">
-            <div class="template__header">
-                <div class="template__menu">
-                    <form id="system_params_form" action="#" name="SystemParams">
-                        <div class="template__labels">
-                            <label>
-                                Количество этажей
-                                <select name="SystemParams[total_floors]" form="system_params_form">
-                                    <option label="9" value="9" selected></option>
-                                    <option label="10" value="10"></option>
-                                    <option label="11" value="11"></option>
-                                    <option label="12" value="12"></option>
-                                    <option label="13" value="13"></option>
-                                    <option label="14" value="14"></option>
-                                    <option label="15" value="15"></option>
-                                    <option label="16" value="16"></option>
-                                    <option label="17" value="17"></option>
-                                    <option label="18" value="18"></option>
-                                    <option label="19" value="19"></option>
-                                    <option label="20" value="20"></option>
-                                    <option label="21" value="21"></option>
-                                    <option label="22" value="22"></option>
-                                    <option label="23" value="23"></option>
-                                    <option label="24" value="24"></option>
-                                    <option label="25" value="25"></option>
-                                    <option label="26" value="26"></option>
-                                    <option label="27" value="27"></option>
-                                    <option label="28" value="28"></option>
-                                    <option label="29" value="29"></option>
-                                    <option label="30" value="30"></option>
-                                </select>
-                            </label>
-                            <label>
-                                Количество лифтов
-                                <select name="SystemParams[total_elevators]" form="system_params_form">
-                                    <option label="1" value="1" selected></option>
-                                </select>
-                            </label>
-                            <label>
-                                Грузоподъемность лифтов
-                                <select name="SystemParams[lifting_power]" form="system_params_form">
-                                    <option label="800" value="800" selected></option>
-                                    <option label="900" value="900"></option>
-                                    <option label="1000" value="1000"></option>
-                                    <option label="1100" value="1100"></option>
-                                    <option label="1200" value="1200"></option>
-                                    <option label="1300" value="1300"></option>
-                                </select>
-                                кг
-                            </label>
+        <div class="mainContainer">
+            <div class="paramsPanel">
+                <form id="system_params_form" action="#" name="SystemParams">
+                    <div class="params">
+                        <div class="param">
+                            <label>Количество этажей</label>
+                            <select name="SystemParams[total_floors]" form="system_params_form">
+                                <option label="9" value="9" selected></option>
+                                <option label="10" value="10"></option>
+                                <option label="11" value="11"></option>
+                                <option label="12" value="12"></option>
+                                <option label="13" value="13"></option>
+                                <option label="14" value="14"></option>
+                                <option label="15" value="15"></option>
+                                <option label="16" value="16"></option>
+                                <option label="17" value="17"></option>
+                                <option label="18" value="18"></option>
+                                <option label="19" value="19"></option>
+                                <option label="20" value="20"></option>
+                                <option label="21" value="21"></option>
+                                <option label="22" value="22"></option>
+                                <option label="23" value="23"></option>
+                                <option label="24" value="24"></option>
+                                <option label="25" value="25"></option>
+                                <option label="26" value="26"></option>
+                                <option label="27" value="27"></option>
+                                <option label="28" value="28"></option>
+                                <option label="29" value="29"></option>
+                                <option label="30" value="30"></option>
+                            </select>
                         </div>
-                        <div class="template__buttons">
-                            <input id="system_params_form__submit_btn" type="button" value="Запуск!"></input>
-                            <input id="system_params_form__stop_btn" class="system_params_form__stop_btn_hidden" disabled type="button" value="Остановить"></input>
+                        <div class="param">
+                            <label>Количество лифтов</label>
+                            <select name="SystemParams[total_elevators]" form="system_params_form">
+                                <option label="1" value="1" selected></option>
+                            </select>
                         </div>
-                    </form>
-                </div>
+                        <div class="param">
+                            <label>Грузоподъемность лифтов (кг)</label>
+                            <select name="SystemParams[lifting_power]" form="system_params_form">
+                                <option label="800" value="800" selected></option>
+                                <option label="900" value="900"></option>
+                                <option label="1000" value="1000"></option>
+                                <option label="1100" value="1100"></option>
+                                <option label="1200" value="1200"></option>
+                                <option label="1300" value="1300"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <input id="system_params_form__submit_btn" type="button" value="Запуск!"></input>
+                        <input id="system_params_form__stop_btn" class="system_params_form__stop_btn_hidden" disabled type="button" value="Остановить"></input>
+                    </div>
+                </form>
             </div>
 
             <div class="template__body">
