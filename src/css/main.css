@@ -55,6 +55,25 @@
     flex: 2 1 40%;
     order: 3;
 }
+.app__debugPanels div div:nth-of-type(1n+2) /*Начиная со второго элемента*/ {
+    /*Отделить контейнеры в дебаг-панели друг от друга*/
+    margin-top: 10px;
+}
+.debug-panel__table-container {
+    overflow-y: auto;
+}
+.panel_calls .debug-panel__table-container {
+    /*Ограничение по высоте для таблицы "Вызовы (debug)"*/
+    max-height: 450px;
+}
+.panel_passengers .debug-panel__table-container {
+    /*Ограничение по высоте для таблицы "Пассажиры (debug)"*/
+    max-height: 250px;
+}
+.debug-panel__title {
+    font-size: 18px;
+    font-weight: bold;
+}
 body {
     /*Размер шрифта для всех текстовых элементов*/
     font-family: Georgia, Serif, "Times New Roman";
