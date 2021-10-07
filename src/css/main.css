@@ -75,7 +75,8 @@
     /*Ограничение по высоте для таблицы "Пассажиры (debug)"*/
     max-height: 250px;
 }
-.debug-panel__title {
+.debug-panel__title,
+.control-panel__title {
     font-size: 18px;
     font-weight: bold;
 }
@@ -122,4 +123,69 @@ table th {
 table td {
     /*Размер шрифта в ячейках таблицы*/
     font-size: 14px;
+}
+.panel_total-persons-num,
+.panel_total-persons-weight,
+.panel_overweight,
+.control_panel_buttons {
+    /*Отделить элементы панели управления друг от друга*/
+    margin-top: 5px;
+}
+.panel_total-persons-num,
+.panel_total-persons-weight,
+.panel_overweight {
+    display: flex;
+    justify-content: space-between;
+    /*Панель занимает не всю ширину контейнера*/
+    width: 95%;
+    /*Нижняя граница (точечная)*/
+    border-bottom: 1px dashed;
+}
+.panel__title {
+    /*Выделить название панели курсивом*/
+    font-style: italic;
+}
+.control_panel_buttons {
+    /*Отделить кнопочную панель от панелей-индикаторов*/
+    margin-top: 10px;
+    /*Ограничить по ширине кнопочную панель (чтобы уместить 5 кнопок в ряд)*/
+    max-width: 300px;
+}
+.control_panel_buttons div:nth-child(2) /*Только второй элемент*/ {
+    display: flex;
+    flex-flow: row wrap;
+    /*Отделить заголовок кнопочной панели от кнопок*/
+    margin-top: 4px;
+    /*вернуть кнопочную панель на прежнее место (сместить чуть левее, т.к. она была сдвинута из-за отделения кнопок на кнопочной панели друг от друга*/
+    margin-left: -4px;
+}
+.control_panel_buttons button {
+    /*Размер шрифта в кнопке на кнопочной панели*/
+    font-size: 20px;
+    /*Ширина кнопки на кнопочной панели*/
+    width: 48px;
+    /*Отделить кнопки на кнопочной панели друг от друга*/
+    margin-left: 4px;
+}
+/*Все кнопки под 1-й, 2-й, 3-й, 4-й и 5-й*/
+.control_panel_buttons button:nth-of-type(5n+1),
+.control_panel_buttons button:nth-of-type(5n+2),
+.control_panel_buttons button:nth-of-type(5n+3),
+.control_panel_buttons button:nth-of-type(5n+4),
+.control_panel_buttons button:nth-of-type(5n+5)
+{
+    /*Отделить кнопки на кнопочной панели друг от друга по вертикали*/
+    margin-top: 5px;
+}
+
+/* *** Расцветка *** */
+/*Кнопка вызова на кнопочной панели нажата*/
+.control_panel_button-pressed {
+    background-color: darkorange;
+    font-size: medium;
+    color: white;
+}
+/*Индикатор перегруза, когда наступил перегруз*/
+.panel_overweight_indicator-overweighted {
+    background-color: orangered;
 }
