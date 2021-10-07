@@ -32,3 +32,9 @@
     /*Отделить лейбл в контейнере настройки от поля ввода значения*/
     margin-right: 5px;
 }
+
+.startscreen {
+    position: absolute;
+    left: 40%;
+    top: 20%;
+}
