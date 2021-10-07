@@ -189,3 +189,40 @@ table td {
 .panel_overweight_indicator-overweighted {
     background-color: orangered;
 }
+
+/*Кнопка вызова лифта на этаже*/
+.callPanel_btn {
+    margin-left: 2px;
+    margin-right: 2px;
+    border-radius: 15px;
+}
+/*Кнопка вызова лифта на этаже нажата*/
+.callPanel_btn-pressed {
+    background-color: darkorange;
+    font-size: medium;
+    color: white;
+}
+/*Человек*/
+.person-default {
+    border-width: 2px;
+    border-color: cadetblue;
+    border-style: outset;
+    margin: 3px;
+    background-color: lightblue;
+    border-radius: 5px;
+    color: darkblue;
+    padding: 1px;
+}
+/*Группа людей*/
+.people-default {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+/*Строка "пассажир вышел из кабины" в debug-панели пассажиров*/
+.panel_passengers_table_tr-detached {
+    background-color: greenyellow;
+}
+/*Строка "вызов обработан" в debug-панели вызовов*/
+.panel_calls_tr-finished {
+    background-color: greenyellow;
+}
