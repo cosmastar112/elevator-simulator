@@ -13,13 +13,7 @@
 }
 .params {
     display: flex;
-    /*Контейнер с настройками параметров занимает 3/4 панели настроек*/
-    flex: 3;
     justify-content: flex-start;
-}
-.buttons {
-    /*Контейнер с кнопками занимает 1/4 панели настроек*/
-    flex: 1;
 }
 .param {
     display: flex;
