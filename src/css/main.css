@@ -29,8 +29,17 @@
 
 .startscreen {
     position: absolute;
-    left: 40%;
-    top: 20%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+    width: 750px;
+    height: 50px;
+    font-size: 32px;
 }
 .app {
     display: flex;
