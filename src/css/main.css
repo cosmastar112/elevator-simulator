@@ -40,10 +40,13 @@
 
 .app__building {
     flex: 2 1 40%;
+    order: 2;
 }
 .app__controlPanels {
     flex: 1 1 20%;
+    order: 1;
 }
 .app__debugPanels {
     flex: 2 1 40%;
+    order: 3;
 }
