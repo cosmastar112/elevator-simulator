@@ -67,3 +67,27 @@ body {
     /*Размер шрифта в кнопках в контейнере с кнопками*/
     font-size: 20px;
 }
+.app {
+    font-size: 16px;
+}
+table td,
+table th {
+    /*Границы между ячейками*/
+    border: 1px solid;
+}
+table td {
+    /*Выровнять текст в ячейках по центру*/
+    text-align: center;
+}
+table {
+    /*Убрать промежутки между ячейками*/
+    border-collapse: collapse;
+}
+table th {
+    /*Размер шрифта в заголовке таблицы*/
+    font-size: 16px;
+}
+table td {
+    /*Размер шрифта в ячейках таблицы*/
+    font-size: 14px;
+}
