@@ -37,10 +37,15 @@
     flex-flow: row wrap;
     margin-top: 35px;
 }
-/*Не переносить дебаг-панель если ширина >1600px*/
+/*если ширина >1600px*/
 @media (min-width: 1600px) {
     .app {
+        /*Не переносить дебаг-панель*/
         flex-flow: row nowrap;
+    }
+    .app__debugPanels {
+        /*Отделить деба-панель от здания*/
+        margin-left: 25px;
     }
 }
 .app__building {
@@ -88,6 +93,14 @@ body {
 }
 .app {
     font-size: 16px;
+}
+.app__building {
+    /*Отделить здание от панели управления*/
+    margin-left: 25px;
+}
+.app__building table {
+    /*Растянуть таблицу "Здание" на весь контейнер*/
+    width: 100%;
 }
 table td,
 table th {
