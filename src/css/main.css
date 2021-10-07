@@ -50,3 +50,15 @@
     flex: 2 1 40%;
     order: 3;
 }
+body {
+    /*Размер шрифта для всех текстовых элементов*/
+    font-family: Georgia, Serif, "Times New Roman";
+}
+.paramsPanel .param, .paramsPanel .param select {
+    /*Размер шрифта для текстовых элементов формы в контейнере с настройками параметров*/
+    font-size: 24px;
+}
+.paramsPanel .buttons input {
+    /*Размер шрифта в кнопках в контейнере с кнопками*/
+    font-size: 20px;
+}
