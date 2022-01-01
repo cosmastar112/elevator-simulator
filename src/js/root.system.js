@@ -47,7 +47,7 @@
         let serializedForm = _serializeForm();
         _start(serializedForm);
         //показать кнопку остановки симуляции
-        _showStopBtn();
+        // _showStopBtn();
     }
 
     function _serializeForm()
