@@ -5,6 +5,7 @@
     const CLASS_NAME = 'panel_overweight';
     const CLASS_NAME_INDICATOR = 'panel_overweight_indicator';
     const CLASS_NAME_INDICATOR_OVERWEIGHTED = 'panel_overweight_indicator-overweighted';
+    const PANEL_TITLE_CLASS = 'panel__title';
 
     function init()
     {
@@ -35,8 +36,9 @@
         let view = document.createElement('div');
         view.classList.add(CLASS_NAME);
         //название панели
-        let panelTitle = document.createElement('h3');
+        let panelTitle = document.createElement('div');
         panelTitle.innerHTML = self._name;
+        panelTitle.classList.add(PANEL_TITLE_CLASS);
         view.appendChild(panelTitle);
         //количество пассажиров
         let panelIndicator = document.createElement('span');

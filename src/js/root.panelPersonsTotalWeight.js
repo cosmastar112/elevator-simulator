@@ -3,6 +3,7 @@
     let _obj;
 
     const CLASS_NAME = 'panel_total-persons-weight';
+    const PANEL_TITLE_CLASS = 'panel__title';
 
     function init()
     {
@@ -39,8 +40,9 @@
         let view = document.createElement('div');
         view.classList.add(CLASS_NAME);
         //название панели
-        let panelTitle = document.createElement('h3');
+        let panelTitle = document.createElement('div');
         panelTitle.innerHTML = self._name;
+        panelTitle.classList.add(PANEL_TITLE_CLASS);
         view.appendChild(panelTitle);
         //количество пассажиров
         let panelIndicator = document.createElement('span');

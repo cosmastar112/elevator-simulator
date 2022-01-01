@@ -178,7 +178,7 @@ window.ElevatorSimulator2021 = (function() {
             console.log('end init module[' + i + ']: ' + module.id);
         }
 
-        _afterInit();
+        // _afterInit();
     }
 
     function _afterInit()

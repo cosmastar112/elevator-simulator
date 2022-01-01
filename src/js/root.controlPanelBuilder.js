@@ -1,5 +1,7 @@
 ;(function(root) {
 
+    let CONTROL_PANEL_TITLE_CLASS = 'control-panel__title';
+
     let _obj;
 
     function init()
@@ -58,8 +60,9 @@
         //id панели управления (связь с id лифта)
         view.id = 'control_panel-' + self._number;
         //название панели
-        let panelTitle = document.createElement('h2');
+        let panelTitle = document.createElement('div');
         panelTitle.innerHTML = _obj._basename + params.number;
+        panelTitle.classList.add(CONTROL_PANEL_TITLE_CLASS);
         view.appendChild(panelTitle);
         //индикатор количества пассажиров
         let panelPersonsTotalNumView = self._panelPersonsTotalNum.getView();

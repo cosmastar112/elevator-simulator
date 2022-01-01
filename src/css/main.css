@@ -1,47 +1,226 @@
-﻿/*сместить контейнер от верхнего края*/
-/*#buildingContainer {
-    margin-top: 20px;
-}*/
-/*выровнять таблицу по центру*/
-/*#buildingContainer table {
-    width: 500px;
-    margin: auto;
-}*/
-/*граница между ячейками*/
-#buildingContainer table td, 
-#buildingContainer table th 
-{
-    border: 1px solid;
+﻿.mainContainer {
+    /*ограничить максимальную ширину контейнера главного окна*/
+    min-width: 960px;
+    /*ширина контейнера главного окна*/
+    width: 85%;
+    /*Выровнять контейнер главного окна по центру экрана*/
+    margin: 0 auto;
 }
-/*убрать промежутки между ячейками*/
-#buildingContainer table {
-    border-collapse: collapse;
+.paramsPanel form {
+    display: flex;
+    /*Контейнер с настройками параметров прижат к левому краю, а контейнер с кнопками к правому*/
+    justify-content: space-between;
 }
-/*выровнять текст в ячейках по центру*/
-#buildingContainer table td {
-    text-align: center;
+.params {
+    display: flex;
+    justify-content: flex-start;
 }
-/*текст в ячейках побольше*/
-#buildingContainer table td {
+.param {
+    display: flex;
+}
+.param:nth-of-type(1n+2) /*Начиная со второго*/ {
+    /*Отделить контейнеры настроек друг от друга*/
+    margin-left: 10px;
+}
+.param label {
+    /*Отделить лейбл в контейнере настройки от поля ввода значения*/
+    margin-right: 5px;
+}
+
+.startscreen {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+    width: 750px;
+    height: 50px;
+    font-size: 32px;
+}
+.app {
+    display: flex;
+    flex-flow: row wrap;
+    margin-top: 35px;
+}
+/*если ширина >1600px*/
+@media (min-width: 1600px) {
+    .app {
+        /*Не переносить дебаг-панель*/
+        flex-flow: row nowrap;
+    }
+    .app__debugPanels {
+        /*Отделить деба-панель от здания*/
+        margin-left: 25px;
+    }
+}
+.app__building {
+    flex: 2 1 40%;
+    order: 2;
+}
+.app__controlPanels {
+    flex: 1 1 20%;
+    order: 1;
+}
+.app__debugPanels {
+    flex: 2 1 40%;
+    order: 3;
+}
+.app__debugPanels div div:nth-of-type(1n+2) /*Начиная со второго элемента*/ {
+    /*Отделить контейнеры в дебаг-панели друг от друга*/
+    margin-top: 10px;
+}
+.debug-panel__table-container {
+    overflow-y: auto;
+}
+.panel_calls .debug-panel__table-container {
+    /*Ограничение по высоте для таблицы "Вызовы (debug)"*/
+    max-height: 450px;
+}
+.panel_passengers .debug-panel__table-container {
+    /*Ограничение по высоте для таблицы "Пассажиры (debug)"*/
+    max-height: 250px;
+}
+.debug-panel__title,
+.control-panel__title {
     font-size: 18px;
+    font-weight: bold;
 }
-/*текст в заголовке побольше*/
-#buildingContainer table th {
+body {
+    /*Размер шрифта для всех текстовых элементов*/
+    font-family: Georgia, Serif, "Times New Roman";
+}
+.paramsPanel .param, .paramsPanel .param select {
+    /*Размер шрифта для текстовых элементов формы в контейнере с настройками параметров*/
+    font-size: 24px;
+}
+.paramsPanel .buttons input {
+    /*Размер шрифта в кнопках в контейнере с кнопками*/
     font-size: 20px;
 }
-/*кнопка вызова лифта на этаже*/
+.app {
+    font-size: 16px;
+}
+.app__building {
+    /*Отделить здание от панели управления*/
+    margin-left: 25px;
+}
+.app__building table {
+    /*Растянуть таблицу "Здание" на весь контейнер*/
+    width: 100%;
+}
+table td,
+table th {
+    /*Границы между ячейками*/
+    border: 1px solid;
+}
+table td {
+    /*Выровнять текст в ячейках по центру*/
+    text-align: center;
+}
+table {
+    /*Убрать промежутки между ячейками*/
+    border-collapse: collapse;
+}
+table th {
+    /*Размер шрифта в заголовке таблицы*/
+    font-size: 16px;
+}
+table td {
+    /*Размер шрифта в ячейках таблицы*/
+    font-size: 14px;
+}
+.panel_total-persons-num,
+.panel_total-persons-weight,
+.panel_overweight,
+.control_panel_buttons {
+    /*Отделить элементы панели управления друг от друга*/
+    margin-top: 5px;
+}
+.panel_total-persons-num,
+.panel_total-persons-weight,
+.panel_overweight {
+    display: flex;
+    justify-content: space-between;
+    /*Панель занимает не всю ширину контейнера*/
+    width: 95%;
+    /*Нижняя граница (точечная)*/
+    border-bottom: 1px dashed;
+}
+.panel__title {
+    /*Выделить название панели курсивом*/
+    font-style: italic;
+}
+.control_panel_buttons {
+    /*Отделить кнопочную панель от панелей-индикаторов*/
+    margin-top: 10px;
+    /*Ограничить по ширине кнопочную панель (чтобы уместить 5 кнопок в ряд)*/
+    max-width: 300px;
+}
+.control_panel_buttons div:nth-child(2) /*Только второй элемент*/ {
+    display: flex;
+    flex-flow: row wrap;
+    /*Отделить заголовок кнопочной панели от кнопок*/
+    margin-top: 4px;
+    /*вернуть кнопочную панель на прежнее место (сместить чуть левее, т.к. она была сдвинута из-за отделения кнопок на кнопочной панели друг от друга*/
+    margin-left: -4px;
+}
+.control_panel_buttons button {
+    /*Размер шрифта в кнопке на кнопочной панели*/
+    font-size: 20px;
+    /*Ширина кнопки на кнопочной панели*/
+    width: 48px;
+    /*Отделить кнопки на кнопочной панели друг от друга*/
+    margin-left: 4px;
+}
+/*Все кнопки под 1-й, 2-й, 3-й, 4-й и 5-й*/
+.control_panel_buttons button:nth-of-type(5n+1),
+.control_panel_buttons button:nth-of-type(5n+2),
+.control_panel_buttons button:nth-of-type(5n+3),
+.control_panel_buttons button:nth-of-type(5n+4),
+.control_panel_buttons button:nth-of-type(5n+5)
+{
+    /*Отделить кнопки на кнопочной панели друг от друга по вертикали*/
+    margin-top: 5px;
+}
+/*Кнопка остановки симуляции изначально не видна*/
+.system_params_form__stop_btn_hidden {
+    display: none;
+}
+/*Кнопка остановки симуляции видна*/
+.system_params_form__stop_btn_visible {
+    display: inline-block;
+}
+
+
+/* *** Расцветка *** */
+/*Кнопка вызова на кнопочной панели нажата*/
+.control_panel_button-pressed {
+    background-color: darkorange;
+    font-size: medium;
+    color: white;
+}
+/*Индикатор перегруза, когда наступил перегруз*/
+.panel_overweight_indicator-overweighted {
+    background-color: orangered;
+}
+
+/*Кнопка вызова лифта на этаже*/
 .callPanel_btn {
     margin-left: 2px;
     margin-right: 2px;
     border-radius: 15px;
 }
-/*кнопка вызова лифта на этаже нажата*/
+/*Кнопка вызова лифта на этаже нажата*/
 .callPanel_btn-pressed {
     background-color: darkorange;
     font-size: medium;
     color: white;
 }
-/*человек*/
+/*Человек*/
 .person-default {
     border-width: 2px;
     border-color: cadetblue;
@@ -52,106 +231,16 @@
     color: darkblue;
     padding: 1px;
 }
-/*группа людей*/
+/*Группа людей*/
 .people-default {
     margin-top: 5px;
     margin-bottom: 5px;
 }
-
-/*расположить элементы панели в одну строку*/
-.panel_total-persons-num h3,
-.panel_total-persons-num span {
-    display: inline-block;
-}
-
-/*расположить элементы панели в одну строку*/
-.panel_total-persons-weight h3,
-.panel_total-persons-weight span {
-    display: inline-block;
-}
-
-/*расположить элементы панели в одну строку*/
-.panel_overweight h3,
-.panel_overweight span {
-    display: inline-block;
-}
-
-/*отступ справа от блока, в котором отображается показатель панели*/
-.panel_total-persons-num span,
-.panel_total-persons-weight span,
-.panel_overweight span {
-    margin-left: 5px;
-}
-
-/*кнопка остановки симуляции изначально не видна*/
-.system_params_form__stop_btn_hidden {
-    display: none;
-}
-/*кнопка остановки симуляции видна*/
-.system_params_form__stop_btn_visible {
-    display: inline-block;
-}
-/*ширина кнопок управления*/
-.control_panel_button {
-    width: 50px;
-    margin: 1px;
-}
-
-.control_panel_button-pressed {
-    background-color: darkorange;
-    font-size: medium;
-    color: white;
-}
-/*ширина таблицы debug-панели вызовов*/
-/*#buildingContainer table#panel_calls_table {
-    width: 80%;
-    margin: auto;
-}*/
-/*строка "пассажир вышел из кабины" в debug-панели пассажиров*/
+/*Строка "пассажир вышел из кабины" в debug-панели пассажиров*/
 .panel_passengers_table_tr-detached {
     background-color: greenyellow;
 }
-/*строка "вызов обработан" в debug-панели вызовов*/
+/*Строка "вызов обработан" в debug-панели вызовов*/
 .panel_calls_tr-finished {
     background-color: greenyellow;
-}
-/*класс индикатора перегруза, когда наступил перегруз*/
-.panel_overweight_indicator-overweighted {
-    background-color: orangered;
-}
-
-/*выступ и отступ всего шаблона*/
-.template {
-    margin: 15px;
-    padding: 5px;
-}
-/*высота заголовка*/
-.template__header {
-    height: 50px;
-}
-/*высота главного блока приложения*/
-.template__body {
-    height: 800px;
-}
-/*oveflow блоков внутри главного блока приложения*/
-.template__building,
-.template__elevator-control-panel,
-.template__debug-panels {
-    overflow-x: auto;
-    overflow-y: auto;
-}
-/*разбить блоки внутри главного блока приложения на 3 горизонтальных блока */
-.template__building,
-.template__elevator-control-panel,
-.template__debug-panels {
-    float: left;
-}
-/*ширина блока дебаг-панелей*/
-.template__debug-panels {
-    width: 40%;
-}
-/*правый выступ 2-го и 3-его блоков главного блока приложения*/
-.template__elevator-control-panel,
-.template__debug-panels {
-    margin-left: 25px;
 }

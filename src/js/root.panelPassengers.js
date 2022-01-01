@@ -7,6 +7,8 @@
 
     const CLASS_TD_UNLOADING_FLOOR_DEFAULT = 'panel_passengers_table_td-unloadingfloor';
     const CLASS_TR_DETACHED = 'panel_passengers_table_tr-detached';
+    const DEBUG_PANEL_TITLE_CLASS = 'debug-panel__title';
+    const DEBUG_PANEL_TABLE_CONTAINER_CLASS = 'debug-panel__table-container';
 
     function init()
     {
@@ -35,13 +37,17 @@
         let view = document.createElement('div');
         view.classList.add(CLASS_NAME);
         //название панели
-        let panelTitle = document.createElement('h3');
+        let panelTitle = document.createElement('div');
         panelTitle.innerHTML = self._name;
+        panelTitle.classList.add(DEBUG_PANEL_TITLE_CLASS);
         view.appendChild(panelTitle);
 
         //таблица
         let table = _createTable();
-        view.appendChild(table);
+        let tableContainer = document.createElement('div');
+        tableContainer.classList.add(DEBUG_PANEL_TABLE_CONTAINER_CLASS);
+        tableContainer.appendChild(table);
+        view.appendChild(tableContainer);
 
         return view;
     }

@@ -10,6 +10,8 @@
     const TD_STARTED_CLASS = 'col-started';
     const TD_FINISHED_CLASS = 'col-finished';
     const TR_FINISHED_CLASS = 'panel_calls_tr-finished';
+    const DEBUG_PANEL_TITLE_CLASS = 'debug-panel__title';
+    const DEBUG_PANEL_TABLE_CONTAINER_CLASS = 'debug-panel__table-container';
 
     function init()
     {
@@ -42,13 +44,17 @@
         let view = document.createElement('div');
         view.classList.add(CLASS_NAME);
         //название панели
-        let panelTitle = document.createElement('h3');
+        let panelTitle = document.createElement('div');
         panelTitle.innerHTML = self._name;
+        panelTitle.classList.add(DEBUG_PANEL_TITLE_CLASS);
         view.appendChild(panelTitle);
 
         //таблица
         let table = _createTable();
-        view.appendChild(table);
+        let tableContainer = document.createElement('div');
+        tableContainer.classList.add(DEBUG_PANEL_TABLE_CONTAINER_CLASS);
+        tableContainer.appendChild(table);
+        view.appendChild(tableContainer);
 
         return view;
     }
